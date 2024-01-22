@@ -1,0 +1,50 @@
+:host{
+  display: flex;
+  max-width: 300px;
+  min-height: 100vh;
+  overflow-y: hidden;
+  flex-direction: column;
+  box-shadow: 1px 1px 15px #00000012;
+  background-color: #333333;
+}
+.menus{
+  flex-grow: 1;
+  flex-direction: column;
+  height: 100%;
+  padding: 0px 40px 0px 40px;
+}
+.image-container{
+  min-height: 120px;
+  padding-top: 25px;
+}
+img{
+  width: 70%;
+}
+.menu-container{
+  width: 100%;
+}
+.options{
+  min-height: 150px;
+}
+.flex {
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: center;
+}
+.playlist-title{
+  margin: 10px 0px;
+  align-self: flex-start;
+  font-weight: 700;
+  font-size: .8rem;
+  color: #a2a1a1;
+}
+
+.user-info{
+  flex-grow: 0;
+  display: block;
+  bottom: 0;
+  align-self: flex-end;
+  height: 70px;
+  width: 100%;
+  background-color: #222222;
+}

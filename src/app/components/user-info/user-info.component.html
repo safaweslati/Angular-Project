@@ -1,0 +1,5 @@
+<div class="flex">
+  <img [src]="user.imageUrl" alt="userImg">
+  <span>{{user.name | titlecase}}</span>
+  <fa-icon class="icon" [icon]="signOutIcon" (click)="logout()"></fa-icon>
+</div>

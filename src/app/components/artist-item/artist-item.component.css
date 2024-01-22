@@ -1,0 +1,27 @@
+.container {
+  align-items: center;
+  cursor: pointer;
+  padding: 5px 0px;
+  width: 100%;
+}
+
+.container:hover {
+  background-color: #222222;
+}
+
+.container img {
+  width: 40px;
+  border-radius: 50%;
+  flex-grow: 0;
+}
+
+.container span {
+  color: #a2a1a1;
+  flex-grow: 1;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: .85rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

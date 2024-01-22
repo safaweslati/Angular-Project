@@ -1,0 +1,13 @@
+<div class="container card p-10" *ngIf="playerService.currentSong$ | async as music">
+  <div class="image"
+       [style.background-image]="'url('+ music.album.imageUrl +')'" >
+  </div>
+
+  <div class="controls">
+    <span> {{music.title }} </span>
+    <audio controls #audioPlayer>
+      <source [src]="updateAudioSource(music)" type="audio/mp3">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+:host{
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  max-width: 300px;
+  width: 300px;
+  padding: 40px 20px 20px 20px;
+  box-shadow: 1px 1px 15px #00000012;
+  background-color: #333333;
+  overflow: auto;
+}

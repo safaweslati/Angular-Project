@@ -1,0 +1,33 @@
+<div class="menus flex">
+  <div class="image-container flex flex-center">
+    <img src="assets/images/spotify-logo-1.png">
+  </div>
+  <div class="menu-container flex options">
+    <app-menu-element [contenu]="'Home'">
+      <fa-icon [icon]="homeIcon" ></fa-icon>
+    </app-menu-element>
+    <app-menu-element [contenu]="'Search'" >
+      <fa-icon [icon]="searchIcon" ></fa-icon>
+    </app-menu-element>
+    <app-menu-element [contenu]='"Artists"' >
+      <fa-icon [icon]="artistIcon" ></fa-icon>
+    </app-menu-element>
+  </div>
+
+   <div class="menu-container flex">
+     <span class="playlist-title">
+       Playlists
+     </span>
+     <div class="playlist-scroll">
+         <app-menu-element *ngFor="let playlist of playlists" [contenu]="playlist.name">
+           <fa-icon [icon]="playlistIcon"></fa-icon>
+         </app-menu-element>
+     </div>
+   </div>
+</div>
+
+<div class="user-info">
+  <ng-container *ngIf="(loginService.currentUser$ | async) as user">
+    <app-user-info [user]="user" />
+  </ng-container>
+</div>

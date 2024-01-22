@@ -1,0 +1,49 @@
+
+.custom-table {
+  width: 100%;
+  text-align: left;
+  table-layout: fixed;
+  border-collapse: separate;
+  background-color: #222222;
+}
+
+.playIcon {
+  color: #37AB00 ;
+  font-size: 0.7rem;
+  padding-left: 3.5%;
+}
+
+thead th {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #a2a1a1;
+}
+
+th, td {
+  padding-right: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+tr:hover td {
+  cursor: pointer;
+  color: #37AB00;
+}
+
+td {
+  padding: 10px 20px 10px 0;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 0.85rem;
+
+}
+
+.clock {
+  padding-left: 5%;
+}
+
+.selected-song {
+  font-weight: bold;
+  box-shadow: 1px 1px 10px #d0d0d0;
+}
