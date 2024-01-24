@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
+import {AuthentificationInterceptorProvider} from "./interceptor/auth.interceptor";
+import {ToastrModule} from "ngx-toastr";
 
 
 @NgModule({
@@ -12,9 +15,11 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
+    ToastrModule.forRoot(),
   ],
-  providers: [],
+  providers: [AuthentificationInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,5 @@
+<div class="flex container">
+  <img [src]="user.imageUrl" alt="userImg">
+  <span>{{user.name | titlecase}}</span>
+  <ng-content  class="icon" />
+</div>

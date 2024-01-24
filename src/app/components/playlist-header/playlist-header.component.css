@@ -1,9 +1,9 @@
 .card {
-  height: 200px;
+  height: 250px;
   position: relative;
   overflow: hidden;
 }
-.artist{
+.playlist-title{
   position: absolute;
   top:0;
   left: 0;
@@ -21,3 +21,4 @@ span{
   color: #d0d0d0;
   text-shadow: 2px 2px 10px #00000033;
 }
+

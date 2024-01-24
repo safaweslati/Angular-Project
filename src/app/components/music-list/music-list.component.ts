@@ -1,7 +1,6 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
 import {faClock, faPlay} from "@fortawesome/free-solid-svg-icons";
 import {Song} from "../../Models/Song";
-import {SpotifyService} from "../../services/spotify.service";
 import {PlayerService} from "../../services/player.service";
 
 @Component({
@@ -10,13 +9,14 @@ import {PlayerService} from "../../services/player.service";
   styleUrls: ['./music-list.component.css']
 })
 export class MusicListComponent {
-  @Input() songs: Song[] = [];
+  @Input() songs: Song[] | null = [];
   clockIcon = faClock;
   playIcon = faPlay;
 
 
   constructor(public playerService: PlayerService) {
   }
+
   getArtists(song: Song) {
     return song.artists.map((artist) => artist.name).join(', ');
   }
@@ -24,4 +24,6 @@ export class MusicListComponent {
   PlaySong(song: Song) {
     this.playerService.playMusic(song)
   }
+
+
 }

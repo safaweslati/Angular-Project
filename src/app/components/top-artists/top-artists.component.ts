@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Artist} from "../../Models/Artist";
 import {SpotifyService} from "../../services/spotify.service";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-top-artists',
@@ -9,14 +10,14 @@ import {SpotifyService} from "../../services/spotify.service";
 })
 export class TopArtistsComponent {
 
-  artists: Artist[] = [];
+  artists$: Observable<Artist[]> = of([]);
 
   constructor(private spotifyService: SpotifyService) { }
 
   ngOnInit(): void {
-    this.getTopArtists();
+    this.artists$ = this.spotifyService.getTopArtists();
   }
-  async getTopArtists(){
-    this.artists = await this.spotifyService.getTopArtists();
-  }
+
+
+
 }

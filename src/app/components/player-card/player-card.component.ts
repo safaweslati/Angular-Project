@@ -1,6 +1,5 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
-import {faStepBackward, faStepForward} from "@fortawesome/free-solid-svg-icons";
 import {Song} from "../../Models/Song";
 
 @Component({
@@ -8,9 +7,7 @@ import {Song} from "../../Models/Song";
   templateUrl: './player-card.component.html',
   styleUrls: ['./player-card.component.css']
 })
-export class PlayerCardComponent {
-  previousIcon = faStepBackward;
-  nextIcon = faStepForward;
+export class PlayerCardComponent{
   @ViewChild('audioPlayer') audioPlayer: any;
 
   constructor(public playerService: PlayerService) {
@@ -23,6 +20,5 @@ export class PlayerCardComponent {
       this.audioPlayer.nativeElement.play();
     }
     return song.previewUrl
-
   }
 }

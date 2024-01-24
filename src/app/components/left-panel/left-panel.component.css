@@ -1,4 +1,4 @@
-:host{
+:host {
   display: flex;
   max-width: 300px;
   min-height: 100vh;
@@ -7,6 +7,7 @@
   box-shadow: 1px 1px 15px #00000012;
   background-color: #333333;
 }
+
 .menus{
   flex-grow: 1;
   flex-direction: column;
@@ -23,19 +24,22 @@ img{
 .menu-container{
   width: 100%;
 }
+
 .options{
   min-height: 150px;
 }
+
 .flex {
    flex-direction: column;
    justify-content: flex-start;
    align-items: center;
 }
+
 .playlist-title{
   margin: 10px 0px;
   align-self: flex-start;
   font-weight: 700;
-  font-size: .8rem;
+  font-size: .9rem;
   color: #a2a1a1;
 }
 
@@ -47,4 +51,9 @@ img{
   height: 70px;
   width: 100%;
   background-color: #222222;
+}
+
+.icon{
+  flex-grow: 1;
+  cursor: pointer;
 }

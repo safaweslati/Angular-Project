@@ -1,7 +1,10 @@
+
+
 .container {
   align-items: center;
   cursor: pointer;
-  padding: 5px 0px;
+  padding: 10px 5px;
+  margin-left: 2%;
   width: 100%;
 }
 

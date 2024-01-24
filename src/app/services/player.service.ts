@@ -11,7 +11,8 @@ export class PlayerService {
   public currentSong$ = this.currentSong.asObservable();
 
   constructor() { }
-  playMusic(song: Song){
+
+    playMusic(song: Song | null){
     this.currentSong.next(song);
   }
 }
