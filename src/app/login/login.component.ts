@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    this.loginService.handleLogin().then(r => this.router.navigate(['player']));
+    this.loginService.handleLogin();
   }
 
   Login() {

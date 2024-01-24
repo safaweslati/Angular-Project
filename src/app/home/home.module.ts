@@ -1,42 +1,41 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PlayerComponent } from './player.component';
-import {PlayerRouting} from "./player.routing";
+import { HomeComponent } from './home.component';
+import {HomeRouting} from "./home.routing";
 import {LeftPanelComponent} from "../components/left-panel/left-panel.component";
-import {MenuElementComponent} from "../components/menu-element/menu-element.component";
+import {MenuItemComponent} from "../components/menu-item/menu-item.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
-import {UserInfoComponent} from "../components/user-info/user-info.component";
-import {HomeComponent} from "../components/home/home.component";
-import {TopArtistComponent} from "../components/top-artist/top-artist.component";
+import {MenuUserItemComponent} from "../components/menu-user-item/menu-user-item.component";
+import {SavedTracksComponent} from "../components/saved-tracks/saved-tracks.component";
+import {PlaylistHeaderComponent} from "../components/playlist-header/playlist-header.component";
 import {RightPanelComponent} from "../components/right-panel/right-panel.component";
 import {MusicListComponent} from "../components/music-list/music-list.component";
 import {FormsModule} from "@angular/forms";
 import {TopArtistsComponent} from "../components/top-artists/top-artists.component";
-import {ArtistItemComponent} from "../components/artist-item/artist-item.component";
 import {PlayerCardComponent} from "../components/player-card/player-card.component";
+import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-details.component";
 
 
 
 @NgModule({
   declarations: [
-    PlayerComponent,
-    LeftPanelComponent,
-    MenuElementComponent,
-    UserInfoComponent,
     HomeComponent,
-    TopArtistComponent,
+    LeftPanelComponent,
+    MenuItemComponent,
+    MenuUserItemComponent,
+    SavedTracksComponent,
+    PlaylistHeaderComponent,
     RightPanelComponent,
     MusicListComponent,
     TopArtistsComponent,
-    ArtistItemComponent,
     PlayerCardComponent,
-
+    PlaylistDetailsComponent,
   ],
   imports: [
     CommonModule,
-    PlayerRouting,
+    HomeRouting,
     FontAwesomeModule,
     FormsModule
-  ]
+  ],
 })
-export class PlayerModule { }
+export class HomeModule { }

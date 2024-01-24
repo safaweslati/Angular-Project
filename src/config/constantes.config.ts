@@ -11,5 +11,6 @@ export const spotifyConfiguration = {
     "user-library-read", // Read the user's library of saved tracks.
     "playlist-read-private", // Read the user's private playlists.
     "playlist-read-collaborative" // Read collaborative playlists the user has access to.
-  ]
+  ],
+  spotifyApiBaseUrl : 'https://api.spotify.com/v1'
 }

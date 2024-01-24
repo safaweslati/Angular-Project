@@ -4,25 +4,23 @@ import {User} from "../Models/User";
 import {Router} from "@angular/router";
 import {spotifyConfiguration} from "../../config/constantes.config";
 import {SpotifyUser} from "../SpotifyHelper";
-import {BehaviorSubject, map, Observable} from "rxjs";
+import {BehaviorSubject, map, Observable, switchMap} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  private spotifyApi : Spotify.SpotifyWebApiJs
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
   public isLogged$ : Observable<boolean> = this.currentUserSubject.pipe(map(user => !!user));
+  private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
 
-
-  constructor(private router: Router) {
-    this.spotifyApi = new Spotify();
+  constructor(private router: Router, private http : HttpClient) {
     const storedUser = localStorage.getItem('user');
     const token = localStorage.getItem('access_token');
     if (storedUser && token) {
-      this.spotifyApi.setAccessToken(token);
       this.currentUserSubject.next(JSON.parse(storedUser));
     }
   }
@@ -45,29 +43,27 @@ export class LoginService {
     return params[0].split('=')[1]
   }
 
-   async handleLogin() {
+  handleLogin() {
     const token = this.getToken();
-    this.spotifyApi.setAccessToken(token);
-    localStorage.setItem('access_token', token)
-    await this.getSpotifyUser();
+    localStorage.setItem('access_token', token);
+    this.getSpotifyUser()
   }
 
-  async getSpotifyUser() {
-    const userInfo = await this.spotifyApi.getMe()
-    const user = SpotifyUser(userInfo);
-    this.currentUserSubject.next(user);
-    localStorage.setItem('user', JSON.stringify(user));
-    console.log(user);
+  getSpotifyUser() {
+    this.http.get(this.spotifyApiUrl + '/me').subscribe(userInfo  => {
+      console.log(userInfo)
+      const user = SpotifyUser(userInfo);
+      this.currentUserSubject.next(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      this.router.navigate(['home']);
+    })
   }
+
 
   logout(): void {
     localStorage.clear();
     this.currentUserSubject.next(null);
     this.router.navigate(['login']);
-  }
-
-  getSpotify(){
-    return this.spotifyApi;
   }
 
 }
