@@ -1,0 +1,24 @@
+<div class="artist-profile">
+  <app-playlist-header
+    [name]="artist.name"
+    [imageUrl]="artist.images[0]?.url"
+    [followers]="artist.followers.total"
+    [verified]="true"
+    class="mt-2 d-block"
+  ></app-playlist-header>
+
+  <!-- artist-genres.component.html -->
+
+  <!--
+  <div class="spotify-genres-frame">
+    <div class="genres-list">
+      <ng-container *ngFor="let genre of artist.genres">
+        <span class="genre">{{ genre }}</span>
+      </ng-container>
+    </div>
+  </div>-->
+
+  <div class="topTracks">
+    <app-music-list [songs]="topTracks" />
+  </div>
+</div>

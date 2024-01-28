@@ -1,8 +1,10 @@
-<span class="title title-md" > Top 10 Artists</span>
+<span class="title title-md"> Top 10 Artists</span>
 <div class="playlist-scroll">
-<app-menu-user-item
-  *ngFor="let artist of artists$ | async"
-  class="mt-2"
-  [user]="artist">
-</app-menu-user-item>
+  <app-menu-user-item
+    *ngFor="let artist of artists$ | async"
+    class="mt-2"
+    [user]="artist"
+    [routerLink]="['/home/artist', artist.id]"
+  >
+  </app-menu-user-item>
 </div>
