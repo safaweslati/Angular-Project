@@ -14,6 +14,10 @@ import {FormsModule} from "@angular/forms";
 import {TopArtistsComponent} from "../components/top-artists/top-artists.component";
 import {PlayerCardComponent} from "../components/player-card/player-card.component";
 import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-details.component";
+import {AccueilComponent} from "../components/accueil/accueil.component";
+import {CardGroupComponent} from "../components/card-group/card-group.component";
+import {ShowAllComponent} from "../components/show-all/show-all.component";
+import {PlaylistGridComponent} from "../components/playlist-grid/playlist-grid.component";
 
 
 
@@ -30,6 +34,11 @@ import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    AccueilComponent,
+    CardGroupComponent,
+    ShowAllComponent,
+    PlaylistGridComponent,
+
   ],
   imports: [
     CommonModule,

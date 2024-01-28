@@ -17,6 +17,7 @@ html, body {
   box-sizing: border-box;
   color: gainsboro;
 }
+
 .flex{
   display: flex;
 }
@@ -72,5 +73,6 @@ html, body {
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 0;
-  opacity:.4;
+  opacity:.6;
 }
+

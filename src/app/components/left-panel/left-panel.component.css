@@ -2,6 +2,7 @@
   display: flex;
   max-width: 300px;
   min-height: 100vh;
+  max-height: 100vh;
   overflow-y: hidden;
   flex-direction: column;
   box-shadow: 1px 1px 15px #00000012;
