@@ -29,7 +29,7 @@
 
 <div class="user-info">
   <ng-container *ngIf="(loginService.currentUser$ | async) as user">
-    <app-menu-user-item [user]="user">
+    <app-menu-user-item [user]="user" [routerLink]="['profile', user.id]">
       <fa-icon class="icon" [icon]="signOutIcon" (click)="logout()"></fa-icon>
     </app-menu-user-item>
   </ng-container>

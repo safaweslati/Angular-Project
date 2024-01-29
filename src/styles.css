@@ -4,7 +4,11 @@
 @import "~ngx-toastr/toastr";
 @import '~@fortawesome/fontawesome-svg-core/styles.css';
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+@import 'material-icons/iconfont/material-icons.css';
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html, body {
   margin: 0;
