@@ -1,0 +1,15 @@
+<div class="artist-profile" *ngIf="artist$ | async as artist">
+  <div>
+    <app-playlist-header
+      [name]="artist.name"
+      [imageUrl]="artist.images[0]?.url"
+      [followers]="artist.followers.total"
+      [verified]="true"
+      class="mt-2 d-block"
+    ></app-playlist-header>
+
+    <div class="topTracks">
+      <app-music-list [songs]="topTracks$ | async" />
+    </div>
+  </div>
+</div>

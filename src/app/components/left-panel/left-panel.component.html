@@ -3,8 +3,9 @@
     <img src="assets/images/spotify-logo-1.png" />
   </div>
   <div class="menu-container flex options">
-    <app-menu-item [contenu]="'Home'" [routerLink]="['/home/home']">
-      <fa-icon [icon]="homeIcon"></fa-icon>
+
+    <app-menu-item [contenu]="'Home'" [routerLink]="['/home/accueil']">
+      <fa-icon [icon]="homeIcon" ></fa-icon>
     </app-menu-item>
     <app-menu-item [contenu]="'Search'" [routerLink]="['/home/search']">
       <fa-icon [icon]="searchIcon"></fa-icon>
@@ -32,8 +33,10 @@
 </div>
 
 <div class="user-info">
-  <ng-container *ngIf="loginService.currentUser$ | async as user">
-    <app-menu-user-item [user]="user">
+
+  <ng-container *ngIf="(loginService.currentUser$ | async) as user">
+    <app-menu-user-item [user]="user" [routerLink]="['profile', user.id]">
+
       <fa-icon class="icon" [icon]="signOutIcon" (click)="logout()"></fa-icon>
     </app-menu-user-item>
   </ng-container>

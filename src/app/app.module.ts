@@ -8,6 +8,10 @@ import { AuthentificationInterceptorProvider } from './interceptor/auth.intercep
 import { ToastrModule } from 'ngx-toastr';
 import { SearchComponent } from './components/search/search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ArtistProfileComponent } from './components/artist-profile/artist-profile.component';
+import { PlaylistHeaderComponent } from './components/playlist-header/playlist-header.component';
+
+
 
 @NgModule({
   declarations: [AppComponent],

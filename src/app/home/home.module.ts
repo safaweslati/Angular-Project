@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRouting } from './home.routing';
 import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
@@ -11,10 +11,21 @@ import { PlaylistHeaderComponent } from '../components/playlist-header/playlist-
 import { RightPanelComponent } from '../components/right-panel/right-panel.component';
 import { MusicListComponent } from '../components/music-list/music-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from '../components/search/search.component';
 import { TopArtistsComponent } from '../components/top-artists/top-artists.component';
 import { PlayerCardComponent } from '../components/player-card/player-card.component';
 import { PlaylistDetailsComponent } from '../components/playlist-details/playlist-details.component';
-import { SearchComponent } from '../components/search/search.component';
+import { AccueilComponent } from '../components/accueil/accueil.component';
+import { CardGroupComponent } from '../components/card-group/card-group.component';
+import { ShowAllComponent } from '../components/show-all/show-all.component';
+import { PlaylistGridComponent } from '../components/playlist-grid/playlist-grid.component';
+import { SpotifyCardComponent } from '../components/spotify-card/spotify-card.component';
+import { ListOfItemsComponent } from '../components/list-item/list-item.component';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
+import { ErrorImagePipe } from '../pipe/error-image.pipe';
+import { UriPipe } from '../pipe/uri.pipe';
+import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
+import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
 
 @NgModule({
   declarations: [
@@ -30,6 +41,17 @@ import { SearchComponent } from '../components/search/search.component';
     PlayerCardComponent,
     PlaylistDetailsComponent,
     SearchComponent,
+    WebPlaybackComponent,
+    AccueilComponent,
+    CardGroupComponent,
+    ShowAllComponent,
+    PlaylistGridComponent,
+    ArtistProfileComponent,
+    SpotifyCardComponent,
+    ListOfItemsComponent,
+    ProfilePageComponent,
+    ErrorImagePipe,
+    UriPipe,
   ],
   imports: [
     CommonModule,
@@ -37,6 +59,7 @@ import { SearchComponent } from '../components/search/search.component';
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
+    NgOptimizedImage
   ],
 })
 export class HomeModule {}

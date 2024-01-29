@@ -19,5 +19,4 @@ export class LoginComponent implements OnInit{
   Login() {
     window.location.href = this.loginService.getLoginUrl();
   }
-
 }
