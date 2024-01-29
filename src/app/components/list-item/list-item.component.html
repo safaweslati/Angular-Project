@@ -1,0 +1,5 @@
+<div class="w-full flex flex-wrap">
+  <div *ngFor="let item of items$ | async" class="p-2 w-48 relative">
+    <app-spotify-card [shouldApplyRoundedClass]="shouldApplyRoundedClass" [cardData]="item"></app-spotify-card>
+  </div>
+</div>

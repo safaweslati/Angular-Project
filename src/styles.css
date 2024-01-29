@@ -2,30 +2,39 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 @import "~ngx-toastr/toastr";
-@import '~@fortawesome/fontawesome-svg-core/styles.css';
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+@import "~@fortawesome/fontawesome-svg-core/styles.css";
+@import "~@fortawesome/fontawesome-free";
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+@import "material-icons/iconfont/material-icons.css";
+@import "~@fortawesome/fontawesome-free/css/all.css";
+/*
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*/
 
-
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   background-color: #222222;
 }
 
 * {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   box-sizing: border-box;
   color: gainsboro;
 }
-.flex{
+
+.flex {
   display: flex;
 }
-.flex-center{
-   justify-content: center;
-   align-items: center;
- }
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
 
-.title{
+.title {
   display: block;
   font-weight: 700;
   margin-bottom: 14px;
@@ -33,25 +42,25 @@ html, body {
   margin-top: 0;
 }
 
-.title-bg{
+.title-bg {
   font-size: 2.2rem;
 }
 
-.title-md{
+.title-md {
   font-size: 1.4rem;
 }
 
-.card{
+.card {
   box-shadow: 0px 0px 15px #00000033;
   background-color: #333333;
 }
 
-.playlist-scroll{
+.playlist-scroll {
   width: 100%;
   max-height: 50vh;
   overflow-y: auto;
 }
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
 
@@ -62,7 +71,7 @@ html, body {
   overflow-y: scroll;
 }
 
-.image{
+.image {
   position: absolute;
   top: 0;
   left: 0;
@@ -72,5 +81,5 @@ html, body {
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 0;
-  opacity:.4;
+  opacity: 6;
 }

@@ -1,0 +1,28 @@
+.playlist-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.title-and-link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.title-and-link:hover{
+  cursor: pointer;
+}
+
+.playlist-title {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.show-more-link {
+  color: #37AB00;
+  text-decoration: none;
+}
+

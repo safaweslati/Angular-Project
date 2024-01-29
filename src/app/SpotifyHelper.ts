@@ -1,20 +1,23 @@
-import {Playlist} from "./Models/Playlist";
-import {User} from "./Models/User";
-import {Artist} from "./Models/Artist";
-import {addMilliseconds, format} from "date-fns";
-import {Song} from "./Models/Song";
-import {PlaylistResponse} from "./Models/PlaylistResponse";
+import { Playlist } from './Models/Playlist';
+import { User } from './Models/User';
+import { Artist } from './Models/Artist';
+import { addMilliseconds, format } from 'date-fns';
+import { Song } from './Models/Song';
 
-
-export function SpotifyUser(user: any): User{
+export function SpotifyUser(user: any): User {
   return {
     id: user.id,
     name: user.display_name,
     imageUrl: getLastImageUrl(user.images),
-  }
+  };
 }
 
-export function SpotifyPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): Playlist{
+export function SpotifyPlaylist(
+  playlist: SpotifyApi.PlaylistObjectSimplified
+): Playlist | null {
+  if (!playlist || !playlist.id) {
+    return null;
+  }
   return {
     id: playlist.id,
     name: playlist.name,
@@ -23,92 +26,66 @@ export function SpotifyPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): 
   };
 }
 
-export function SpotifyPlaylistDetails(playlist: SpotifyApi.PlaylistObjectFull) : Playlist{
+export function SpotifyPlaylistDetails(
+  playlist: SpotifyApi.PlaylistObjectFull
+): Playlist {
   return {
     id: playlist.id,
     name: playlist.name,
     imageUrl: getFirstImageUrl(playlist.images),
-    songs: playlist.tracks.items.map(item => mapToSong(item.track)),
+    songs: playlist.tracks.items.map((item) => SpotifyTrack(item.track)),
   };
 }
 
-function mapToSong(track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull): Song {
+export function SpotifyTrack(
+  track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull
+): Song {
   return {
     id: track.id,
     title: track.name,
-    artists: 'artists' in track ? track.artists.map(artist => ({ id: artist.id, name: artist.name })) : [],
+    artists:
+      'artists' in track
+        ? track.artists.map((artist) => ({ id: artist.id, name: artist.name }))
+        : [],
     album: {
       id: 'album' in track ? track.album.id : '',
       name: 'album' in track ? track.album.name : '',
-      imageUrl: 'album' in track ? getFirstImageUrl(track.album.images) : "",
+      imageUrl: 'album' in track ? getFirstImageUrl(track.album.images) : '',
     },
     time: convertTime('duration_ms' in track ? track.duration_ms : 0),
     previewUrl: 'preview_url' in track ? track.preview_url : '',
   };
 }
 
-
 export function SpotifyArtist(artist: SpotifyApi.ArtistObjectFull): Artist {
   const sortedImages = artist.images
-    .filter(image => image.width !== undefined)
+    .filter((image) => image.width !== undefined)
     .sort((a, b) => (a.width || 0) - (b.width || 0));
-  const imageUrl = sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
+  const imageUrl =
+    sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
   return {
     id: artist.id,
     name: artist.name,
     imageUrl: imageUrl || '',
-  };
-}
-
-export function SpotifyTrack(track: SpotifyApi.TrackObjectFull) {
-  const albumImages = track.album.images;
-  return {
-    id: track.id,
-    title: track.name,
-    album: {
-      id: track.album.id,
-      imageUrl: getFirstImageUrl(track.album.images),
-      name: track.album.name,
-    },
-    artists: track.artists.map(artist => ({
-      id: artist.id,
-      name: artist.name
-    })),
-    time: convertTime(track.duration_ms),
-    previewUrl: track.preview_url,
-
+    followers: null,
+    images: null,
   };
 }
 
 const convertTime = (timeMs: number) => {
-  const date = addMilliseconds(new Date(0),timeMs);
-  return format(date, "mm:ss")
-}
+  const date = addMilliseconds(new Date(0), timeMs);
+  return format(date, 'mm:ss');
+};
 
 function getLastImageUrl(images: SpotifyApi.ImageObject[] | undefined): string {
-  return images && images.length > 0 ? images[images.length - 1].url : "";
+  return images && images.length > 0 ? images[images.length - 1].url : '';
 }
 
-function getFirstImageUrl(images: SpotifyApi.ImageObject[] | undefined, defaultValue: string = ""): string {
-  return images && images.length > 0 ? images.shift()?.url || defaultValue : defaultValue;
+function getFirstImageUrl(
+  images: SpotifyApi.ImageObject[] | undefined,
+  defaultValue: string = ''
+): string {
+  return images && images.length > 0
+    ? images.shift()?.url || defaultValue
+    : defaultValue;
 }
-export function convertToPlaylist(response: PlaylistResponse | Playlist): Playlist {
-  if ('images' in response) {
-    // It's PlaylistResponse
-    return {
-      id: response.id,
-      name: response.name,
-      imageUrl: response.images && response.images.length > 0 ? response.images[0].url : '',
-      songs: [],
-    };
-  } else {
-    // It's Playlist
-    return {
-      id: response.id,
-      name: response.name,
-      imageUrl: response.imageUrl || '', // Adjust accordingly based on your Playlist structure
-      songs: response.songs || [],
-    };
-  }
-}
-

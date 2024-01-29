@@ -1,7 +1,7 @@
 export const spotifyConfiguration = {
-  clientId: "5e0837894487436fb10c984a3a7854ad",
+  clientId: "1b83967469fa4d259bf117c9ad894942",
   authEndpoint: 'https://accounts.spotify.com/authorize',
-  redirectUrl: 'http://localhost:4200/login/',
+  redirectUrl: 'http://localhost:4200/login',
   scopes: [
     "user-read-currently-playing", // Read the user's currently playing music.
     "user-read-recently-played", // Read the user's recently played tracks.
@@ -11,8 +11,8 @@ export const spotifyConfiguration = {
     "user-library-read", // Read the user's library of saved tracks.
     "playlist-read-private", // Read the user's private playlists.
     "playlist-read-collaborative", // Read collaborative playlists the user has access to.
-    "playlist-modify-public",
-    "playlist-modify-private"
+    "streaming",
+    "user-read-email",
   ],
-  spotifyApiBaseUrl : 'https://api.spotify.com/v1'
-}
+  spotifyApiBaseUrl: 'https://api.spotify.com/v1',
+};

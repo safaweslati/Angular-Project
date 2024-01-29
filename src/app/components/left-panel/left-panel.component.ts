@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {faGuitar, faHome, faMusic, faPlus, faSearch, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {faGuitar, faHome, faMusic, faSearch, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {Playlist} from "../../Models/Playlist";
 import {SpotifyService} from "../../services/spotify.service";
 import {LoginService} from "../../services/login.service";
-import {filter, map, Observable, partition, switchMap} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {Song} from "../../Models/Song";
 import {Router} from "@angular/router";
 import {PlaylistService} from "../../services/playlist.service";
@@ -32,12 +32,7 @@ export class LeftPanelComponent implements OnInit {
   addIcon = faPlus;
 
 
-  constructor(
-    public spotifyService: SpotifyService,
-    public loginService: LoginService,
-    public playlistService: PlaylistService,
-    private router: Router
-  ) {
+  constructor(public spotifyService: SpotifyService, public loginService: LoginService) {
   }
 
   ngOnInit() {
@@ -66,5 +61,4 @@ export class LeftPanelComponent implements OnInit {
     this.loginService.logout();
   }
 
-  protected readonly console = console;
 }
