@@ -14,6 +14,11 @@ import {FormsModule} from "@angular/forms";
 import {TopArtistsComponent} from "../components/top-artists/top-artists.component";
 import {PlayerCardComponent} from "../components/player-card/player-card.component";
 import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-details.component";
+import {SpotifyCardComponent} from '../components/spotify-card/spotify-card.component';
+import { ListOfItemsComponent } from '../components/list-item/list-item.component';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
+import { ErrorImagePipe } from '../pipe/error-image.pipe';
+import { UriPipe } from '../pipe/uri.pipe';
 
 
 
@@ -30,6 +35,11 @@ import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    SpotifyCardComponent,
+    ListOfItemsComponent,
+    ProfilePageComponent,
+    ErrorImagePipe,
+    UriPipe,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,44 @@
+<div
+  class="w-full h-auto p-2 rounded-lg shadow-md relative"
+  [class.hovered]="isHovered"
+  (mouseenter)="toggleHover(true)"
+  (mouseleave)="toggleHover(false)"
+  style="background-color: #242424;"
+>
+  <div class="w-full aspect-w-1 aspect-h-1 overflow-hidden">
+    <img
+      [src]="cardData.imageUrl | errorImage"
+      [alt]="cardData.name"
+      [class.rounded-full]="shouldApplyRoundedClass"
+      class="object-cover w-full h-full shadow mb-2"
+    />
+  </div>
+
+  <div class="w-35 overflow-hidden">
+    <h1
+      class="text-sm font-semibold text-white tracking-wide"
+      style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+    >
+      {{ cardData.name }}
+    </h1>
+    <h2
+      class="text-xs text-lightest tracking-wide pb-5"
+      style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis"
+    >
+      {{ cardData.name }}
+    </h2>
+  </div>
+
+  <div
+    *ngIf="isHovered"
+    class="absolute flex items-end justify-end p-8"
+    style="bottom: 70px; right: -20px;"
+  >
+    <div
+      [style.background-color]="isHovered ? '#1ed760' : 'transparent'"
+      class="rounded-full h-10 w-10 flex items-center justify-center"
+    >
+      <i class="material-icons text-white text-2xl">play_arrow</i>
+    </div>
+  </div>
+</div>
