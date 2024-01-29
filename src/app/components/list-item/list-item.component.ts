@@ -12,7 +12,6 @@ import { User } from 'src/app/Models/User';
   styleUrls: ['./list-item.component.css'],
 })
 export class ListOfItemsComponent {
-  [x: string]: any;
   @Input() items$?: Observable<User[] | Playlist[] | Artist[] | Album[]>;
   @Input() shouldApplyRoundedClass: boolean = false;
 }

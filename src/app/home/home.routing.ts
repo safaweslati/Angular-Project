@@ -19,7 +19,6 @@ const routes: Routes = [
       {
         path: 'showAll/:id/:itemType',
         component: ShowAllComponent,
-        //canActivate: [showAllGuard],
       },
       { path: 'savedTracks', component: SavedTracksComponent },
       { path: 'playlist/:id', component: PlaylistDetailsComponent },
