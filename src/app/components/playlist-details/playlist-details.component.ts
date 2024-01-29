@@ -22,5 +22,4 @@ export class PlaylistDetailsComponent implements OnInit {
     ));
   }
 
-
 }

@@ -36,7 +36,7 @@ img{
 }
 
 .playlist-title{
-  margin: 10px 0px;
+  margin-right: 8px;
   align-self: flex-start;
   font-weight: 700;
   font-size: .9rem;
@@ -56,4 +56,13 @@ img{
 .icon{
   flex-grow: 1;
   cursor: pointer;
+}
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.add-icon {
+  margin-left: 100%;
 }

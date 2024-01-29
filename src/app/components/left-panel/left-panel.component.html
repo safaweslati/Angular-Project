@@ -12,17 +12,21 @@
   </div>
 
    <div class="menu-container flex">
-     <span class="playlist-title">
-       Playlists
-     </span>
+     <div class="title-container">
+    <span class="playlist-title">
+      Playlists
+    </span>
+       <fa-icon class="add-icon" [icon]="addIcon"
+       (click)="addPlaylist()"></fa-icon>
+     </div>
      <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
        <app-menu-item [contenu]="'Liked Songs'" [routerLink]="['/home/savedTracks']" >
          <fa-icon [icon]="playlistIcon"></fa-icon>
        </app-menu-item>
-         <app-menu-item *ngFor="let playlist of playlists" [contenu]="playlist.name"
+       <app-menu-item *ngFor="let playlist of playlists" [contenu]="playlist.name"
                            [routerLink]="['playlist', playlist.id]">
-           <fa-icon [icon]="playlistIcon"></fa-icon>
-         </app-menu-item>
+         <fa-icon [icon]="playlistIcon"></fa-icon>
+       </app-menu-item>
      </div>
    </div>
 </div>

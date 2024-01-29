@@ -3,6 +3,7 @@ import {User} from "./Models/User";
 import {Artist} from "./Models/Artist";
 import {addMilliseconds, format} from "date-fns";
 import {Song} from "./Models/Song";
+import {PlaylistResponse} from "./Models/PlaylistResponse";
 
 
 export function SpotifyUser(user: any): User{
@@ -91,3 +92,23 @@ function getLastImageUrl(images: SpotifyApi.ImageObject[] | undefined): string {
 function getFirstImageUrl(images: SpotifyApi.ImageObject[] | undefined, defaultValue: string = ""): string {
   return images && images.length > 0 ? images.shift()?.url || defaultValue : defaultValue;
 }
+export function convertToPlaylist(response: PlaylistResponse | Playlist): Playlist {
+  if ('images' in response) {
+    // It's PlaylistResponse
+    return {
+      id: response.id,
+      name: response.name,
+      imageUrl: response.images && response.images.length > 0 ? response.images[0].url : '',
+      songs: [],
+    };
+  } else {
+    // It's Playlist
+    return {
+      id: response.id,
+      name: response.name,
+      imageUrl: response.imageUrl || '', // Adjust accordingly based on your Playlist structure
+      songs: response.songs || [],
+    };
+  }
+}
+

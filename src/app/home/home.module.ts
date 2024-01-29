@@ -14,6 +14,7 @@ import {FormsModule} from "@angular/forms";
 import {TopArtistsComponent} from "../components/top-artists/top-artists.component";
 import {PlayerCardComponent} from "../components/player-card/player-card.component";
 import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-details.component";
+import {PlaylistsComponent} from "../components/playlists/playlists.component";
 
 
 
@@ -30,6 +31,7 @@ import {PlaylistDetailsComponent} from "../components/playlist-details/playlist-
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    PlaylistsComponent,
   ],
   imports: [
     CommonModule,
