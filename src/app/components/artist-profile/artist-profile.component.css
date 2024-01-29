@@ -1,24 +1,4 @@
-/* artist-genres.component.css */
-
-.spotify-genres-frame {
-  background-color: #333333;
-  border-radius: 10px;
-  padding: 20px;
-  width: 300px;
-  margin: 20px;
-}
-
-.genres-list {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.genre {
-  margin: 2px;
-  padding: 4px;
-  background-color: #222222;
-  color: white;
-  border-radius: 3px;
-  text-align: center;
+.artist-profile {
+  margin: 40px;
+  flex: display;
 }
