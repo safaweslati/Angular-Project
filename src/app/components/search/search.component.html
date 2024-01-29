@@ -1,0 +1,21 @@
+<div id="searchId" class="container-fluid p-2">
+  <div class="d-flex align-items-center">
+    <div class="search-section__btn-container"></div>
+    <div class="ml-3 w-50">
+      <form [formGroup]="searchForm">
+        <div class="input-group">
+          <span class="input-group-text" id="basic-addon1"
+            ><fa-icon [icon]="searchIcon"></fa-icon
+          ></span>
+          <input
+            type="text"
+            formControlName="search"
+            class="form-control"
+            id="inputSearch"
+            placeholder="Search for tracks, artists, or albums"
+          />
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
