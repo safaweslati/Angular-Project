@@ -10,7 +10,8 @@ import { SavedTracksComponent } from '../components/saved-tracks/saved-tracks.co
 import { PlaylistHeaderComponent } from '../components/playlist-header/playlist-header.component';
 import { RightPanelComponent } from '../components/right-panel/right-panel.component';
 import { MusicListComponent } from '../components/music-list/music-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from '../components/search/search.component';
 import { TopArtistsComponent } from '../components/top-artists/top-artists.component';
 import { PlayerCardComponent } from '../components/player-card/player-card.component';
 import { PlaylistDetailsComponent } from '../components/playlist-details/playlist-details.component';
@@ -39,6 +40,7 @@ import {WebPlaybackComponent} from "../components/web-playback/web-playback.comp
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    SearchComponent,
     WebPlaybackComponent,
     AccueilComponent,
     CardGroupComponent,
@@ -56,7 +58,8 @@ import {WebPlaybackComponent} from "../components/web-playback/web-playback.comp
     HomeRouting,
     FontAwesomeModule,
     FormsModule,
+    ReactiveFormsModule,
     NgOptimizedImage
   ],
 })
-export class HomeModule { }
+export class HomeModule {}

@@ -1,35 +1,42 @@
 <div class="menus flex">
   <div class="image-container flex flex-center">
-    <img src="assets/images/spotify-logo-1.png">
+    <img src="assets/images/spotify-logo-1.png" />
   </div>
   <div class="menu-container flex options">
+
     <app-menu-item [contenu]="'Home'" [routerLink]="['/home/accueil']">
       <fa-icon [icon]="homeIcon" ></fa-icon>
     </app-menu-item>
     <app-menu-item [contenu]="'Search'" [routerLink]="['/home/search']">
-      <fa-icon [icon]="searchIcon" ></fa-icon>
+      <fa-icon [icon]="searchIcon"></fa-icon>
     </app-menu-item>
   </div>
 
-   <div class="menu-container flex">
-     <span class="playlist-title">
-       Playlists
-     </span>
-     <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
-       <app-menu-item [contenu]="'Liked Songs'" [routerLink]="['/home/savedTracks']" >
-         <fa-icon [icon]="playlistIcon"></fa-icon>
-       </app-menu-item>
-         <app-menu-item *ngFor="let playlist of playlists" [contenu]="playlist.name"
-                           [routerLink]="['playlist', playlist.id]">
-           <fa-icon [icon]="playlistIcon"></fa-icon>
-         </app-menu-item>
-     </div>
-   </div>
+  <div class="menu-container flex">
+    <span class="playlist-title"> Playlists </span>
+    <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
+      <app-menu-item
+        [contenu]="'Liked Songs'"
+        [routerLink]="['/home/savedTracks']"
+      >
+        <fa-icon [icon]="playlistIcon"></fa-icon>
+      </app-menu-item>
+      <app-menu-item
+        *ngFor="let playlist of playlists"
+        [contenu]="playlist.name"
+        [routerLink]="['playlist', playlist.id]"
+      >
+        <fa-icon [icon]="playlistIcon"></fa-icon>
+      </app-menu-item>
+    </div>
+  </div>
 </div>
 
 <div class="user-info">
+
   <ng-container *ngIf="(loginService.currentUser$ | async) as user">
     <app-menu-user-item [user]="user" [routerLink]="['profile', user.id]">
+
       <fa-icon class="icon" [icon]="signOutIcon" (click)="logout()"></fa-icon>
     </app-menu-user-item>
   </ng-container>
