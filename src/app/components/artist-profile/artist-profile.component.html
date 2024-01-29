@@ -1,15 +1,29 @@
 <div class="artist-profile" *ngIf="artist$ | async as artist">
-  <div>
-    <app-playlist-header
-      [name]="artist.name"
-      [imageUrl]="artist.images[0]?.url"
-      [followers]="artist.followers.total"
-      [verified]="true"
-      class="mt-2 d-block"
-    ></app-playlist-header>
+  <app-playlist-header
+    [name]="artist.name"
+    [imageUrl]="artist.images[0]?.url"
+    [followers]="artist.followers.total"
+    [verified]="true"
+    class="mt-2 d-block"
+  ></app-playlist-header>
 
-    <div class="topTracks">
-      <app-music-list [songs]="topTracks$ | async" />
-    </div>
+  <div class="topTracks">
+    <app-music-list [songs]="topTracks$ | async" />
+  </div>
+
+  <span class="title title-bg mt-4"> Albums </span>
+  <div class="Albums">
+    <app-list-item
+      [items$]="albums$"
+      [shouldApplyRoundedClass]="false"
+    ></app-list-item>
+  </div>
+
+  <span class="title title-bg mt-4"> Fans also like </span>
+  <div class="relatedArtists">
+    <app-list-item
+      [items$]="relatedArtists$"
+      [shouldApplyRoundedClass]="true"
+    ></app-list-item>
   </div>
 </div>

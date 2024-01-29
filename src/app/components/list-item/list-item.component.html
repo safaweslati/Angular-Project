@@ -1,5 +1,12 @@
-<div class="w-full flex flex-wrap">
-  <div *ngFor="let item of items$ | async" class="p-2 w-48 relative">
-    <app-spotify-card [shouldApplyRoundedClass]="shouldApplyRoundedClass" [cardData]="item"></app-spotify-card>
-  </div>
+<div class="w-full flex justify-center">
+  <ng-container *ngFor="let item of items$ | async; let i = index">
+    <div class="p-2 w-1/4 relative" *ngIf="i < 4">
+      <app-spotify-card
+        [routerLink]="['/home/artist', item.id]"
+        [shouldApplyRoundedClass]="shouldApplyRoundedClass"
+        [cardData]="item"
+        class="small-card"
+      ></app-spotify-card>
+    </div>
+  </ng-container>
 </div>

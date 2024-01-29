@@ -3,7 +3,7 @@
   [class.hovered]="isHovered"
   (mouseenter)="toggleHover(true)"
   (mouseleave)="toggleHover(false)"
-  style="background-color: #242424;"
+  style="background-color: #242424"
 >
   <div class="w-full aspect-w-1 aspect-h-1 overflow-hidden">
     <img
@@ -27,12 +27,15 @@
     >
       {{ cardData.name }}
     </h2>
+    <p *ngIf="isAlbum(cardData)" class="text-xs">
+      Released: {{ cardData.releaseDate }}
+    </p>
   </div>
 
   <div
     *ngIf="isHovered"
     class="absolute flex items-end justify-end p-8"
-    style="bottom: 70px; right: -20px;"
+    style="bottom: 70px; right: -20px"
   >
     <div
       [style.background-color]="isHovered ? '#1ed760' : 'transparent'"

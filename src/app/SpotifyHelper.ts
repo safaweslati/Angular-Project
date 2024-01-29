@@ -3,12 +3,24 @@ import { User } from './Models/User';
 import { Artist } from './Models/Artist';
 import { addMilliseconds, format } from 'date-fns';
 import { Song } from './Models/Song';
+import { Album } from './Models/Album';
 
 export function SpotifyUser(user: any): User {
   return {
     id: user.id,
     name: user.display_name,
     imageUrl: getLastImageUrl(user.images),
+  };
+}
+export function SpotifyAlbum(album: any): Album {
+  const imageUrl =
+    album.images && album.images.length > 0 ? album.images[0].url : '';
+  return {
+    id: album.id,
+    name: album.name,
+    imageUrl,
+    releaseDate: album.release_date || '',
+    uri: album.uri,
   };
 }
 
