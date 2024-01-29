@@ -14,8 +14,7 @@ import { spotifyConfiguration } from '../../config/constantes.config';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { APISearch } from '../Models/spotifySearch';
-import {Playlist} from "../Models/Playlist";
-import {catchError, EMPTY, filter, map, Observable, switchMap,tap} from "rxjs";
+import {catchError, EMPTY, filter, map, Observable,tap} from "rxjs";
 import { User } from 'src/app/Models/User';
 
 @Injectable({

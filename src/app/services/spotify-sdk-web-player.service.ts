@@ -1,5 +1,4 @@
 import {Injectable} from '@angular/core';
-import {LoginService} from "./login.service";
 import {PlayerState, track} from "../Models/player";
 
 declare global {
