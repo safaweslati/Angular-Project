@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
-import {SpotifyArtist, SpotifyPlaylist, SpotifyPlaylistDetails, SpotifyTrack, SpotifyUser} from "../SpotifyHelper";
+import {
+  SpotifyArtist,
+  SpotifyPlaylist,
+  SpotifyPlaylistDetails,
+  SpotifyTrack,
+  SpotifyUser,
+} from "../SpotifyHelper";
 import {Playlist} from "../Models/Playlist";
 import {Song} from "../Models/Song";
 import {LoginService} from "./login.service";
 import {Artist} from "../Models/Artist";
-import {catchError, EMPTY, map, Observable, switchMap, tap} from "rxjs";
+import {catchError, EMPTY, filter, map, Observable, switchMap,tap} from "rxjs";
 import {spotifyConfiguration} from "../../config/constantes.config";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
@@ -75,6 +81,22 @@ export class SpotifyService {
       })
     );
   }
+
+  getFeaturedPlaylists(offset = 0, limit = 50) : Observable<Playlist[]>{
+    const url= this.spotifyApiUrl + `/browse/featured-playlists?offset=${offset}&limit=${limit}` ;
+    return this.http.get<any>(url).pipe(
+      map(response => response.playlists.items.map((item: any) => SpotifyPlaylist(item)))
+    , filter(Boolean),
+    );
+  }
+
+  getCategoryPlaylists(category:string, offset = 0, limit = 50): Observable<Playlist[]> {
+    const url = `${this.spotifyApiUrl}/browse/categories/${category}/playlists?offset=${offset}&limit=${limit}`;
+    return this.http.get<any>(url).pipe(
+      map(response => response.playlists.items.map((item: any) => SpotifyPlaylist(item))),
+    );
+  }
+
 
 
 

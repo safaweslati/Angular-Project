@@ -1,0 +1,5 @@
+<div class="playlist-grid">
+  <div *ngFor="let playlist of playlists">
+    <app-player-card (click)="navigateToPlaylist(playlist.id)" [imageUrl]="playlist.imageUrl" [title]="playlist.name"></app-player-card>
+  </div>
+</div>

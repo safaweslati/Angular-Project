@@ -1,0 +1,3 @@
+<div *ngIf="playerService.playlists$ | async as playlists">
+<app-playlist-grid [playlists]="playlists" />
+</div>

@@ -6,6 +6,7 @@ import {Song} from "./Models/Song";
 
 
 export function SpotifyUser(user: any): User{
+
   return {
     id: user.id,
     name: user.display_name,
@@ -13,7 +14,10 @@ export function SpotifyUser(user: any): User{
   }
 }
 
-export function SpotifyPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): Playlist{
+export function SpotifyPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified): Playlist | null{
+  if (!playlist || !playlist.id) {
+    return null;
+  }
   return {
     id: playlist.id,
     name: playlist.name,
@@ -27,11 +31,11 @@ export function SpotifyPlaylistDetails(playlist: SpotifyApi.PlaylistObjectFull) 
     id: playlist.id,
     name: playlist.name,
     imageUrl: getFirstImageUrl(playlist.images),
-    songs: playlist.tracks.items.map(item => mapToSong(item.track)),
+    songs: playlist.tracks.items.map(item => SpotifyTrack(item.track)),
   };
 }
 
-function mapToSong(track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull): Song {
+export function SpotifyTrack(track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull): Song {
   return {
     id: track.id,
     title: track.name,
@@ -59,25 +63,6 @@ export function SpotifyArtist(artist: SpotifyApi.ArtistObjectFull): Artist {
   };
 }
 
-export function SpotifyTrack(track: SpotifyApi.TrackObjectFull) {
-  const albumImages = track.album.images;
-  return {
-    id: track.id,
-    title: track.name,
-    album: {
-      id: track.album.id,
-      imageUrl: getFirstImageUrl(track.album.images),
-      name: track.album.name,
-    },
-    artists: track.artists.map(artist => ({
-      id: artist.id,
-      name: artist.name
-    })),
-    time: convertTime(track.duration_ms),
-    previewUrl: track.preview_url,
-
-  };
-}
 
 const convertTime = (timeMs: number) => {
   const date = addMilliseconds(new Date(0),timeMs);
