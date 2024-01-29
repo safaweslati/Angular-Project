@@ -2,10 +2,16 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
 @import "~ngx-toastr/toastr";
-@import "~@fortawesome/fontawesome-svg-core/styles.css";
+@import '~@fortawesome/fontawesome-svg-core/styles.css';
 @import "~@fortawesome/fontawesome-free";
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
-@import "~@fortawesome/fontawesome-free/css/all.css";
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap');
+@import 'material-icons/iconfont/material-icons.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 
 html,
 body {
@@ -19,7 +25,9 @@ body {
   box-sizing: border-box;
   color: gainsboro;
 }
-.flex {
+
+
+.flex{
   display: flex;
 }
 .flex-center {
@@ -74,5 +82,6 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   z-index: 0;
-  opacity: 0.4;
+  opacity: 6;
 }
+

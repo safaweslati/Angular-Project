@@ -9,6 +9,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ArtistProfileComponent } from './components/artist-profile/artist-profile.component';
 import { PlaylistHeaderComponent } from './components/playlist-header/playlist-header.component';
 
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

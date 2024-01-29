@@ -14,8 +14,16 @@ import { FormsModule } from '@angular/forms';
 import { TopArtistsComponent } from '../components/top-artists/top-artists.component';
 import { PlayerCardComponent } from '../components/player-card/player-card.component';
 import { PlaylistDetailsComponent } from '../components/playlist-details/playlist-details.component';
+import { AccueilComponent } from '../components/accueil/accueil.component';
+import { CardGroupComponent } from '../components/card-group/card-group.component';
+import { ShowAllComponent } from '../components/show-all/show-all.component';
+import { PlaylistGridComponent } from '../components/playlist-grid/playlist-grid.component';
+import { SpotifyCardComponent } from '../components/spotify-card/spotify-card.component';
+import { ListOfItemsComponent } from '../components/list-item/list-item.component';
+import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
+import { ErrorImagePipe } from '../pipe/error-image.pipe';
+import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
-import { ModalModule } from 'ngx-bootstrap/modal';
 
 @NgModule({
   declarations: [
@@ -30,14 +38,17 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    AccueilComponent,
+    CardGroupComponent,
+    ShowAllComponent,
+    PlaylistGridComponent,
     ArtistProfileComponent,
+    SpotifyCardComponent,
+    ListOfItemsComponent,
+    ProfilePageComponent,
+    ErrorImagePipe,
+    UriPipe,
   ],
-  imports: [
-    CommonModule,
-    HomeRouting,
-    FontAwesomeModule,
-    FormsModule,
-    ModalModule.forRoot(),
-  ],
+  imports: [CommonModule, HomeRouting, FontAwesomeModule, FormsModule],
 })
 export class HomeModule {}

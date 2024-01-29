@@ -6,6 +6,7 @@ import {LoginService} from "../../services/login.service";
 import {Observable, switchMap} from "rxjs";
 import {Song} from "../../Models/Song";
 
+
 @Component({
   selector: 'app-left-panel',
   templateUrl: './left-panel.component.html',
@@ -22,7 +23,7 @@ export class LeftPanelComponent implements OnInit{
   signOutIcon= faSignOutAlt;
 
 
-  constructor(public spotifyService: SpotifyService, public loginService: LoginService) {
+  constructor(public spotifyService: SpotifyService, public loginService: LoginService ) {
   }
 
    ngOnInit() {
@@ -35,5 +36,6 @@ export class LeftPanelComponent implements OnInit{
   logout() {
     this.loginService.logout();
   }
+
 
 }

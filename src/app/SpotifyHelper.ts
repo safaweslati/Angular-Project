@@ -14,7 +14,10 @@ export function SpotifyUser(user: any): User {
 
 export function SpotifyPlaylist(
   playlist: SpotifyApi.PlaylistObjectSimplified
-): Playlist {
+): Playlist | null {
+  if (!playlist || !playlist.id) {
+    return null;
+  }
   return {
     id: playlist.id,
     name: playlist.name,
@@ -30,11 +33,11 @@ export function SpotifyPlaylistDetails(
     id: playlist.id,
     name: playlist.name,
     imageUrl: getFirstImageUrl(playlist.images),
-    songs: playlist.tracks.items.map((item) => mapToSong(item.track)),
+    songs: playlist.tracks.items.map((item) => SpotifyTrack(item.track)),
   };
 }
 
-function mapToSong(
+export function SpotifyTrack(
   track: SpotifyApi.TrackObjectFull | SpotifyApi.EpisodeObjectFull
 ): Song {
   return {
@@ -66,25 +69,6 @@ export function SpotifyArtist(artist: SpotifyApi.ArtistObjectFull): Artist {
     imageUrl: imageUrl || '',
     followers: null,
     images: null,
-  };
-}
-
-export function SpotifyTrack(track: SpotifyApi.TrackObjectFull) {
-  const albumImages = track.album.images;
-  return {
-    id: track.id,
-    title: track.name,
-    album: {
-      id: track.album.id,
-      imageUrl: getFirstImageUrl(track.album.images),
-      name: track.album.name,
-    },
-    artists: track.artists.map((artist) => ({
-      id: artist.id,
-      name: artist.name,
-    })),
-    time: convertTime(track.duration_ms),
-    previewUrl: track.preview_url,
   };
 }
 
