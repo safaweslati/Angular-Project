@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRouting } from './home.routing';
 import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
@@ -24,6 +24,7 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
 import { ErrorImagePipe } from '../pipe/error-image.pipe';
 import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
+import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ArtistProfileComponent } from '../components/artist-profile/artist-prof
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    WebPlaybackComponent,
     AccueilComponent,
     CardGroupComponent,
     ShowAllComponent,
@@ -49,6 +51,12 @@ import { ArtistProfileComponent } from '../components/artist-profile/artist-prof
     ErrorImagePipe,
     UriPipe,
   ],
-  imports: [CommonModule, HomeRouting, FontAwesomeModule, FormsModule],
+  imports: [
+    CommonModule,
+    HomeRouting,
+    FontAwesomeModule,
+    FormsModule,
+    NgOptimizedImage
+  ],
 })
-export class HomeModule {}
+export class HomeModule { }
