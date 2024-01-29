@@ -17,9 +17,9 @@ const routes: Routes = [
     children: [
       { path: 'accueil', component: AccueilComponent },
       {
-        path: 'showAll',
+        path: 'showAll/:id/:itemType',
         component: ShowAllComponent,
-        canActivate: [showAllGuard],
+        //canActivate: [showAllGuard],
       },
       { path: 'savedTracks', component: SavedTracksComponent },
       { path: 'playlist/:id', component: PlaylistDetailsComponent },

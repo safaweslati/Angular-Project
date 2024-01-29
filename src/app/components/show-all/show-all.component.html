@@ -1,3 +1,26 @@
+<!--
 <div *ngIf="playerService.playlists$ | async as playlists">
 <app-playlist-grid [playlists]="playlists" />
+</div>
+
+
+<div class="show-all">
+  <ng-container *ngFor="let item of items$ | async">
+    <div class="col-md-4 mb-4">
+      <app-spotify-card
+        [routerLink]="itemType === 'Artist' ? ['/home/artist', item.id] : null"
+        [shouldApplyRoundedClass]="shouldApplyRoundedClass"
+        [cardData]="item"
+        class="small-card"
+      ></app-spotify-card>
+    </div>
+  </ng-container>
+</div>-->
+<div class="w-full flex flex-wrap justify-center">
+  <div *ngFor="let item of items$ | async" class="p-2 w-48 relative">
+    <app-spotify-card
+      [shouldApplyRoundedClass]="shouldApplyRoundedClass"
+      [cardData]="item"
+    ></app-spotify-card>
+  </div>
 </div>
