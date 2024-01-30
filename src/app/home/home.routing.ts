@@ -5,7 +5,6 @@ import { SavedTracksComponent } from '../components/saved-tracks/saved-tracks.co
 import { PlaylistDetailsComponent } from '../components/playlist-details/playlist-details.component';
 import { AccueilComponent } from '../components/accueil/accueil.component';
 import { ShowAllComponent } from '../components/show-all/show-all.component';
-import { showAllGuard } from '../guards/show-all.guard';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
@@ -17,7 +16,7 @@ const routes: Routes = [
     children: [
       { path: 'accueil', component: AccueilComponent },
       {
-        path: 'showAll/:id/:itemType',
+        path: 'showAll',
         component: ShowAllComponent,
       },
       { path: 'savedTracks', component: SavedTracksComponent },

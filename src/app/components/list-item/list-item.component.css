@@ -4,3 +4,9 @@
 .small-card {
   width: 100%;
 }
+.show-more-less {
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}

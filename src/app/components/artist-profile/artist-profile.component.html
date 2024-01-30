@@ -10,41 +10,31 @@
   <div class="topTracks">
     <app-music-list [songs]="topTracks$ | async" />
   </div>
-
-  <span
-    class="title title-bg mt-4"
-    [routerLink]="['/home/showAll', artist.id, 'Album']"
-  >
-    Albums
-  </span>
+  <!--
   <span
     class="show-more-less"
     style="float: right"
     [routerLink]="['/home/showAll', artist.id, 'Album']"
     >Show more</span
-  >
+  >-->
   <div class="Albums">
     <app-list-item
-      [items$]="albums$"
+      [title]="'Album'"
+      [items]="albums$ | async"
       [shouldApplyRoundedClass]="false"
     ></app-list-item>
   </div>
-
-  <span
-    class="title title-bg mt-4"
-    [routerLink]="['/home/showAll', artist.id, 'Artist']"
-  >
-    Fans also like
-  </span>
+  <!--
   <span
     class="show-more-less"
     style="float: right"
     [routerLink]="['/home/showAll', artist.id, 'Artist']"
     >Show more</span
-  >
+  >-->
   <div class="relatedArtists">
     <app-list-item
-      [items$]="relatedArtists$"
+      [title]="'Fans also like'"
+      [items]="relatedArtists$ | async"
       [shouldApplyRoundedClass]="true"
     ></app-list-item>
   </div>

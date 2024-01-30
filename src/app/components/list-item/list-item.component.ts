@@ -1,10 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, catchError } from 'rxjs';
 import { Album } from 'src/app/Models/Album';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
 import { User } from 'src/app/Models/User';
+import { PlayerService } from 'src/app/services/player.service';
 
 @Component({
   selector: 'app-list-item',
@@ -12,6 +14,13 @@ import { User } from 'src/app/Models/User';
   styleUrls: ['./list-item.component.css'],
 })
 export class ListOfItemsComponent {
-  @Input() items$?: Observable<User[] | Playlist[] | Artist[] | Album[]>;
+  showAll() {
+    this.playerService.setShowAll(this.items);
+    this.router.navigate(['/home/showAll']);
+  }
+  @Input() items!: User[] | Playlist[] | Artist[] | Album[] | null;
   @Input() shouldApplyRoundedClass: boolean = false;
+  @Input() title: string = '';
+
+  constructor(private playerService: PlayerService, private router: Router) {}
 }
