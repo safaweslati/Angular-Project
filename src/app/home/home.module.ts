@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRouting } from './home.routing';
 import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
@@ -10,7 +10,8 @@ import { SavedTracksComponent } from '../components/saved-tracks/saved-tracks.co
 import { PlaylistHeaderComponent } from '../components/playlist-header/playlist-header.component';
 import { RightPanelComponent } from '../components/right-panel/right-panel.component';
 import { MusicListComponent } from '../components/music-list/music-list.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SearchComponent } from '../components/search/search.component';
 import { TopArtistsComponent } from '../components/top-artists/top-artists.component';
 import { PlayerCardComponent } from '../components/player-card/player-card.component';
 import { PlaylistDetailsComponent } from '../components/playlist-details/playlist-details.component';
@@ -22,6 +23,7 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
 import { ErrorImagePipe } from '../pipe/error-image.pipe';
 import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
+import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
 
 @NgModule({
   declarations: [
@@ -36,6 +38,8 @@ import { ArtistProfileComponent } from '../components/artist-profile/artist-prof
     TopArtistsComponent,
     PlayerCardComponent,
     PlaylistDetailsComponent,
+    SearchComponent,
+    WebPlaybackComponent,
     AccueilComponent,
     ShowAllComponent,
     ArtistProfileComponent,
@@ -45,6 +49,13 @@ import { ArtistProfileComponent } from '../components/artist-profile/artist-prof
     ErrorImagePipe,
     UriPipe,
   ],
-  imports: [CommonModule, HomeRouting, FontAwesomeModule, FormsModule],
+  imports: [
+    CommonModule,
+    HomeRouting,
+    FontAwesomeModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgOptimizedImage
+  ],
 })
 export class HomeModule {}

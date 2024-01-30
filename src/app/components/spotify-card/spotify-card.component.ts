@@ -11,6 +11,10 @@ import { Album } from 'src/app/Models/Album';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
 import { User } from 'src/app/Models/User';
+import { Album } from 'src/app/Models/album';
+import { Audiobook } from 'src/app/Models/audiobook';
+import { Episode } from 'src/app/Models/episode';
+import { Show } from 'src/app/Models/show';
 import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
@@ -27,13 +31,21 @@ export class SpotifyCardComponent {
       this.router.navigate(['/home/playlist', this.cardData.id]);
     }
   }
-  @Input() cardData!: Album | User | Playlist | Artist;
+  @Input() cardData!:
+    | User
+    | Playlist
+    | Artist
+    | Show
+    | Album
+    | Audiobook
+    | Episode;
   @Input() shouldApplyRoundedClass: boolean = false;
   isHovered: boolean = false;
 
   constructor(
     public navigationService: NavigationService,
     private router: Router
+
   ) {}
 
   onCardClick() {
@@ -44,5 +56,10 @@ export class SpotifyCardComponent {
   }
   isAlbum(cardData: Album | User | Playlist | Artist): cardData is Album {
     return (cardData as Album)?.releaseDate !== undefined;
+  isAlbumOrEpisode(
+    cardData: User | Playlist | Artist | Show | Album | Audiobook | Episode
+  ): cardData is Album | Episode {
+    return (cardData as Album | Episode)?.release_date !== undefined;
+
   }
 }

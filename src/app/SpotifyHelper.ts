@@ -3,7 +3,18 @@ import { User } from './Models/User';
 import { Artist } from './Models/Artist';
 import { addMilliseconds, format } from 'date-fns';
 import { Song } from './Models/Song';
-import { Album } from './Models/Album';
+import { Audiobook } from './Models/audiobook';
+import {
+  AlbumsItem,
+  ArtistsItem,
+  AudiobooksItem,
+  EpsiodesItem,
+  ShowsItem,
+} from './Models/spotifySearch';
+import { Episode } from './Models/episode';
+import { Show } from './Models/show';
+import { Album } from './Models/album';
+
 
 export function SpotifyUser(user: any): User {
   return {
@@ -37,7 +48,6 @@ export function SpotifyPlaylist(
     songs: null,
   };
 }
-
 export function SpotifyPlaylistDetails(
   playlist: SpotifyApi.PlaylistObjectFull
 ): Playlist {
@@ -45,7 +55,7 @@ export function SpotifyPlaylistDetails(
     id: playlist.id,
     name: playlist.name,
     imageUrl: getFirstImageUrl(playlist.images),
-    songs: playlist.tracks.items.map((item) => SpotifyTrack(item.track)),
+    songs: playlist.tracks.items?.map((item) => SpotifyTrack(item.track)),
   };
 }
 
@@ -69,7 +79,7 @@ export function SpotifyTrack(
   };
 }
 
-export function SpotifyArtist(artist: SpotifyApi.ArtistObjectFull): Artist {
+export function SpotifyArtist(artist: ArtistsItem): Artist {
   const sortedImages = artist.images
     .filter((image) => image.width !== undefined)
     .sort((a, b) => (a.width || 0) - (b.width || 0));
@@ -83,7 +93,53 @@ export function SpotifyArtist(artist: SpotifyApi.ArtistObjectFull): Artist {
     images: null,
   };
 }
+export function SpotifyAlbum(album: AlbumsItem): Album {
+  return {
+    id: album.id,
+    total_tracks: album.total_tracks,
+    imageUrl: getLastImageUrl(album.images),
+    release_date: album.release_date,
+    name: album.name,
+    artists:
+      'artists' in album
+        ? album.artists.map((artist) => ({ id: artist.id, name: artist.name }))
+        : [],
+  };
+}
+export function SpotifyEpisode(episode: EpsiodesItem): Episode {
+  return {
+    audio_preview_url: episode.audio_preview_url || '',
+    description: episode.description,
+    duration_ms: episode.duration_ms,
+    id: episode.id,
+    imageUrl: getLastImageUrl(episode.images),
+    is_playable: episode.is_playable,
+    name: episode.name,
+    release_date: episode.release_date,
+    resume_point: episode.resume_point,
+  };
+}
+export function SpotifyAudiobook(audiobook: AudiobooksItem): Audiobook {
+  return {
+    id: audiobook.id,
+    authors: audiobook.authors,
+    edition: audiobook.edition,
+    explicit: audiobook.explicit,
+    imageUrl: getLastImageUrl(audiobook.images),
+    name: audiobook.name,
+    narrators: audiobook.narrators,
+    total_chapters: audiobook.total_chapters,
+  };
+}
 
+export function SpotifyShow(show: ShowsItem): Show {
+  return {
+    id: show.id,
+    imageUrl: getLastImageUrl(show.images),
+    name: show.name,
+    publisher: show.publisher,
+  };
+}
 const convertTime = (timeMs: number) => {
   const date = addMilliseconds(new Date(0), timeMs);
   return format(date, 'mm:ss');

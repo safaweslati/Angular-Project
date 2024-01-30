@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="main-wrapper">
+    <img ngSrc="{{ playerState.track?.album?.images?.[0]?.url }}" class="now-playing__cover" alt="" />
+    <div class="now-playing__side">
+      <div class="now-playing__name">{{ playerState.track?.name }}</div>
+      <div class="now-playing__artist">{{ playerState.track?.artists?.[0]?.name }}</div>
+      <button class="btn-spotify" (click)="previousTrack()">&lt;&lt;</button>
+      <button class="btn-spotify" (click)="togglePlay()">
+        {{ playerState.paused ? "PLAY" : "PAUSE" }}
+      </button>
+      <button class="btn-spotify" (click)="nextTrack()">&gt;&gt;</button>
+    </div>
+  </div>
+</div>

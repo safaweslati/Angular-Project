@@ -5,7 +5,7 @@ import { spotifyConfiguration } from 'src/config/constantes.config';
 import { Song } from '../Models/Song';
 import { SpotifyAlbum, SpotifyArtist, SpotifyTrack } from '../SpotifyHelper';
 import { Artist } from '../Models/Artist';
-import { Album } from '../Models/Album';
+import { Album } from '../Models/album';
 
 @Injectable({
   providedIn: 'root',

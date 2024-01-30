@@ -1,0 +1,80 @@
+.player{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: block;
+  background-color: black;
+  width: 100%;
+  height: 100px;
+}
+
+
+.main-wrapper {
+  padding-top: 45px;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+  width: 80%;
+  z-index: 1;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  height: 100%;
+}
+
+.main-container {
+  flex: 1;
+}
+
+.now-playing__name {
+  font-size: 1.5em;
+  margin-bottom: 0.2em;
+}
+
+.now-playing__artist {
+  margin-bottom: 1em;
+}
+
+.now-playing__status {
+  margin-bottom: 1em;
+}
+
+.now-playing__cover {
+  border-radius: 8px;
+  float: left;
+  margin-right: 10px;
+  text-align: right;
+  width: 300px;
+  height: 300px;
+}
+
+.now-playing__side {
+  margin-left: 2%;
+  width: 45%;
+}
+
+.btn-spotify {
+  background-color:#44c767;
+  border-radius:28px;
+  border:1px solid #18ab29;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:17px;
+  padding:16px 31px;
+  text-decoration:none;
+  text-shadow:0 1px 0 #2f6627;
+}
+.btn-spotify:active {
+  position:relative;
+  top:1px;
+}
+
+img { background: transparent; }

@@ -1,14 +1,17 @@
 import { Component, Input } from '@angular/core';
 import { PlayerService } from '../../services/player.service';
 import { Observable, map, of, switchMap } from 'rxjs';
+import { SpotifyService } from 'src/app/services/spotify.service';
+import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/Models/User';
 import { Playlist } from 'src/app/Models/Playlist';
 import { Artist } from 'src/app/Models/Artist';
-import { Album } from 'src/app/Models/Album';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistProfileService } from 'src/app/services/artist-profile.service';
-import { SpotifyService } from 'src/app/services/spotify.service';
-import { LoginService } from 'src/app/services/login.service';
+import { Album } from 'src/app/Models/album';
+import { Episode } from 'src/app/Models/episode';
+import { Show } from 'src/app/Models/show';
+import { Audiobook } from 'src/app/Models/audiobook';
 
 @Component({
   selector: 'app-show-all',
@@ -29,5 +32,6 @@ export class ShowAllComponent {
 
   isArtist(item: any): boolean {
     return 'followers' in item;
+
   }
 }

@@ -1,0 +1,68 @@
+/* CSS Variables */
+:root {
+  --layout-bp-mobile: 360px;
+  --layout-bp-tablet: 800px;
+  --layout-bp-desktop: 1000px;
+  --dark-gray: #181818;
+  --light-gray: #b3b3b3;
+  --black: black;
+}
+
+/* Media Query Mixins */
+@media only screen and (min-width: var(--layout-bp-tablet)) {
+  .tablet {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: var(--layout-bp-desktop)) {
+  .desktop {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: var(--layout-bp-desktop)) {
+  .search-section__input-container {
+    width: 320px;
+  }
+}
+
+@media only screen and (min-width: var(--layout-bp-desktop)) {
+  .search-section__search-item-container {
+    max-width: 98%;
+    margin: 0 auto;
+  }
+}
+
+.search-section__search-item {
+  max-width: 98%;
+  margin: 0 auto;
+  padding-bottom: 60px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.search-section__tracks-container--hide {
+  overflow: hidden;
+  height: 370px;
+}
+
+.search-section__artists-container--hide {
+  overflow: hidden;
+  height: 370px;
+}
+
+.search-section__btn {
+  margin-left: 10px;
+  margin-bottom: 15px;
+}
+.nav-link {
+  background-color: rgb(52, 52, 52); /* default background color */
+  color: white; /* default text color */
+  transition: background-color 0.3s, color 0.3s; /* smooth transition effect */
+}
+
+.nav-link:hover {
+  background-color: white; /* background color on hover */
+  color: black; /* text color on hover */
+}
