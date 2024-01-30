@@ -7,7 +7,6 @@ import {
   Renderer2,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Album } from 'src/app/Models/Album';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
 import { User } from 'src/app/Models/User';
@@ -45,7 +44,6 @@ export class SpotifyCardComponent {
   constructor(
     public navigationService: NavigationService,
     private router: Router
-
   ) {}
 
   onCardClick() {
@@ -55,11 +53,11 @@ export class SpotifyCardComponent {
     this.isHovered = isHovered;
   }
   isAlbum(cardData: Album | User | Playlist | Artist): cardData is Album {
-    return (cardData as Album)?.releaseDate !== undefined;
+    return (cardData as Album)?.release_date !== undefined;
+  }
   isAlbumOrEpisode(
     cardData: User | Playlist | Artist | Show | Album | Audiobook | Episode
   ): cardData is Album | Episode {
     return (cardData as Album | Episode)?.release_date !== undefined;
-
   }
 }

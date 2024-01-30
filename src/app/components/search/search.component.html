@@ -84,7 +84,7 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="true"
-  [items$]="artists$"
+  [items]="artists$ | async"
   *ngIf="showArtists$ | async"
 ></app-list-item>
 
@@ -96,7 +96,7 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="false"
-  [items$]="playlists$"
+  [items]="playlists$ | async"
   *ngIf="showPlaylists$ | async"
 ></app-list-item>
 
@@ -108,7 +108,7 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="false"
-  [items$]="albums$"
+  [items]="albums$ | async"
   *ngIf="showAlbums$ | async"
 ></app-list-item>
 
@@ -120,7 +120,7 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="false"
-  [items$]="episodes$"
+  [items]="episodes$ | async"
   *ngIf="showEpisodes$ | async"
 ></app-list-item>
 
@@ -132,7 +132,7 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="false"
-  [items$]="shows$"
+  [items]="shows$ | async"
   *ngIf="showShows$ | async"
 ></app-list-item>
 
@@ -144,5 +144,5 @@
 </span>
 <app-list-item
   [shouldApplyRoundedClass]="false"
-  [items$]="audiobooks$"
+  [items]="audiobooks$ | async"
 ></app-list-item>

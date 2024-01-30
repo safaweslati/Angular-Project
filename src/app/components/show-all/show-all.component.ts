@@ -8,10 +8,7 @@ import { Playlist } from 'src/app/Models/Playlist';
 import { Artist } from 'src/app/Models/Artist';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistProfileService } from 'src/app/services/artist-profile.service';
-import { Album } from 'src/app/Models/album';
-import { Episode } from 'src/app/Models/episode';
-import { Show } from 'src/app/Models/show';
-import { Audiobook } from 'src/app/Models/audiobook';
+import { Album } from '../../Models/album';
 
 @Component({
   selector: 'app-show-all',
@@ -32,6 +29,5 @@ export class ShowAllComponent {
 
   isArtist(item: any): boolean {
     return 'followers' in item;
-
   }
 }
