@@ -19,14 +19,21 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./spotify-card.component.css'],
 })
 export class SpotifyCardComponent {
+  navigate() {
+    if ('followers' in this.cardData) {
+      this.router.navigate(['/home/artist', this.cardData.id]);
+    }
+    if ('songs' in this.cardData) {
+      this.router.navigate(['/home/playlist', this.cardData.id]);
+    }
+  }
   @Input() cardData!: Album | User | Playlist | Artist;
   @Input() shouldApplyRoundedClass: boolean = false;
   isHovered: boolean = false;
 
   constructor(
     public navigationService: NavigationService,
-    private renderer: Renderer2,
-    private el: ElementRef
+    private router: Router
   ) {}
 
   onCardClick() {

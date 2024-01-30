@@ -10,13 +10,6 @@
   <div class="topTracks">
     <app-music-list [songs]="topTracks$ | async" />
   </div>
-  <!--
-  <span
-    class="show-more-less"
-    style="float: right"
-    [routerLink]="['/home/showAll', artist.id, 'Album']"
-    >Show more</span
-  >-->
   <div class="Albums">
     <app-list-item
       [title]="'Album'"
@@ -24,13 +17,6 @@
       [shouldApplyRoundedClass]="false"
     ></app-list-item>
   </div>
-  <!--
-  <span
-    class="show-more-less"
-    style="float: right"
-    [routerLink]="['/home/showAll', artist.id, 'Artist']"
-    >Show more</span
-  >-->
   <div class="relatedArtists">
     <app-list-item
       [title]="'Fans also like'"
