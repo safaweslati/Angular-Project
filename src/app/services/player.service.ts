@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Song } from '../Models/Song';
 import { Playlist } from '../Models/Playlist';
 import { Artist } from '../Models/Artist';
-import { Album } from '../Models/Album';
+import { Album } from '../Models/album';
 import { User } from '../Models/User';
 
 @Injectable({

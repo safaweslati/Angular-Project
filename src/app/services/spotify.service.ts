@@ -14,9 +14,6 @@ import { Playlist } from '../Models/Playlist';
 import { Song } from '../Models/Song';
 import { LoginService } from './login.service';
 import { Artist } from '../Models/Artist';
-import { spotifyConfiguration } from '../../config/constantes.config';
-import { HttpClient } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import {
   APISearch,
   AlbumsItem,
@@ -82,7 +79,6 @@ export class SpotifyService {
       map((response) =>
         response.artists.items.map((item: any) => SpotifyArtist(item))
       )
-
     );
   }
 
@@ -132,8 +128,8 @@ export class SpotifyService {
 
   searchForItems(
     term: string,
-    offset = 5,
-    limit = 10
+    offset = 0,
+    limit = 50
   ): Observable<{
     artists: Artist[];
     tracks: Song[];
