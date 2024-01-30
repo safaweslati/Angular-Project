@@ -20,7 +20,6 @@ import { Album } from 'src/app/Models/album';
 import { Audiobook } from 'src/app/Models/audiobook';
 import { Episode } from 'src/app/Models/episode';
 import { Show } from 'src/app/Models/show';
-import { SearchService } from 'src/app/services/search.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -65,7 +64,7 @@ export class SearchComponent {
   showShows$ = this.showShowsSubject.asObservable();
   showAudiobooks$ = this.showAudiobooksSubject.asObservable();
 
-  constructor(private searchService: SearchService) {
+  constructor(private spotifyService: SpotifyService) {
     this.searchForm = new FormGroup({
       search: new FormControl(''),
     });
@@ -75,7 +74,7 @@ export class SearchComponent {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => {
-        return this.searchService.searchForItems(term).pipe(
+        return this.spotifyService.searchForItems(term).pipe(
           catchError(() =>
             of({
               artists: [],
