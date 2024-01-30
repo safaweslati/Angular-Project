@@ -76,6 +76,7 @@ export class SearchComponent {
       distinctUntilChanged(),
       switchMap((term: string) => {
         return this.spotifyService.searchForItems(term, 5, 10).pipe(
+          tap((results) => console.log(results)),
           catchError(() =>
             of({
               artists: [],
@@ -102,9 +103,15 @@ export class SearchComponent {
 
     this.artists$ = this.items$.pipe(map((data) => data.artists));
 
-    this.tracks$ = this.items$.pipe(map((data) => data.tracks));
+    this.tracks$ = this.items$.pipe(
+      tap(() => console.log('tracks')),
+      map((data) => data.tracks)
+    );
 
-    this.playlists$ = this.items$.pipe(map((data) => data.playlists));
+    this.playlists$ = this.items$.pipe(
+      tap(() => console.log('playlists')),
+      map((data) => data.playlists)
+    );
 
     this.episodes$ = this.items$.pipe(map((data) => data.episodes));
 

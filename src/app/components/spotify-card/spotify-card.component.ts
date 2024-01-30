@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
+import { Song } from 'src/app/Models/Song';
 import { User } from 'src/app/Models/User';
 import { Album } from 'src/app/Models/album';
 import { Audiobook } from 'src/app/Models/audiobook';
