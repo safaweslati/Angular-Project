@@ -132,7 +132,6 @@ export class SpotifyService {
     const url = `${this.spotifyApiUrl}/search?q=${term}&type=audiobook%2Cartist%2Calbum%2Cplaylist%2Cshow%2Ctrack%2Cepisode&offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
       map((response: APISearch) => {
-        console.log(response.tracks);
         return {
           artists: response.artists.items.map((item: ArtistsItem) =>
             SpotifyArtist(item)

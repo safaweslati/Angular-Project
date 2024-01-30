@@ -69,12 +69,13 @@ export class SearchComponent {
       search: new FormControl(''),
     });
   }
+
   ngOnInit(): void {
     this.items$ = this.searchForm.get('search')?.valueChanges?.pipe(
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => {
-        return this.spotifyService.searchForItems(term).pipe(
+        return this.spotifyService.searchForItems(term, 5, 10).pipe(
           catchError(() =>
             of({
               artists: [],
