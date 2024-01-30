@@ -1,9 +1,7 @@
 <div class="container card p-10">
-  <div class="image"
-       [style.background-image]="'url('+ imageUrl +')'" >
-  </div>
+  <div class="image" [style.background-image]="'url(' + imageUrl + ')'"></div>
   <div class="controls">
-    <span> {{title }} </span>
+    <span> {{ title }} </span>
     <ng-content></ng-content>
   </div>
 </div>

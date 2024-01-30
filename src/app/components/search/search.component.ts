@@ -20,7 +20,7 @@ import { Album } from 'src/app/Models/album';
 import { Audiobook } from 'src/app/Models/audiobook';
 import { Episode } from 'src/app/Models/episode';
 import { Show } from 'src/app/Models/show';
-import { APISearch } from 'src/app/Models/spotifySearch';
+import { SearchService } from 'src/app/services/search.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 
 @Component({
@@ -64,7 +64,8 @@ export class SearchComponent {
   showEpisodes$ = this.showEpisodesSubject.asObservable();
   showShows$ = this.showShowsSubject.asObservable();
   showAudiobooks$ = this.showAudiobooksSubject.asObservable();
-  constructor(private spotifyService: SpotifyService) {
+
+  constructor(private searchService: SearchService) {
     this.searchForm = new FormGroup({
       search: new FormControl(''),
     });
@@ -74,10 +75,21 @@ export class SearchComponent {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((term: string) => {
-        return this.spotifyService
-          .searchForItems(term)
-          .pipe(catchError(() => of([])));
-      })
+        return this.searchService.searchForItems(term).pipe(
+          catchError(() =>
+            of({
+              artists: [],
+              tracks: [],
+              playlists: [],
+              episodes: [],
+              shows: [],
+              audiobooks: [],
+              albums: [],
+            })
+          )
+        );
+      }),
+      shareReplay()
     ) as Observable<{
       artists: Artist[];
       tracks: Song[];
@@ -87,40 +99,20 @@ export class SearchComponent {
       audiobooks: Audiobook[];
       albums: Album[];
     }>;
-    this.artists$ = this.items$.pipe(
-      map((data) => data.artists),
-      shareReplay(1)
-    );
 
-    this.tracks$ = this.items$.pipe(
-      map((data) => data.tracks),
-      shareReplay(1)
-    );
+    this.artists$ = this.items$.pipe(map((data) => data.artists));
 
-    this.playlists$ = this.items$.pipe(
-      map((data) => data.playlists),
-      shareReplay(1)
-    );
+    this.tracks$ = this.items$.pipe(map((data) => data.tracks));
 
-    this.episodes$ = this.items$.pipe(
-      map((data) => data.episodes),
-      shareReplay(1)
-    );
+    this.playlists$ = this.items$.pipe(map((data) => data.playlists));
 
-    this.shows$ = this.items$.pipe(
-      map((data) => data.shows),
-      shareReplay(1)
-    );
+    this.episodes$ = this.items$.pipe(map((data) => data.episodes));
 
-    this.audiobooks$ = this.items$.pipe(
-      map((data) => data.audiobooks),
-      shareReplay(1)
-    );
+    this.shows$ = this.items$.pipe(map((data) => data.shows));
 
-    this.albums$ = this.items$.pipe(
-      map((data) => data.albums),
-      shareReplay(1)
-    );
+    this.audiobooks$ = this.items$.pipe(map((data) => data.audiobooks));
+
+    this.albums$ = this.items$.pipe(map((data) => data.albums));
   }
   angle = faAngleLeft;
   fas = fas;
@@ -134,67 +126,55 @@ export class SearchComponent {
         this.showEpisodesSubject.next(true);
         this.showShowsSubject.next(true);
         this.showAudiobooksSubject.next(true);
-
         break;
       case 'showArtists':
         this.showArtistsSubject.next(true);
-        if (this.showArtistsSubject.value) {
-          this.showAlbumsSubject.next(false);
-          this.showPlaylistsSubject.next(false);
-          this.showEpisodesSubject.next(false);
-          this.showShowsSubject.next(false);
-          this.showAudiobooksSubject.next(false);
-        }
+        this.showAlbumsSubject.next(false);
+        this.showPlaylistsSubject.next(false);
+        this.showEpisodesSubject.next(false);
+        this.showShowsSubject.next(false);
+        this.showAudiobooksSubject.next(false);
         break;
       case 'showAlbums':
         this.showAlbumsSubject.next(true);
-        if (this.showAlbumsSubject.value) {
-          this.showArtistsSubject.next(false);
-          this.showPlaylistsSubject.next(false);
-          this.showEpisodesSubject.next(false);
-          this.showShowsSubject.next(false);
-          this.showAudiobooksSubject.next(false);
-        }
+        this.showArtistsSubject.next(false);
+        this.showPlaylistsSubject.next(false);
+        this.showEpisodesSubject.next(false);
+        this.showShowsSubject.next(false);
+        this.showAudiobooksSubject.next(false);
         break;
       case 'showPlaylists':
         this.showPlaylistsSubject.next(true);
-        if (this.showPlaylistsSubject.value) {
-          this.showArtistsSubject.next(false);
-          this.showAlbumsSubject.next(false);
-          this.showEpisodesSubject.next(false);
-          this.showShowsSubject.next(false);
-          this.showAudiobooksSubject.next(false);
-        }
+        this.showArtistsSubject.next(false);
+        this.showAlbumsSubject.next(false);
+        this.showEpisodesSubject.next(false);
+        this.showShowsSubject.next(false);
+        this.showAudiobooksSubject.next(false);
         break;
       case 'showEpisodes':
         this.showEpisodesSubject.next(true);
-        if (this.showEpisodesSubject.value) {
-          this.showArtistsSubject.next(false);
-          this.showAlbumsSubject.next(false);
-          this.showPlaylistsSubject.next(false);
-          this.showShowsSubject.next(false);
-          this.showAudiobooksSubject.next(false);
-        }
+        this.showArtistsSubject.next(false);
+        this.showAlbumsSubject.next(false);
+        this.showPlaylistsSubject.next(false);
+        this.showShowsSubject.next(false);
+        this.showAudiobooksSubject.next(false);
         break;
       case 'showShows':
         this.showShowsSubject.next(true);
-        if (this.showShowsSubject.value) {
-          this.showArtistsSubject.next(false);
-          this.showAlbumsSubject.next(false);
-          this.showPlaylistsSubject.next(false);
-          this.showEpisodesSubject.next(false);
-          this.showAudiobooksSubject.next(false);
-        }
+        this.showArtistsSubject.next(false);
+        this.showAlbumsSubject.next(false);
+        this.showPlaylistsSubject.next(false);
+        this.showEpisodesSubject.next(false);
+        this.showAudiobooksSubject.next(false);
         break;
       case 'showAudiobooks':
         this.showAudiobooksSubject.next(true);
-        if (this.showAudiobooksSubject.value) {
-          this.showArtistsSubject.next(false);
-          this.showAlbumsSubject.next(false);
-          this.showPlaylistsSubject.next(false);
-          this.showEpisodesSubject.next(false);
-          this.showShowsSubject.next(false);
-        }
+        this.showArtistsSubject.next(false);
+        this.showAlbumsSubject.next(false);
+        this.showPlaylistsSubject.next(false);
+        this.showEpisodesSubject.next(false);
+        this.showShowsSubject.next(false);
+
         break;
     }
   }
