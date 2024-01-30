@@ -56,3 +56,13 @@
   margin-left: 10px;
   margin-bottom: 15px;
 }
+.nav-link {
+  background-color: rgb(52, 52, 52); /* default background color */
+  color: white; /* default text color */
+  transition: background-color 0.3s, color 0.3s; /* smooth transition effect */
+}
+
+.nav-link:hover {
+  background-color: white; /* background color on hover */
+  color: black; /* text color on hover */
+}
