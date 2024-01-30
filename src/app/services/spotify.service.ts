@@ -5,59 +5,85 @@ import {
   SpotifyPlaylistDetails,
   SpotifyTrack,
   SpotifyUser,
-} from "../SpotifyHelper";
-import {Playlist} from "../Models/Playlist";
-import {Song} from "../Models/Song";
-import {LoginService} from "./login.service";
-import {Artist} from "../Models/Artist";
-import {catchError, EMPTY, filter, map, Observable, switchMap,tap} from "rxjs";
-import {spotifyConfiguration} from "../../config/constantes.config";
-import {HttpClient} from "@angular/common/http";
-import {ToastrService} from "ngx-toastr";
+} from '../SpotifyHelper';
+import { Playlist } from '../Models/Playlist';
+import { Song } from '../Models/Song';
+import { LoginService } from './login.service';
+import { Artist } from '../Models/Artist';
+import {
+  catchError,
+  EMPTY,
+  filter,
+  map,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
+import { spotifyConfiguration } from '../../config/constantes.config';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/Models/User';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class SpotifyService {
-
-
-
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
 
-  constructor(private http: HttpClient, private loginService: LoginService,private toastr: ToastrService) {}
+  constructor(
+    private http: HttpClient,
+    private loginService: LoginService,
+    private toastr: ToastrService
+  ) {}
 
-  getUserPlaylists(userId: string | undefined, offset = 0, limit = 50): Observable<Playlist[]> {
-    const url = this.spotifyApiUrl+`/users/${userId}/playlists?limit=${limit}&offset=${offset}` ;
+  getUserPlaylists(
+    userId: string | undefined,
+    offset = 0,
+    limit = 50
+  ): Observable<Playlist[]> {
+    const url =
+      this.spotifyApiUrl +
+      `/users/${userId}/playlists?limit=${limit}&offset=${offset}`;
     return this.http.get<any>(url).pipe(
-      map(response => response.items.map((item: any) => SpotifyPlaylist(item))),
+      map((response) =>
+        response.items.map((item: any) => SpotifyPlaylist(item))
+      ),
       catchError((error) => {
         this.toastr.error(`playlists`);
-        return EMPTY
-      }
-    )
+        return EMPTY;
+      })
+    );
+  }
+  getFollowedArtists(): Observable<Artist[]> {
+    const url = this.spotifyApiUrl + `/me/following?type=artist`;
+    return this.http.get<any>(url).pipe(
+      tap((response) => console.log(response)),
+      map((response) =>
+        response.artists.items.map((item: any) => SpotifyArtist(item))
+      )
     );
   }
 
   getUserProfile(userId: string | undefined): Observable<User> {
-    const url = this.spotifyApiUrl+`/users/${userId}`;
+    const url = this.spotifyApiUrl + `/users/${userId}`;
 
     return this.http.get<any>(url).pipe(
-      tap(response => console.log(response)),
-      map(response =>  SpotifyUser(response)))
-    ;
-
+      tap((response) => console.log(response)),
+      map((response) => SpotifyUser(response))
+    );
   }
 
   getSavedTracks(offset = 0, limit = 50): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/me/tracks?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
-      map(response => response.items.map((item: any) => SpotifyTrack(item.track))),
+      map((response) =>
+        response.items.map((item: any) => SpotifyTrack(item.track))
+      ),
       catchError((error) => {
         this.toastr.error(`Access Token Expired`);
-        return EMPTY
-      }
-    ));
+        return EMPTY;
+      })
+    );
   }
 
   getTopArtists(limit = 10): Observable<Artist[]> {
@@ -66,9 +92,9 @@ export class SpotifyService {
       map((response) => response.items.map((item: any) => SpotifyArtist(item))),
       catchError((error) => {
         this.toastr.error(`Access Token Expired`);
-        return EMPTY
-      }
-    ));
+        return EMPTY;
+      })
+    );
   }
 
   getPlaylistDetails(playlistId: string | null): Observable<Playlist> {
@@ -77,27 +103,35 @@ export class SpotifyService {
       map((playlistDetails) => SpotifyPlaylistDetails(playlistDetails)),
       catchError((error) => {
         this.toastr.error(`Access Token Expired`);
-        return EMPTY
+        return EMPTY;
       })
     );
   }
 
-  getFeaturedPlaylists(offset = 0, limit = 50) : Observable<Playlist[]>{
-    const url= this.spotifyApiUrl + `/browse/featured-playlists?offset=${offset}&limit=${limit}` ;
+  getFeaturedPlaylists(offset = 0, limit = 50): Observable<Playlist[]> {
+    const url =
+      this.spotifyApiUrl +
+      `/browse/featured-playlists?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
-      map(response => response.playlists.items.map((item: any) => SpotifyPlaylist(item)))
-    , filter(Boolean),
+      map((response) =>
+        response.playlists.items.map((item: any) => SpotifyPlaylist(item))
+      ),
+      filter(Boolean)
     );
   }
 
-  getCategoryPlaylists(category:string, offset = 0, limit = 50): Observable<Playlist[]> {
+  getCategoryPlaylists(
+    category: string,
+    offset = 0,
+    limit = 50
+  ): Observable<Playlist[]> {
     const url = `${this.spotifyApiUrl}/browse/categories/${category}/playlists?offset=${offset}&limit=${limit}`;
-    return this.http.get<any>(url).pipe(
-      map(response => response.playlists.items.map((item: any) => SpotifyPlaylist(item))),
-    );
+    return this.http
+      .get<any>(url)
+      .pipe(
+        map((response) =>
+          response.playlists.items.map((item: any) => SpotifyPlaylist(item))
+        )
+      );
   }
-
-
-
-
 }

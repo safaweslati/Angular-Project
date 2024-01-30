@@ -1,13 +1,5 @@
-<div class="px-6 py-3">
-  <div class="px-6 py-3 flex items-center justify-between">
-    <!--
-    <span
-      class="show-more-less"
-      style="float: right"
-      [routerLink]="['/home/showAll', userId, 'ProfilePlaylist']"
-      >Show more</span
-    >-->
-  </div>
+<!-- <div class="px-6 py-3">
+  <div class="px-6 py-3 flex items-center justify-between"></div>
   <div *ngIf="profile$ | async as profile">
     <app-list-item
       [title]="'Palylist created'"
@@ -17,15 +9,7 @@
 </div>
 
 <div class="px-6 py-3">
-  <div class="px-6 py-3 flex items-center justify-between">
-    <!--
-    <span
-      class="show-more-less"
-      style="float: right"
-      [routerLink]="['/home/showAll', -1, 'Profile']"
-      >Show more</span
-    >-->
-  </div>
+  <div class="px-6 py-3 flex items-center justify-between"></div>
   <div *ngIf="profile$ | async as profile">
     <app-list-item
       [title]="'Top artist this month'"
@@ -33,4 +17,17 @@
       [items]="artist$ | async"
     ></app-list-item>
   </div>
+</div>-->
+<div class="Profile" *ngIf="profile$ | async as profile">
+  <app-playlist-header
+    [name]="profile.name!"
+    [imageUrl]="profile.imageUrl!"
+    [verified]="false"
+    class="mt-2 d-block"
+  ></app-playlist-header>
+  <app-list-item
+    [title]="'Followed Artists'"
+    [shouldApplyRoundedClass]="true"
+    [items]="artist$ | async"
+  ></app-list-item>
 </div>
