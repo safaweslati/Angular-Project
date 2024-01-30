@@ -8,6 +8,7 @@ import { Album } from 'src/app/Models/Album';
 import { ActivatedRoute } from '@angular/router';
 import { ArtistProfileService } from 'src/app/services/artist-profile.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
+import { spotifyConfiguration } from 'src/config/constantes.config';
 
 @Component({
   selector: 'app-show-all',
@@ -19,11 +20,13 @@ export class ShowAllComponent {
   @Input() shouldApplyRoundedClass: boolean = false;
   itemType: String = '';
   id: string = '';
-
+  idUser = '';
+  userData = localStorage.getItem('user');
   constructor(
     private route: ActivatedRoute,
     private artistService: ArtistProfileService,
-    public playerService: PlayerService
+    public playerService: PlayerService,
+    private spotifyService: SpotifyService
   ) {}
 
   ngOnInit() {
@@ -36,7 +39,15 @@ export class ShowAllComponent {
         this.items$ = this.artistService.getArtistAlbums(params['id']);
       } else if (this.itemType === 'Playlist') {
         this.items$ = this.playerService.playlists$;
+      } else if (this.itemType === 'Profile') {
+        this.items$ = this.spotifyService.getTopArtists();
+      } else if (this.itemType === 'ProfilePlaylist') {
+        this.items$ = this.spotifyService.getUserPlaylists(params['id']);
       }
     });
+    if (this.userData) {
+      const user = JSON.parse(this.userData);
+      this.idUser = user.id;
+    }
   }
 }

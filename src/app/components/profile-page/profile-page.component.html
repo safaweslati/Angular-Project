@@ -6,11 +6,12 @@
       Playlist created
     </h1>
 
-    <h2
-      class="pr-8 text-xs text-lightest uppercase tracking-wider hover:underline mb-3"
+    <span
+      class="show-more-less"
+      style="float: right"
+      [routerLink]="['/home/showAll', userId, 'ProfilePlaylist']"
+      >Show more</span
     >
-      See all
-    </h2>
   </div>
   <div *ngIf="profile$ | async as profile">
     <app-list-item [items$]="playlists$"></app-list-item>
@@ -25,13 +26,17 @@
       Top artist this month
     </h1>
 
-    <h2
-      class="pr-8 text-xs text-lightest uppercase tracking-wider hover:underline mb-3"
+    <span
+      class="show-more-less"
+      style="float: right"
+      [routerLink]="['/home/showAll', -1, 'Profile']"
+      >Show more</span
     >
-      See all
-    </h2>
   </div>
   <div *ngIf="profile$ | async as profile">
-    <app-list-item [shouldApplyRoundedClass]="true" [items$]="artist$"></app-list-item>
+    <app-list-item
+      [shouldApplyRoundedClass]="true"
+      [items$]="artist$"
+    ></app-list-item>
   </div>
 </div>
