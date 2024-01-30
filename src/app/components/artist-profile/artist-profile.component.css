@@ -2,3 +2,9 @@
   margin: 40px;
   flex: display;
 }
+.show-more-less {
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}

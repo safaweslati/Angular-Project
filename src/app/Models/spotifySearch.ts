@@ -1,6 +1,11 @@
 export interface APISearch {
   artists: Artists;
   tracks: Tracks;
+  albums: Albums;
+  playlists: Playlists;
+  audiobooks: Audiobooks;
+  episodes: Episodes;
+  shows: Shows;
 }
 
 export interface Artists {
@@ -137,6 +142,7 @@ export interface AlbumsItem {
   external_urls: ExternalUrls;
   href: string;
   images: Image[];
+  id: string;
   name: string;
   release_date: string;
   release_date_precision: ReleaseDatePrecision;
@@ -167,7 +173,7 @@ export interface PlaylistsItem {
   public: boolean | null;
   snapshot_id: string;
   tracks: PlaylistTracks;
-  type: Type.playlist; // Should be "playlist"
+  type: Type.playlist;
   uri: string;
 }
 
@@ -259,16 +265,16 @@ export interface EpsiodesItem {
   uri: string;
   restrictions: Reason;
 }
-export interface audiobooks {
+export interface Audiobooks {
   href: string;
   limit: number;
   next: string;
   offset: number;
   previous: string;
   total: number;
-  items: audiobooksItem[];
+  items: AudiobooksItem[];
 }
-export interface audiobooksItem {
+export interface AudiobooksItem {
   authors: Author[];
   available_markets: string[];
   copyrights: Copyright[];

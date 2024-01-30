@@ -19,3 +19,50 @@
     </div>
   </div>
 </div>
+<span class="title title-bg mt-4" *ngIf="(artists$ | async)?.length">
+  Artists
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="true"
+  [items$]="artists$"
+></app-list-item>
+
+<span class="title title-bg mt-4" *ngIf="(shows$ | async)?.length">
+  Playlists
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="false"
+  [items$]="playlists$"
+></app-list-item>
+
+<span class="title title-bg mt-4" *ngIf="(albums$ | async)?.length">
+  Albums
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="false"
+  [items$]="albums$"
+></app-list-item>
+
+<span class="title title-bg mt-4" *ngIf="(episodes$ | async)?.length">
+  Episodes
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="false"
+  [items$]="episodes$"
+></app-list-item>
+
+<span class="title title-bg mt-4" *ngIf="(shows$ | async)?.length">
+  Shows
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="false"
+  [items$]="shows$"
+></app-list-item>
+
+<span class="title title-bg mt-4" *ngIf="(audiobooks$ | async)?.length">
+  Audiobooks
+</span>
+<app-list-item
+  [shouldApplyRoundedClass]="false"
+  [items$]="audiobooks$"
+></app-list-item>
