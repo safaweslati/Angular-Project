@@ -11,17 +11,17 @@
     </tr>
   </thead>
   <tbody>
-    <tr
-      *ngFor="let song of displayedSongs"
-      (click)="PlaySong(song)"
-      [class.selected-song]="(playerService.currentSong$ | async) === song"
-    >
-      <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
-      <td>{{ song.title }}</td>
-      <td>{{ getArtists(song) }}</td>
-      <td>{{ song.time }}</td>
-      <td>{{ song.album.name }}</td>
-    </tr>
+  <tr
+    *ngFor="let song of displayedSongs"
+    (click)="PlaySong(song)"
+    [class.selected-song]="(playerService.currentSong$ | async) === song"
+  >
+    <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
+    <td>{{ song.title }}</td>
+    <td>{{ getArtists(song) }}</td>
+    <td>{{ song.time }}</td>
+    <td>{{ song.album.name }}</td>
+  </tr>
   </tbody>
 </table>
 <span class="show-more-less" (click)="toggleShowMore()">

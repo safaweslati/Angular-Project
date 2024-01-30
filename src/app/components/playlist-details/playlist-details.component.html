@@ -1,6 +1,17 @@
 <div class="songs" *ngIf="details$ | async as details">
   <app-playlist-header [name]="details.name" [imageUrl]="details.imageUrl" class="mt-2 d-block" />
   <app-music-list  [songs]="details.songs"/>
+  <div>
+    <div style="margin-left: 6px" class="title title-bg mt-4 ">
+      Let's find something for your playlist
+    </div>
+    <button>
+      <fa-icon [icon]="searchIcon"></fa-icon>
+      <span>Search for songs</span>
+    </button>
+  </div>
+  <input class="form-control" type="text" [formControl]="searchControl" placeholder="placeholder" />
+
 </div>
 
 

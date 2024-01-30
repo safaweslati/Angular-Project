@@ -26,7 +26,7 @@ import { ErrorImagePipe } from '../pipe/error-image.pipe';
 import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
-
+import {ItemDetailsComponent} from "../components/item-details/item-details.component";
 @NgModule({
   declarations: [
     HomeComponent,
@@ -52,6 +52,7 @@ import {WebPlaybackComponent} from "../components/web-playback/web-playback.comp
     ProfilePageComponent,
     ErrorImagePipe,
     UriPipe,
+    ItemDetailsComponent,
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 export const spotifyConfiguration = {
-  clientId: "1b83967469fa4d259bf117c9ad894942",
+  clientId: "5e0837894487436fb10c984a3a7854ad",
   authEndpoint: 'https://accounts.spotify.com/authorize',
   redirectUrl: 'http://localhost:4200/login',
   scopes: [
@@ -13,6 +13,8 @@ export const spotifyConfiguration = {
     "playlist-read-collaborative", // Read collaborative playlists the user has access to.
     "streaming",
     "user-read-email",
+    "playlist-modify-public",
+    "playlist-modify-private",
   ],
   spotifyApiBaseUrl: 'https://api.spotify.com/v1',
 };

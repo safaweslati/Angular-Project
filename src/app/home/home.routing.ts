@@ -9,14 +9,12 @@ import { ShowAllComponent } from '../components/show-all/show-all.component';
 import { showAllGuard } from '../guards/show-all.guard';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
-import {PlaylistsComponent} from "../components/playlists/playlists.component";
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children : [
       {path: 'savedTracks', component: SavedTracksComponent},
-      {path: 'playlists', component: PlaylistsComponent},
       {path: 'playlist/:id', component: PlaylistDetailsComponent}
-    ]}
+    ]},
   {
     path: '',
     component: HomeComponent,
