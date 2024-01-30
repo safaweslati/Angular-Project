@@ -7,6 +7,7 @@ import {
   Renderer2,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Album } from 'src/app/Models/Album';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
 import { User } from 'src/app/Models/User';
@@ -22,6 +23,14 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./spotify-card.component.css'],
 })
 export class SpotifyCardComponent {
+  navigate() {
+    if ('followers' in this.cardData) {
+      this.router.navigate(['/home/artist', this.cardData.id]);
+    }
+    if ('songs' in this.cardData) {
+      this.router.navigate(['/home/playlist', this.cardData.id]);
+    }
+  }
   @Input() cardData!:
     | User
     | Playlist
@@ -35,8 +44,8 @@ export class SpotifyCardComponent {
 
   constructor(
     public navigationService: NavigationService,
-    private renderer: Renderer2,
-    private el: ElementRef
+    private router: Router
+
   ) {}
 
   onCardClick() {
@@ -45,9 +54,12 @@ export class SpotifyCardComponent {
   public toggleHover(isHovered: boolean): void {
     this.isHovered = isHovered;
   }
+  isAlbum(cardData: Album | User | Playlist | Artist): cardData is Album {
+    return (cardData as Album)?.releaseDate !== undefined;
   isAlbumOrEpisode(
     cardData: User | Playlist | Artist | Show | Album | Audiobook | Episode
   ): cardData is Album | Episode {
     return (cardData as Album | Episode)?.release_date !== undefined;
+
   }
 }

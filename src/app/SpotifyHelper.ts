@@ -15,11 +15,23 @@ import { Episode } from './Models/episode';
 import { Show } from './Models/show';
 import { Album } from './Models/album';
 
+
 export function SpotifyUser(user: any): User {
   return {
     id: user.id,
     name: user.display_name,
     imageUrl: getLastImageUrl(user.images),
+  };
+}
+export function SpotifyAlbum(album: any): Album {
+  const imageUrl =
+    album.images && album.images.length > 0 ? album.images[0].url : '';
+  return {
+    id: album.id,
+    name: album.name,
+    imageUrl,
+    releaseDate: album.release_date || '',
+    uri: album.uri,
   };
 }
 

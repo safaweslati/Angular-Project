@@ -1,5 +1,6 @@
 .hovered .absolute {
   opacity: 1;
+  cursor: pointer;
 }
 @import "tailwindcss/base";
 @import "tailwindcss/components";

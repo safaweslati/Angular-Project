@@ -4,6 +4,8 @@
   (mouseenter)="toggleHover(true)"
   (mouseleave)="toggleHover(false)"
   style="background-color: #242424"
+  (click)="navigate()"
+
 >
   <div class="w-full aspect-w-1 aspect-h-1 overflow-hidden">
     <img
@@ -27,8 +29,8 @@
     >
       {{ cardData.name }}
     </h2>
-    <p *ngIf="isAlbumOrEpisode(cardData)" class="text-xs">
-      Released: {{ cardData.release_date }}
+    <p *ngIf="isAlbum(cardData)" class="text-xs">
+      Released: {{ cardData.releaseDate }}
     </p>
   </div>
 

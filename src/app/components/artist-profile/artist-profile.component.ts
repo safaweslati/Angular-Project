@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { faClock } from '@fortawesome/free-solid-svg-icons';
 import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { Album } from 'src/app/Models/Album';
 import { Artist } from 'src/app/Models/Artist';
 import { Song } from 'src/app/Models/Song';
 import { Album } from 'src/app/Models/album';

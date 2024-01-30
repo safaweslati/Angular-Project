@@ -3,7 +3,6 @@ export const spotifyConfiguration = {
   authEndpoint: 'https://accounts.spotify.com/authorize',
   redirectUrl: 'http://localhost:4200/login',
   scopes: [
-
     "user-read-currently-playing", // Read the user's currently playing music.
     "user-read-recently-played", // Read the user's recently played tracks.
     "user-read-playback-state", // Read the user's playback state.
@@ -13,6 +12,7 @@ export const spotifyConfiguration = {
     "playlist-read-private", // Read the user's private playlists.
     "playlist-read-collaborative", // Read collaborative playlists the user has access to.
     "streaming",
+    'user-follow-read',
     "user-read-email",
   ],
   spotifyApiBaseUrl: 'https://api.spotify.com/v1',

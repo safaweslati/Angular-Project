@@ -1,24 +1,18 @@
-<app-card-group
-  [title]="'Popular Playlists'"
-  [input]="popularPlaylists$ | async"
-  [inputAll]="popularPlaylistsAll$ | async">
-</app-card-group>
-
-<app-card-group
-  [title]="'Workout Playlists'"
-  [input]="workoutPlaylists$ | async"
-  [inputAll]="workoutPlaylistsAll$ | async">
-</app-card-group>
-
-<app-card-group
-  [title]="'Pop Playlists'"
-  [input]="popPlaylists$ | async"
-  [inputAll]="popPlaylistsAll$ | async">
-</app-card-group>
-
-<app-card-group
-  [title]="'Chill Playlists'"
-  [input]="chillPlaylists$ | async"
-  [inputAll]="chillPlaylistsAll$ | async">
-</app-card-group>
-
+<div class="accueil">
+  <app-list-item
+    [title]="'Popular Playlists '"
+    [items]="popularPlaylistsAll$ | async"
+  ></app-list-item>
+  <app-list-item
+    [title]="'Workout Playlists '"
+    [items]="workoutPlaylistsAll$ | async"
+  ></app-list-item>
+  <app-list-item
+    [title]="'Pop Playlists '"
+    [items]="popPlaylistsAll$ | async"
+  ></app-list-item>
+  <app-list-item
+    [title]="'Chill Playlists '"
+    [items]="chillPlaylistsAll$ | async"
+  ></app-list-item>
+</div>
