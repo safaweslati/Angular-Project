@@ -1,148 +1,114 @@
-<div id="searchId" class="container-fluid p-2">
-  <div class="d-flex align-items-center">
-    <div class="search-section__btn-container"></div>
-    <div class="ml-3 w-50">
-      <form [formGroup]="searchForm">
-        <div class="input-group">
-          <span class="input-group-text" id="basic-addon1"
-            ><fa-icon [icon]="searchIcon"></fa-icon
-          ></span>
-          <input
-            type="text"
-            formControlName="search"
-            class="form-control"
-            id="inputSearch"
-            placeholder="Search for tracks, artists, or albums"
-          />
-        </div>
-      </form>
+<div class="container" *ngIf="toggleSubject$ | async as toggle">
+  <div id="searchId" class="container-fluid p-2">
+    <div class="d-flex align-items-center">
+      <div class="search-section__btn-container"></div>
+      <div class="ml-3 w-50">
+        <form [formGroup]="searchForm">
+          <div class="input-group">
+            <span class="input-group-text" id="basic-addon1"
+              ><fa-icon [icon]="searchIcon"></fa-icon
+            ></span>
+            <input
+              type="text"
+              formControlName="search"
+              class="form-control"
+              id="inputSearch"
+              placeholder="Search for tracks, artists, or albums"
+            />
+          </div>
+        </form>
+      </div>
     </div>
   </div>
-</div>
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <ul class="nav nav-tabs d-flex">
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showAll')"
-          >
-            All
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showArtists')"
-          >
-            Artists
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showAlbums')"
-          >
-            Albums
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showPlaylists')"
-          >
-            Playlists
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showEpisodes')"
-          >
-            Episodes
-          </button>
-        </li>
-        <li class="nav-item">
-          <button
-            class="nav-link rounded-pill m-1"
-            (click)="toggleSection('showShows')"
-          >
-            Shows
-          </button>
-        </li>
-      </ul>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <ul class="nav nav-tabs d-flex">
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showAll')"
+            >
+              All
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showArtists')"
+            >
+              Artists
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showAlbums')"
+            >
+              Albums
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showPlaylists')"
+            >
+              Playlists
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showEpisodes')"
+            >
+              Episodes
+            </button>
+          </li>
+          <li class="nav-item">
+            <button
+              class="nav-link rounded-pill m-1"
+              (click)="toggleSection('showShows')"
+            >
+              Shows
+            </button>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
+
+  <app-list-item
+    [title]="'Artists'"
+    [shouldApplyRoundedClass]="true"
+    [items]="artists$ | async"
+    *ngIf="toggle[0]"
+  ></app-list-item>
+
+  <app-list-item
+    [title]="'Playlists'"
+    [shouldApplyRoundedClass]="false"
+    [items]="playlists$ | async"
+    *ngIf="toggle[2]"
+  ></app-list-item>
+
+  <app-list-item
+    [title]="'Albums'"
+    [shouldApplyRoundedClass]="false"
+    [items]="albums$ | async"
+    *ngIf="toggle[1]"
+  ></app-list-item>
+
+  <app-list-item
+    [title]="'Episodes'"
+    [shouldApplyRoundedClass]="false"
+    [items]="episodes$ | async"
+    *ngIf="toggle[3]"
+  ></app-list-item>
+
+  <app-list-item
+    [title]="'Shows'"
+    [shouldApplyRoundedClass]="false"
+    [items]="shows$ | async"
+    *ngIf="toggle[4]"
+  ></app-list-item>
 </div>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showArtists$ | async) && (artists$ | async)?.length"
->
-  Artists
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="true"
-  [items]="artists$ | async"
-  *ngIf="showArtists$ | async"
-></app-list-item>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showPlaylists$ | async) && (shows$ | async)?.length"
->
-  Playlists
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="false"
-  [items]="playlists$ | async"
-  *ngIf="showPlaylists$ | async"
-></app-list-item>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showAlbums$ | async) && (albums$ | async)?.length"
->
-  Albums
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="false"
-  [items]="albums$ | async"
-  *ngIf="showAlbums$ | async"
-></app-list-item>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showEpisodes$ | async) && (episodes$ | async)?.length"
->
-  Episodes
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="false"
-  [items]="episodes$ | async"
-  *ngIf="showEpisodes$ | async"
-></app-list-item>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showShows$ | async) && (shows$ | async)?.length"
->
-  Shows
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="false"
-  [items]="shows$ | async"
-  *ngIf="showShows$ | async"
-></app-list-item>
-
-<span
-  class="title title-bg mt-4"
-  *ngIf="(showAudiobooks$ | async) && (audiobooks$ | async)?.length"
->
-  Audiobooks
-</span>
-<app-list-item
-  [shouldApplyRoundedClass]="false"
-  [items]="audiobooks$ | async"
-></app-list-item>

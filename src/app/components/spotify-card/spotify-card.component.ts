@@ -14,7 +14,6 @@ import { Album } from 'src/app/Models/album';
 import { Audiobook } from 'src/app/Models/audiobook';
 import { Episode } from 'src/app/Models/episode';
 import { Show } from 'src/app/Models/show';
-import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-spotify-card',
@@ -41,14 +40,8 @@ export class SpotifyCardComponent {
   @Input() shouldApplyRoundedClass: boolean = false;
   isHovered: boolean = false;
 
-  constructor(
-    public navigationService: NavigationService,
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
 
-  onCardClick() {
-    this.navigationService.navigate(this.cardData);
-  }
   public toggleHover(isHovered: boolean): void {
     this.isHovered = isHovered;
   }

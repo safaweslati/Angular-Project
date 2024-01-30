@@ -128,8 +128,8 @@ export class SpotifyService {
 
   searchForItems(
     term: string,
-    offset = 5,
-    limit = 10
+    offset = 0,
+    limit = 50
   ): Observable<{
     artists: Artist[];
     tracks: Song[];

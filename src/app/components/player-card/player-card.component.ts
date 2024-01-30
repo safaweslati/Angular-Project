@@ -1,4 +1,9 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+} from '@angular/core';
 import { Song } from 'src/app/Models/Song';
 import { PlayerService } from 'src/app/services/player.service';
 
@@ -6,6 +11,7 @@ import { PlayerService } from 'src/app/services/player.service';
   selector: 'app-player-card',
   templateUrl: './player-card.component.html',
   styleUrls: ['./player-card.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerCardComponent {
   @ViewChild('audioPlayer') audioPlayer: any;

@@ -1,6 +1,5 @@
 .artist-profile {
   margin: 40px;
-  flex: display;
 }
 :host {
   display: block;
@@ -8,5 +7,4 @@
   max-height: 100vh;
   max-width: 300vh;
   overflow-y: auto;
-
 }

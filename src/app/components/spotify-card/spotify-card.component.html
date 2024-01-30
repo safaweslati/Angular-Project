@@ -28,7 +28,7 @@
     >
       {{ cardData.name }}
     </h2>
-    <p *ngIf="isAlbum(cardData)" class="text-xs">
+    <p *ngIf="isAlbumOrEpisode(cardData)" class="text-xs">
       Released: {{ cardData.release_date }}
     </p>
   </div>
