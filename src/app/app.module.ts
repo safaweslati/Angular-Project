@@ -6,11 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthentificationInterceptorProvider } from './interceptor/auth.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { SearchComponent } from './components/search/search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,6 +19,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     FontAwesomeModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [AuthentificationInterceptorProvider],
   bootstrap: [AppComponent],

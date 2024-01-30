@@ -27,6 +27,8 @@ import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
 import {ItemDetailsComponent} from "../components/item-details/item-details.component";
+import { DialogModule } from 'primeng/dialog';
+import {ButtonModule} from "primeng/button";
 @NgModule({
   declarations: [
     HomeComponent,
@@ -60,7 +62,9 @@ import {ItemDetailsComponent} from "../components/item-details/item-details.comp
     FontAwesomeModule,
     FormsModule,
     ReactiveFormsModule,
-    NgOptimizedImage
+    NgOptimizedImage,
+    DialogModule,
+    ButtonModule,
   ],
 })
 export class HomeModule {}

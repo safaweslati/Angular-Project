@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SpotifyService } from '../../services/spotify.service';
 import { Playlist } from '../../Models/Playlist';
 import {debounceTime, distinctUntilChanged, Observable, switchMap} from 'rxjs';
-import {faPlay, faSearch} from "@fortawesome/free-solid-svg-icons";
+import { faPlay, faSearch} from "@fortawesome/free-solid-svg-icons";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {APISearch} from "../../Models/spotifySearch";
 import {Song} from "../../Models/Song";
@@ -19,6 +19,7 @@ export class PlaylistDetailsComponent implements OnInit {
   searchIcon = faSearch;
   searchControl = new FormControl();
   searchResults :APISearch[]=[]
+
   constructor(
     private route: ActivatedRoute,
     private spotifyService: SpotifyService,

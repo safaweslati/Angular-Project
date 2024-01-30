@@ -7,6 +7,7 @@ import {Observable, switchMap} from "rxjs";
 import {Song} from "../../Models/Song";
 import {Router} from "@angular/router";
 import {PlaylistService} from "../../services/playlist.service";
+import {FormControl, FormGroup} from "@angular/forms";
 
 @Component({
   selector: 'app-left-panel',
@@ -16,11 +17,17 @@ import {PlaylistService} from "../../services/playlist.service";
 export class LeftPanelComponent implements OnInit {
   playlists$!: Observable<Playlist[]>;
   savedTracks$!: Observable<Song[]>;
+  playlistName: string='';
   newPlaylist = {
-    "name": "New Playlist",
+    "name": this.playlistName,
     "description": "New playlist description",
     "public": false
   };
+  visible=false
+  Form = new FormGroup({
+    playlistName: new FormControl(''),
+    })
+
 
   homeIcon = faHome;
   searchIcon = faSearch;
@@ -30,17 +37,21 @@ export class LeftPanelComponent implements OnInit {
   addIcon = faPlus;
 
 
+
   constructor(
     public spotifyService: SpotifyService,
     public loginService: LoginService,
     public playlistService:PlaylistService,
-    public router:Router
+    public router:Router,
     ) {
   }
 
   ngOnInit() {
     this.playlists$ = this.getPlaylists();
     this.savedTracks$ = this.spotifyService.getSavedTracks()
+  }
+  showDialog(){
+    this.visible=true
   }
 
 
@@ -51,8 +62,8 @@ export class LeftPanelComponent implements OnInit {
     ).subscribe(
        () => this.playlists$ = this.getPlaylists()
     );
-
     return this.router.navigate(['home/playlists']);
+    this.visible=false
   }
 
   private getPlaylists(){

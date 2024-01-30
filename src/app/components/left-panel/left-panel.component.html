@@ -10,15 +10,22 @@
       <fa-icon [icon]="searchIcon" ></fa-icon>
     </app-menu-item>
   </div>
-
   <div class="menu-container flex">
     <div class="title-container">
     <span class="playlist-title">
       Playlists
     </span>
       <fa-icon class="add-icon" [icon]="addIcon"
-               (click)="addPlaylist()"></fa-icon>
+               (click)="showDialog()"></fa-icon>
     </div>
+    <p-dialog [(visible)]="visible" [style]="{width: '50vw', 'z-index': 1000}">
+      <form [formGroup]="Form">
+
+        <label for="first-name">Playlist Name: </label>
+        <input id="first-name" type="text" formControlName="playlistName">
+      </form>
+    </p-dialog>
+
     <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
       <app-menu-item [contenu]="'Liked Songs'" [routerLink]="['/home/savedTracks']" >
         <fa-icon [icon]="playlistIcon"></fa-icon>
@@ -38,3 +45,4 @@
     </app-menu-user-item>
   </ng-container>
 </div>
+

@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PlaylistDetailsComponent } from './playlist-details.component';
+import {faPen} from "@fortawesome/free-solid-svg-icons";
 
 describe('PlaylistDetailsComponent', () => {
   let component: PlaylistDetailsComponent;
