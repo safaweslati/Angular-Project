@@ -17,16 +17,11 @@ import {FormControl, FormGroup} from "@angular/forms";
 export class LeftPanelComponent implements OnInit {
   playlists$!: Observable<Playlist[]>;
   savedTracks$!: Observable<Song[]>;
-  playlistName: string='';
-  newPlaylist = {
-    "name": this.playlistName,
-    "description": "New playlist description",
-    "public": false
-  };
   visible=false
   Form = new FormGroup({
     playlistName: new FormControl(''),
     })
+  playlistId:string=''
 
 
   homeIcon = faHome;
@@ -55,17 +50,29 @@ export class LeftPanelComponent implements OnInit {
   }
 
 
-  addPlaylist() {
+  addPlaylist(value: any) {
+    if(value==null){
+      value='new Playlist'
+    }
+    let newPlaylist = {
+      "name": value,
+      "description": "New playlist description",
+      "public": false
+    };
     // @ts-ignore
     this.loginService.currentUser$.pipe(
-      switchMap(user => this.playlistService.addPlaylist(user?.id, this.newPlaylist))
+      switchMap(user => this.playlistService.addPlaylist(user?.id,newPlaylist))
     ).subscribe(
-       () => this.playlists$ = this.getPlaylists()
+       (reponse) => {
+         this.playlists$ = this.getPlaylists()
+         this.visible=false
+         this.router.navigate([`home/playlist/${reponse.id}`]);
+       }
     );
-    return this.router.navigate(['home/playlists']);
+  }
+  cancel(){
     this.visible=false
   }
-
   private getPlaylists(){
     return this.loginService.currentUser$.pipe(
       switchMap(user => this.spotifyService.getUserPlaylists(user?.id))

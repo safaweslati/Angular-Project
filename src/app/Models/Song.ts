@@ -13,4 +13,5 @@ export interface Song {
   time: string;
   previewUrl: string;
   addedAt?: string;
+  uri?:String
 }

@@ -36,7 +36,7 @@ export class WebPlaybackComponent implements OnInit {
 
     this.playerState_interval = setInterval(() => {
       this.loadPlayerState()
-      console.log(this.playerState)
+      //console.log(this.playerState)
       //todo: refactor observable
 
     }, 5000);

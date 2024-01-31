@@ -158,6 +158,21 @@ export class SpotifyService {
       })
     );
   }
+  searchForSongs(
+    term: string,
+    offset = 5,
+    limit = 10
+  ): Observable<{ tracks: Song[]; }> {
+    const url = `${this.spotifyApiUrl}/search?q=${term}&type=track&offset=${offset}&limit=${limit}`;
+    return this.http.get<any>(url).pipe(
+      map((response: APISearch) => {
+        console.log(response);
+        return {
+          tracks: response.tracks.items.map((item: any) => SpotifyTrack(item)),
+        };
+      })
+    );
+  }
   getFeaturedPlaylists(offset = 0, limit = 50): Observable<Playlist[]> {
     const url =
       this.spotifyApiUrl +

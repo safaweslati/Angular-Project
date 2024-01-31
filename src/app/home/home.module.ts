@@ -29,6 +29,9 @@ import {WebPlaybackComponent} from "../components/web-playback/web-playback.comp
 import {ItemDetailsComponent} from "../components/item-details/item-details.component";
 import { DialogModule } from 'primeng/dialog';
 import {ButtonModule} from "primeng/button";
+import { MenuModule } from 'primeng/menu';
+import {BadgeModule} from "primeng/badge";
+import {ToastModule} from "primeng/toast";
 @NgModule({
   declarations: [
     HomeComponent,
@@ -65,6 +68,9 @@ import {ButtonModule} from "primeng/button";
     NgOptimizedImage,
     DialogModule,
     ButtonModule,
+    MenuModule,
+    BadgeModule,
+    ToastModule,
   ],
 })
 export class HomeModule {}

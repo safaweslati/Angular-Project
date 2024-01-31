@@ -64,6 +64,7 @@ export function SpotifyTrack(
     },
     time: convertTime('duration_ms' in track ? track.duration_ms : 0),
     previewUrl: 'preview_url' in track ? track.preview_url : '',
+    uri:'uri' in track? track.uri:"",
   };
 }
 

@@ -19,12 +19,35 @@
                (click)="showDialog()"></fa-icon>
     </div>
     <p-dialog [(visible)]="visible" [style]="{width: '50vw', 'z-index': 1000}">
-      <form [formGroup]="Form">
+      <form [formGroup]="Form"  >
 
-        <label for="first-name">Playlist Name: </label>
-        <input id="first-name" type="text" formControlName="playlistName">
+        <div class="row">
+          <div class="col">
+
+            <label for="playlist-name">Playlist Name: </label>
+          </div>
+          <div class="col">
+
+            <input id="playlist-name" type="text" formControlName="playlistName" class="form-control">
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col"  [ngStyle]="{display:'flex',alignContent:'end',justifyContent:'end'}">
+            <button class="spotify-green">
+              Open My Spotify
+            </button>
+
+            <button type="button" class="btn-spotify" (click)="addPlaylist(Form.get('playlistName')!.value)">Save</button>l">
+            <button type="button" class="btn-spotify" (click)="cancel()">Cancel</button>
+          </div>
+
+        </div>
+
       </form>
     </p-dialog>
+
+
 
     <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
       <app-menu-item [contenu]="'Liked Songs'" [routerLink]="['/home/savedTracks']" >

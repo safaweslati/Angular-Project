@@ -37,7 +37,8 @@ img{
 }
 
 .playlist-title{
-  margin-right: 8px;
+  margin-right: -10%;
+  margin-left: -75%;
   align-self: flex-start;
   font-weight: 700;
   font-size: .9rem;
@@ -62,18 +63,10 @@ img{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+  margin-bottom: 7%;
 }
 
 .add-icon {
-  margin-left: 100%;
-}
-.dialog-content {
-  background-color: white;
-  padding: 20px;
-}
-
-.confirm-button {
-  background-color: green;
-  color: white;
+  margin-left: 170%;
 }
 

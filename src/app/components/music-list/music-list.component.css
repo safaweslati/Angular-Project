@@ -48,8 +48,12 @@ td {
 }
 
 .show-more-less {
-  font-size: 14px; /* Ajustez la taille de la police selon vos préférences */
+  font-size: 14px;
   font-weight: bold;
-  margin-right: 10px; /* Ajustez la marge à droite selon vos préférences */
+  margin-right: 10px;
   cursor: pointer;
 }
+.redHeartIcon {
+  color: red;
+}
+

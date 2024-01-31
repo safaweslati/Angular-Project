@@ -15,6 +15,8 @@ export const spotifyConfiguration = {
     "user-read-email",
     "playlist-modify-public",
     "playlist-modify-private",
+    "user-library-modify",
+    "user-library-read"
   ],
   spotifyApiBaseUrl: 'https://api.spotify.com/v1',
 };
