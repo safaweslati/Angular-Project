@@ -20,7 +20,7 @@ import { MenuItem } from 'primeng/api';
 export class MusicListComponent {
   @Input() songs: Song[] | null = [];
   // @ts-ignore
-  @Input() playlistId: string;
+  @Input() playlist: Playlist;
   clockIcon = faClock;
   playIcon = faPlay;
   MoreIcon = faEllipsis;
@@ -62,11 +62,16 @@ export class MusicListComponent {
   }
   deleteItem(event: any) {
     const requestBody = {
-      uris: [this.selectedSong.uri],
-      snapshot_id: this.selectedSong.id,
+      tracks: [
+        {
+          uri: this.selectedSong.uri,
+        },
+      ],
+      snapshot_id: this.playlist.snapshot_id,
     };
 
-    this.playlistService.DeleteItem(this.playlistId, requestBody).subscribe(
+    console.log(this.playlist);
+    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
       () => {
         console.log('asaabiii');
         this.toast.success('deleted from the playlist');

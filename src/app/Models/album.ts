@@ -1,7 +1,10 @@
+import { Artist } from './Artist';
+
 export interface Album {
   id: string;
+  total_tracks: number;
+  imageUrl: any;
+  release_date: string;
   name: string;
-  imageUrl: string;
-  releaseDate: string;
-  uri: string;
+  artists: { id: string; name: string }[];
 }

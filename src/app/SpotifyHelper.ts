@@ -33,6 +33,7 @@ export function SpotifyPlaylist(
     id: playlist.id,
     name: playlist.name,
     imageUrl: getLastImageUrl(playlist.images),
+    snapshot_id: playlist.snapshot_id,
     songs: null,
   };
 }
@@ -43,6 +44,7 @@ export function SpotifyPlaylistDetails(
     id: playlist.id,
     name: playlist.name,
     imageUrl: getFirstImageUrl(playlist.images),
+    snapshot_id: playlist.snapshot_id,
     songs: playlist.tracks.items?.map((item) => SpotifyTrack(item.track)),
   };
 }
@@ -64,7 +66,7 @@ export function SpotifyTrack(
     },
     time: convertTime('duration_ms' in track ? track.duration_ms : 0),
     previewUrl: 'preview_url' in track ? track.preview_url : '',
-    uri:'uri' in track? track.uri:"",
+    uri: 'uri' in track ? track.uri : '',
   };
 }
 

@@ -112,7 +112,7 @@ export class SearchComponent {
   toggleSection(section: string): void {
     switch (section) {
       case 'showAll':
-        this.toggleSubject.next(this.toggleSubject.value);
+        this.toggleSubject.next([true, true, true, true, true, true]);
         break;
       case 'showArtists':
         this.toggleSubject.next([true, false, false, false, false]);
