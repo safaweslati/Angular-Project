@@ -1,0 +1,66 @@
+<div style="margin-left: 6px" class="title title-bg mt-4">
+  Let's find something for your playlist
+</div>
+<div class="input-container">
+  <fa-icon [icon]="searchIcon" class="search-icon"></fa-icon>
+  <input
+    class="dark-input"
+    type="text"
+    [formControl]="searchControl"
+    placeholder="search for songs"
+  />
+</div>
+
+<table
+  class="custom-table mt-3"
+  style="width: 100%"
+  *ngIf="searchResults$ | async as searchResults"
+>
+  <thead>
+    <tr class="mb-4">
+      <th class="w-3">#</th>
+      <th class="w-25">Artist</th>
+      <th class="w-20">Album</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr
+      *ngFor="let song of searchResults.tracks"
+      (click)="PlaySong(song)"
+      [class.selected-song]="(playerService.currentSong$ | async) === song"
+      style="margin-bottom: 10px"
+    >
+      <td>
+        <div style="display: flex; align-items: center">
+          <img
+            src="{{ song.album.imageUrl }}"
+            alt="{{ song.album.name }}"
+            style="
+              margin-bottom: 5%;
+              width: 60px;
+              height: 60px;
+              margin-right: 10px;
+            "
+          />
+          {{ song.album.name }}
+        </div>
+      </td>
+      <td>{{ getArtists(song) }}</td>
+      <td>{{ song.album.name }}</td>
+      <td>
+        <button
+          style="
+            border-radius: 15px;
+            background-color: black;
+            color: white;
+            padding: 5px;
+            height: 40px;
+          "
+          (click)="AddItem(song)"
+        >
+          Add
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import {CommonModule, NgOptimizedImage} from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { HomeComponent } from './home.component';
 import { HomeRouting } from './home.routing';
 import { LeftPanelComponent } from '../components/left-panel/left-panel.component';
@@ -25,13 +25,15 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
 import { ErrorImagePipe } from '../pipe/error-image.pipe';
 import { UriPipe } from '../pipe/uri.pipe';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
-import {WebPlaybackComponent} from "../components/web-playback/web-playback.component";
-import {ItemDetailsComponent} from "../components/item-details/item-details.component";
+import { WebPlaybackComponent } from '../components/web-playback/web-playback.component';
+import { ItemDetailsComponent } from '../components/item-details/item-details.component';
 import { DialogModule } from 'primeng/dialog';
-import {ButtonModule} from "primeng/button";
+import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
-import {BadgeModule} from "primeng/badge";
-import {ToastModule} from "primeng/toast";
+import { BadgeModule } from 'primeng/badge';
+import { ToastModule } from 'primeng/toast';
+import { AddSongComponent } from '../components/add-song/add-song.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -58,6 +60,7 @@ import {ToastModule} from "primeng/toast";
     ErrorImagePipe,
     UriPipe,
     ItemDetailsComponent,
+    AddSongComponent,
   ],
   imports: [
     CommonModule,

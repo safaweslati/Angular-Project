@@ -7,8 +7,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
 @import "material-icons/iconfont/material-icons.css";
 @import "@fortawesome/fontawesome-free/css/all.css";
-@import 'node_modules/primeng/resources/primeng.min.css';
-@import 'primeng/resources/themes/lara-dark-green/theme.css';
+@import "node_modules/primeng/resources/primeng.min.css";
+/* @import "primeng/resources/themes/lara-dark-green/theme.css"; */
 @import "primeng/resources/primeng.css";
 /*
 @tailwind base;
@@ -87,5 +87,11 @@ body {
   opacity: 6;
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

@@ -1,7 +1,10 @@
-<div class="songs" >
-  <app-playlist-header [name]="'Liked Songs'" [imageUrl]="'https://i.scdn.co/image/ab67706c0000da8470d229cb865e8d81cdce0889'" class="mt-2 d-block" />
-  <app-music-list  [songs]="songs$ | async"/>
+<div class="songs">
+  <app-playlist-header
+    [name]="'Liked Songs'"
+    [imageUrl]="
+      'https://i.scdn.co/image/ab67706c0000da8470d229cb865e8d81cdce0889'
+    "
+    class="mt-2 d-block"
+  />
+  <app-music-list [songs]="songs$ | async" />
 </div>
-
-
-

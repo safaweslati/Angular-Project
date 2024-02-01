@@ -1,0 +1,22 @@
+.search-icon {
+  position: absolute;
+  left: 10px; /* Adjust the left position as needed */
+  top: 50%;
+  transform: translateY(-50%);
+  color: darkgray;
+}
+.input-container {
+  position: relative;
+  width: 74%;
+  outline: none !important;
+}
+
+.dark-input {
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--bs-border-radius);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  background-color: darkgray;
+  color: white;
+  padding-left: 30px;
+}

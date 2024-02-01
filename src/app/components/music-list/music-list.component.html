@@ -1,29 +1,34 @@
 <span class="title title-bg mt-4"> Music </span>
 <table class="custom-table mt-3" *ngIf="songs">
   <thead>
-  <tr class="mb-4">
-    <th class="w-5">#</th>
-    <th class="w-25">Title</th>
-    <th class="w-16">Artist</th>
-    <th class="w-16"><fa-icon class="clock" [icon]="clockIcon"></fa-icon></th>
-    <th class="w-16">Album</th>
-  </tr>
+    <tr class="mb-4">
+      <th class="w-5">#</th>
+      <th class="w-25">Title</th>
+      <th class="w-16">Artist</th>
+      <th class="w-16"><fa-icon class="clock" [icon]="clockIcon"></fa-icon></th>
+      <th class="w-16">Album</th>
+    </tr>
   </thead>
   <tbody>
-  <tr
-    *ngFor="let song of displayedSongs"
-    (click)="PlaySong(song)"
-    [class.selected-song]="(playerService.currentSong$ | async) === song"
-  >
-    <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
-    <td>{{ song.title }}</td>
-    <td>{{ getArtists(song) }}</td>
-    <td>{{ song.time }}</td>
-    <td>{{ song.album.name }}</td>
-    <td style="padding-left: 3%">
-      <p-menu #menu [model]="items" [popup]="true"></p-menu>
-      <fa-icon class="clock" [icon]="MoreIcon" (click)="openMenu(song);menu.toggle($event)"></fa-icon>
-    </td>
+    <tr
+      *ngFor="let song of displayedSongs"
+      (click)="PlaySong(song)"
+      [class.selected-song]="(playerService.currentSong$ | async) === song"
+    >
+      <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
+      <td>{{ song.title }}</td>
+      <td>{{ getArtists(song) }}</td>
+      <td>{{ song.time }}</td>
+      <td>{{ song.album.name }}</td>
+      <td style="padding-left: 3%">
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <fa-icon
+          class="clock"
+          [icon]="MoreIcon"
+          (click)="openMenu(song); menu.toggle($event)"
+        ></fa-icon>
+      </td>
+    </tr>
   </tbody>
 </table>
 
