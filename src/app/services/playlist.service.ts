@@ -2,15 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { spotifyConfiguration } from '../../config/constantes.config';
-import { Observable } from 'rxjs';
+import {BehaviorSubject, map, Observable, of, switchMap} from 'rxjs';
+import {Playlist} from "../Models/Playlist";
+import {LoginService} from "./login.service";
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlaylistService {
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
+  private playlistDetailsSubject = new BehaviorSubject<Playlist | null>(null);
+  public playlistDetails$ = this.playlistDetailsSubject.asObservable();
 
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService, private loginService: LoginService) {}
   // @ts-ignore
   addPlaylist(userId: string | undefined, playlist): Observable<any> {
     const url = this.spotifyApiUrl + `/users/${userId}/playlists`;
@@ -42,5 +47,17 @@ export class PlaylistService {
   Check(reqBody) {
     const url = `${this.spotifyApiUrl}/me/tracks/contains?ids=${reqBody}`;
     return this.http.get<any>(url);
+  }
+  updatePlaylistDetails(updatedDetails: Playlist) {
+    this.playlistDetailsSubject.next(updatedDetails);
+  }
+
+  isCurrentUserOwner(playlist: Playlist): Observable<boolean> {
+    return this.loginService.currentUser$.pipe(
+      switchMap((user) => {
+        const currentUserId = user?.id;
+        return of(currentUserId === playlist.owner);
+      })
+    );
   }
 }

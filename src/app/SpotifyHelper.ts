@@ -35,6 +35,7 @@ export function SpotifyPlaylist(
     imageUrl: getLastImageUrl(playlist.images),
     snapshot_id: playlist.snapshot_id,
     songs: null,
+    owner: playlist.owner.id
   };
 }
 export function SpotifyPlaylistDetails(
@@ -46,6 +47,7 @@ export function SpotifyPlaylistDetails(
     imageUrl: getFirstImageUrl(playlist.images),
     snapshot_id: playlist.snapshot_id,
     songs: playlist.tracks.items?.map((item) => SpotifyTrack(item.track)),
+    owner: playlist.owner.id
   };
 }
 

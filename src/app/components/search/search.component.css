@@ -8,6 +8,13 @@
   --black: black;
 }
 
+:host{
+  display: block;
+  width: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
 /* Media Query Mixins */
 @media only screen and (min-width: var(--layout-bp-tablet)) {
   .tablet {

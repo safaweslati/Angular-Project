@@ -1,9 +1,9 @@
-<div class="songs" *ngIf="details$ | async as details">
+<div class="songs" *ngIf="playlistService.playlistDetails$ | async as details">
   <app-playlist-header
     [name]="details.name"
     [imageUrl]="details.imageUrl"
     class="mt-2 d-block"
   />
   <app-music-list [songs]="details.songs" [playlist]="details" />
-  <app-add-song [playlistId]="playlistId" />
+  <app-add-song *ngIf="isCurrentUserOwner$ | async" [playlistId]="playlistId" />
 </div>

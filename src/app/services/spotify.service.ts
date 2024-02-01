@@ -67,7 +67,7 @@ export class SpotifyService {
         response.items.map((item: any) => SpotifyPlaylist(item))
       ),
       catchError((error) => {
-        this.toastr.error(`playlists`);
+        this.toastr.error(`Error fetching data from the API`);
         return EMPTY;
       })
     );
@@ -78,7 +78,11 @@ export class SpotifyService {
       tap((response) => console.log(response)),
       map((response) =>
         response.artists.items.map((item: any) => SpotifyArtist(item))
-      )
+      ),
+      catchError((error) => {
+        this.toastr.error(`Error fetching data from the API`);
+        return EMPTY;
+      })
     );
   }
 
@@ -87,7 +91,11 @@ export class SpotifyService {
 
     return this.http.get<any>(url).pipe(
       tap((response) => console.log(response)),
-      map((response) => SpotifyUser(response))
+      map((response) => SpotifyUser(response)),
+      catchError((error) => {
+        this.toastr.error(`Error fetching data from the API`);
+        return EMPTY;
+      })
     );
   }
 
@@ -98,7 +106,7 @@ export class SpotifyService {
         response.items.map((item: any) => SpotifyTrack(item.track))
       ),
       catchError((error) => {
-        this.toastr.error(`Access Token Expired`);
+        this.toastr.error(`Error fetching data from the API`);
         return EMPTY;
       })
     );
@@ -109,7 +117,7 @@ export class SpotifyService {
     return this.http.get<any>(url).pipe(
       map((response) => response.items.map((item: any) => SpotifyArtist(item))),
       catchError((error) => {
-        this.toastr.error(`Access Token Expired`);
+        this.toastr.error(`Error fetching data from the API`);
         return EMPTY;
       })
     );
@@ -120,7 +128,7 @@ export class SpotifyService {
     return this.http.get<any>(url).pipe(
       map((playlistDetails) => SpotifyPlaylistDetails(playlistDetails)),
       catchError((error) => {
-        this.toastr.error(`Access Token Expired`);
+        this.toastr.error(`Error fetching data from the API`);
         return EMPTY;
       })
     );

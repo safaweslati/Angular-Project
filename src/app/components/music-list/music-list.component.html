@@ -1,5 +1,6 @@
+<div *ngIf="songs && songs.length>0">
 <span class="title title-bg mt-4"> Music </span>
-<table class="custom-table mt-3" *ngIf="songs">
+<table class="custom-table mt-3" >
   <thead>
     <tr class="mb-4">
       <th class="w-5">#</th>
@@ -20,13 +21,18 @@
       <td>{{ getArtists(song) }}</td>
       <td>{{ song.time }}</td>
       <td>{{ song.album.name }}</td>
-      <td style="padding-left: 3%">
-        <p-menu #menu [model]="items" [popup]="true"></p-menu>
-        <fa-icon
-          class="clock"
-          [icon]="MoreIcon"
-          (click)="openMenu(song); menu.toggle($event)"
-        ></fa-icon>
+      <td style="padding-left: 3%" *ngIf="isCurrentUserOwner$ | async">
+        <button
+          style="
+            border-radius: 15px;
+            background-color: black;
+            color: white;
+            padding: 5px;
+            height: 40px;
+          "
+          (click)="deleteItem(song)" >
+          Delete
+        </button>
       </td>
     </tr>
   </tbody>
@@ -35,3 +41,10 @@
 <span class="show-more-less" (click)="toggleShowMore()">
   {{ showMore ? "Show Less" : "Show More" }}
 </span>
+<!--        <p-menu #menu [model]="items" [popup]="true"></p-menu>-->
+<!--        <fa-icon-->
+<!--          class="clock"-->
+<!--          [icon]="MoreIcon"-->
+<!--          (click)="openMenu(song); menu.toggle($event)"-->
+<!--        ></fa-icon>-->
+</div>

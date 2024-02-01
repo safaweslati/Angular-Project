@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
-import { map, Observable, take, tap } from 'rxjs';
+import { map, Observable} from 'rxjs';
 import { Playlist } from '../../Models/Playlist';
 
 @Component({

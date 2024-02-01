@@ -6,4 +6,5 @@ export interface Playlist {
   imageUrl: string;
   snapshot_id: string;
   songs: Song[] | null;
+  owner: string;
 }

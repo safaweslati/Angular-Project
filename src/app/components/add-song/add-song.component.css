@@ -20,3 +20,10 @@
   color: white;
   padding-left: 30px;
 }
+button{
+  border-radius: 15px;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  height: 40px;
+}

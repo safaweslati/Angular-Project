@@ -11,6 +11,9 @@ import { PlayerService } from '../../services/player.service';
 import { PlaylistService } from '../../services/playlist.service';
 import { ToastrService } from 'ngx-toastr';
 import { MenuItem } from 'primeng/api';
+import {SpotifyService} from "../../services/spotify.service";
+import {Observable} from "rxjs";
+import {Playlist} from "../../Models/Playlist";
 
 @Component({
   selector: 'app-music-list',
@@ -28,20 +31,24 @@ export class MusicListComponent {
   showMore: boolean = false;
   selectedSong!: Song;
   isSaved!: boolean;
+  isCurrentUserOwner$!: Observable<boolean>;
 
-  items: MenuItem[] = [
-    { label: 'Save', command: (event) => this.saveItem(event) },
-    { label: 'Delete', command: (event) => this.deleteItem(event) },
-  ];
+  // items: MenuItem[] = [
+  //   // { label: 'Save', command: (event) => this.saveItem(event) },
+  //   { label: 'Delete', command: (event) => this.deleteItem(event) },
+  // ];
 
   constructor(
     public playerService: PlayerService,
     public playlistService: PlaylistService,
-    private toast: ToastrService
-  ) {}
+    private toast: ToastrService,
+    private spotifyService: SpotifyService
+  ) {
+  }
 
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
+    this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist)
   }
 
   toggleShowMore(): void {
@@ -60,7 +67,9 @@ export class MusicListComponent {
   getArtists(song: Song) {
     return song.artists.map((artist) => artist.name).join(', ');
   }
-  deleteItem(event: any) {
+
+  deleteItem(song: Song) {
+    this.selectedSong = song;
     const requestBody = {
       tracks: [
         {
@@ -74,13 +83,21 @@ export class MusicListComponent {
     this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
       () => {
         console.log('asaabiii');
-        this.toast.success('deleted from the playlist');
+        this.toast.success('Deleted from the playlist');
+
+        this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
+          (updatedDetails) => {
+            this.playlistService.updatePlaylistDetails(updatedDetails);
+          },
+        );
       },
       (error) => {
-        console.error('Error deleting item from the playlist', error);
+        this.toast.error('Error deleting item from the playlist');
       }
     );
+
   }
+/*
   checkSong() {
     this.playlistService.Check(this.selectedSong.id).subscribe(
       (reponse) => {
@@ -140,13 +157,14 @@ export class MusicListComponent {
       }
     );
   }
-
+*/
   openMenu(song: Song) {
     this.selectedSong = song;
-    this.updateMenuLabel();
+    //this.updateMenuLabel();
   }
 
   PlaySong(song: Song) {
-    this.playerService.playMusic(song);
+      this.playerService.playMusic(song);
+
   }
 }
