@@ -7,7 +7,8 @@ export const track = {
   },
   artists: [
     { name: "" }
-  ]
+  ],
+  uri: ""
 }
 
 export type PlayerState = {

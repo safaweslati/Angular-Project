@@ -1,14 +1,19 @@
-<div class="container">
-  <div class="main-wrapper">
-    <img ngSrc="{{ playerState.track?.album?.images?.[0]?.url }}" class="now-playing__cover" alt="" />
-    <div class="now-playing__side">
-      <div class="now-playing__name">{{ playerState.track?.name }}</div>
-      <div class="now-playing__artist">{{ playerState.track?.artists?.[0]?.name }}</div>
-      <button class="btn-spotify" (click)="previousTrack()">&lt;&lt;</button>
-      <button class="btn-spotify" (click)="togglePlay()">
-        {{ playerState.paused ? "PLAY" : "PAUSE" }}
-      </button>
-      <button class="btn-spotify" (click)="nextTrack()">&gt;&gt;</button>
+<div *ngIf="playerState.active && playerState.track" class="fixed z-50 bottom-0 left-0 right-0 w-full h-28 bg-black flex justify-content-between flex-row items-center">
+  <div class="flex w-1/3 p-4 ">
+    <img src="{{ playerState.track?.album?.images?.[0]?.url | errorImage}}" class="now-playing__cover" alt="" />
+    <div class="">
+      <div class="now-playing__name">{{ playerState.track?.name  || "test"}}</div>
+      <div class="now-playing__artist">{{ playerState.track?.artists?.[0]?.name  || "test"}}</div>
+    </div>
+  </div>
+  <div class=" w-2/3 p-4 grow-0 flex-row flex gap-2 justify-center">
+    <button class="btn-spotify" (click)="previousTrack()">&lt;&lt;</button>
+    <button class="btn-spotify" (click)="togglePlay()">
+      {{ playerState.paused ? "PLAY" : "PAUSE" }}
+    </button>
+    <button class="btn-spotify" (click)="nextTrack()">&gt;&gt;</button>
+    <div>
+      <audio src="{{playerState.track?.uri}}"></audio>
     </div>
   </div>
 </div>
