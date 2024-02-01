@@ -1,3 +1,7 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
 .player{
   position: fixed;
   bottom: 0;
@@ -33,12 +37,12 @@
 }
 
 .now-playing__name {
-  font-size: 1.5em;
+  font-size: 1.2em;
   margin-bottom: 0.2em;
 }
 
 .now-playing__artist {
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
 }
 
 .now-playing__status {
@@ -47,11 +51,10 @@
 
 .now-playing__cover {
   border-radius: 8px;
-  float: left;
   margin-right: 10px;
   text-align: right;
-  width: 300px;
-  height: 300px;
+  width: 75px;
+  height: 75px;
 }
 
 .now-playing__side {
@@ -63,12 +66,11 @@
   background-color:#44c767;
   border-radius:28px;
   border:1px solid #18ab29;
-  display:inline-block;
   cursor:pointer;
   color:#ffffff;
   font-family:Arial;
   font-size:17px;
-  padding:16px 31px;
+  padding:16px 20px;
   text-decoration:none;
   text-shadow:0 1px 0 #2f6627;
 }

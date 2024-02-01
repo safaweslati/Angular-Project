@@ -41,15 +41,15 @@ export class WebPlaybackComponent implements OnInit {
 
     }, 5000);
     this.spotifyPlayer = this.spotifyWebSDK.spotifyPlayer;
-    console.log(this.spotifyPlayer)
-    console.log(this.spotifyWebSDK.spotifyPlayer)
+    console.log("spotplayer",this.spotifyPlayer)
+
   }
 
   loadPlayerState(){
         this.playerState = this.spotifyWebSDK.state;
+    console.log("playerState",this.playerState)
   }
   togglePlay() {
-    console.log(this.spotifyPlayer)
 
     this.spotifyWebSDK.togglePlay();
   }
