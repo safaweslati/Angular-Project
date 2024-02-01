@@ -5,7 +5,7 @@ import { loginGuard } from './guards/login.guard';
 import { ArtistProfileComponent } from './components/artist-profile/artist-profile.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
     path: 'login',
     loadChildren: () =>
