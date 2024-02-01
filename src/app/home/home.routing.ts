@@ -6,7 +6,6 @@ import { PlaylistDetailsComponent } from '../components/playlist-details/playlis
 import { SearchComponent } from '../components/search/search.component';
 import { AccueilComponent } from '../components/accueil/accueil.component';
 import { ShowAllComponent } from '../components/show-all/show-all.component';
-import { showAllGuard } from '../guards/show-all.guard';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 
@@ -26,7 +25,6 @@ const routes: Routes = [
       {
         path: 'showAll',
         component: ShowAllComponent,
-        canActivate: [showAllGuard],
       },
       { path: 'profile/:userId', component: ProfilePageComponent },
       { path: 'artist/:id', component: ArtistProfileComponent },

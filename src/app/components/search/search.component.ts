@@ -48,21 +48,14 @@ export class SearchComponent {
   audiobooks$: Observable<Audiobook[]> | undefined;
   tracks$: Observable<Song[]> | undefined;
 
-  private showAllSubject = new BehaviorSubject<boolean>(true);
-  private showArtistsSubject = new BehaviorSubject<boolean>(true);
-  private showAlbumsSubject = new BehaviorSubject<boolean>(true);
-  private showPlaylistsSubject = new BehaviorSubject<boolean>(true);
-  private showEpisodesSubject = new BehaviorSubject<boolean>(true);
-  private showShowsSubject = new BehaviorSubject<boolean>(true);
-  private showAudiobooksSubject = new BehaviorSubject<boolean>(true);
-
-  showAll$ = this.showAllSubject.asObservable();
-  showArtists$ = this.showArtistsSubject.asObservable();
-  showAlbums$ = this.showAlbumsSubject.asObservable();
-  showPlaylists$ = this.showPlaylistsSubject.asObservable();
-  showEpisodes$ = this.showEpisodesSubject.asObservable();
-  showShows$ = this.showShowsSubject.asObservable();
-  showAudiobooks$ = this.showAudiobooksSubject.asObservable();
+  private toggleSubject = new BehaviorSubject<boolean[]>([
+    true,
+    true,
+    true,
+    true,
+    true,
+  ]);
+  toggleSubject$ = this.toggleSubject.asObservable();
 
   constructor(private spotifyService: SpotifyService) {
     this.searchForm = new FormGroup({
@@ -119,61 +112,22 @@ export class SearchComponent {
   toggleSection(section: string): void {
     switch (section) {
       case 'showAll':
-        this.showArtistsSubject.next(true);
-        this.showAlbumsSubject.next(true);
-        this.showPlaylistsSubject.next(true);
-        this.showEpisodesSubject.next(true);
-        this.showShowsSubject.next(true);
-        this.showAudiobooksSubject.next(true);
+        this.toggleSubject.next(this.toggleSubject.value);
         break;
       case 'showArtists':
-        this.showArtistsSubject.next(true);
-        this.showAlbumsSubject.next(false);
-        this.showPlaylistsSubject.next(false);
-        this.showEpisodesSubject.next(false);
-        this.showShowsSubject.next(false);
-        this.showAudiobooksSubject.next(false);
+        this.toggleSubject.next([true, false, false, false, false]);
         break;
       case 'showAlbums':
-        this.showAlbumsSubject.next(true);
-        this.showArtistsSubject.next(false);
-        this.showPlaylistsSubject.next(false);
-        this.showEpisodesSubject.next(false);
-        this.showShowsSubject.next(false);
-        this.showAudiobooksSubject.next(false);
+        this.toggleSubject.next([false, true, false, false, false]);
         break;
       case 'showPlaylists':
-        this.showPlaylistsSubject.next(true);
-        this.showArtistsSubject.next(false);
-        this.showAlbumsSubject.next(false);
-        this.showEpisodesSubject.next(false);
-        this.showShowsSubject.next(false);
-        this.showAudiobooksSubject.next(false);
+        this.toggleSubject.next([false, false, true, false, false]);
         break;
       case 'showEpisodes':
-        this.showEpisodesSubject.next(true);
-        this.showArtistsSubject.next(false);
-        this.showAlbumsSubject.next(false);
-        this.showPlaylistsSubject.next(false);
-        this.showShowsSubject.next(false);
-        this.showAudiobooksSubject.next(false);
+        this.toggleSubject.next([false, false, false, true, false]);
         break;
       case 'showShows':
-        this.showShowsSubject.next(true);
-        this.showArtistsSubject.next(false);
-        this.showAlbumsSubject.next(false);
-        this.showPlaylistsSubject.next(false);
-        this.showEpisodesSubject.next(false);
-        this.showAudiobooksSubject.next(false);
-        break;
-      case 'showAudiobooks':
-        this.showAudiobooksSubject.next(true);
-        this.showArtistsSubject.next(false);
-        this.showAlbumsSubject.next(false);
-        this.showPlaylistsSubject.next(false);
-        this.showEpisodesSubject.next(false);
-        this.showShowsSubject.next(false);
-
+        this.toggleSubject.next([false, false, false, false, true]);
         break;
     }
   }

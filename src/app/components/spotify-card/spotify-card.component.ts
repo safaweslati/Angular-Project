@@ -14,7 +14,6 @@ import { Album } from 'src/app/Models/album';
 import { Audiobook } from 'src/app/Models/audiobook';
 import { Episode } from 'src/app/Models/episode';
 import { Show } from 'src/app/Models/show';
-import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-spotify-card',
@@ -22,6 +21,14 @@ import { NavigationService } from 'src/app/services/navigation.service';
   styleUrls: ['./spotify-card.component.css'],
 })
 export class SpotifyCardComponent {
+  navigate() {
+    if ('followers' in this.cardData) {
+      this.router.navigate(['/home/artist', this.cardData.id]);
+    }
+    if ('songs' in this.cardData) {
+      this.router.navigate(['/home/playlist', this.cardData.id]);
+    }
+  }
   @Input() cardData!:
     | User
     | Playlist
@@ -33,17 +40,13 @@ export class SpotifyCardComponent {
   @Input() shouldApplyRoundedClass: boolean = false;
   isHovered: boolean = false;
 
-  constructor(
-    public navigationService: NavigationService,
-    private renderer: Renderer2,
-    private el: ElementRef
-  ) {}
+  constructor(private router: Router) {}
 
-  onCardClick() {
-    this.navigationService.navigate(this.cardData);
-  }
   public toggleHover(isHovered: boolean): void {
     this.isHovered = isHovered;
+  }
+  isAlbum(cardData: Album | User | Playlist | Artist): cardData is Album {
+    return (cardData as Album)?.release_date !== undefined;
   }
   isAlbumOrEpisode(
     cardData: User | Playlist | Artist | Show | Album | Audiobook | Episode

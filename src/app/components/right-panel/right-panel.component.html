@@ -1,9 +1,4 @@
 <app-top-artists class="mt-2"></app-top-artists>
-<div *ngIf="playerService.currentSong$ | async as music">
-  <app-player-card class="player mt-2" [imageUrl]="music.album?.imageUrl || ''" [title]="music.title">
-    <audio controls #audioPlayer>
-      <source [src]="updateAudioSource(music)" type="audio/mp3">
-      Your browser does not support the audio element.
-    </audio>
-  </app-player-card>
+<div>
+  <app-player-card class="player mt-2"> </app-player-card>
 </div>

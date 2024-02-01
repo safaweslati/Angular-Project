@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {Song} from "../Models/Song";
-import {Playlist} from "../Models/Playlist";
+import { BehaviorSubject } from 'rxjs';
+import { Song } from '../Models/Song';
+import { Playlist } from '../Models/Playlist';
+import { Artist } from '../Models/Artist';
+import { Album } from '../Models/album';
+import { User } from '../Models/User';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PlayerService {
-
-  constructor() { }
+  constructor() {}
 
   private currentSong = new BehaviorSubject<Song | null>(null);
   public currentSong$ = this.currentSong.asObservable();
-  private playlistsSource = new BehaviorSubject<Playlist[]>([]);
-  playlists$ = this.playlistsSource.asObservable();
+  private showAllSource = new BehaviorSubject<
+    Playlist[] | Artist[] | Album[] | User[] | null
+  >([]);
+  showAll$ = this.showAllSource.asObservable();
 
-  setPlaylists(playlists: Playlist[]): void {
-    this.playlistsSource.next(playlists);
+  setShowAll(showAll: Playlist[] | Artist[] | Album[] | User[] | null): void {
+    this.showAllSource.next(showAll);
   }
 
-  playMusic(song: Song | null){
+  playMusic(song: Song | null) {
     this.currentSong.next(song);
   }
 }
-

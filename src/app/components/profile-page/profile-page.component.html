@@ -1,37 +1,13 @@
-<div class="px-6 py-3">
-  <div class="px-6 py-3 flex items-center justify-between">
-    <h1
-      class="pl-2 pt-4 text-2xl font-semibold text-white tracking-wider hover:underline"
-    >
-      Playlist created
-    </h1>
-
-    <h2
-      class="pr-8 text-xs text-lightest uppercase tracking-wider hover:underline mb-3"
-    >
-      See all
-    </h2>
-  </div>
-  <div *ngIf="profile$ | async as profile">
-    <app-list-item [items$]="playlists$"></app-list-item>
-  </div>
-</div>
-
-<div class="px-6 py-3">
-  <div class="px-6 py-3 flex items-center justify-between">
-    <h1
-      class="pl-2 pt-4 text-2xl font-semibold text-white tracking-wider hover:underline"
-    >
-      Top artist this month
-    </h1>
-
-    <h2
-      class="pr-8 text-xs text-lightest uppercase tracking-wider hover:underline mb-3"
-    >
-      See all
-    </h2>
-  </div>
-  <div *ngIf="profile$ | async as profile">
-    <app-list-item [shouldApplyRoundedClass]="true" [items$]="artist$"></app-list-item>
-  </div>
+<div class="Profile" *ngIf="profile$ | async as profile">
+  <app-playlist-header
+    [name]="profile.name!"
+    [imageUrl]="profile.imageUrl!"
+    [verified]="false"
+    class="mt-2 d-block"
+  ></app-playlist-header>
+  <app-list-item
+    [title]="'Followed Artists'"
+    [shouldApplyRoundedClass]="true"
+    [items]="artist$ | async"
+  ></app-list-item>
 </div>

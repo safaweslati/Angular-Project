@@ -1,9 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ToastrService } from 'ngx-toastr';
-import { Observable, catchError } from 'rxjs';
+import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 import { Artist } from 'src/app/Models/Artist';
 import { Playlist } from 'src/app/Models/Playlist';
 import { User } from 'src/app/Models/User';
+import { PlayerService } from 'src/app/services/player.service';
 import { Audiobook } from 'src/app/Models/audiobook';
 import { Show } from 'src/app/Models/show';
 import { Album } from 'src/app/Models/album';
@@ -16,15 +16,21 @@ import { Song } from 'src/app/Models/Song';
   styleUrls: ['./list-item.component.css'],
 })
 export class ListOfItemsComponent {
-  @Input() items$?: Observable<
-    User[] | Playlist[] | Artist[] | Audiobook[] | Show[] | Album[] | Episode[]
-  >;
-  @Input() shouldApplyRoundedClass: boolean = false;
-  getItemRouterLink(item: any): string[] | null {
-    if (item.type === 'artist') {
-      return ['/home/artist', item.id];
-    } else {
-      return null;
-    }
+  showAll() {
+    this.playerService.setShowAll(this.items);
+    this.router.navigate(['/home/showAll']);
   }
+  @Input() items!:
+    | User[]
+    | Playlist[]
+    | Artist[]
+    | Audiobook[]
+    | Show[]
+    | Album[]
+    | Episode[]
+    | null;
+  @Input() shouldApplyRoundedClass: boolean = false;
+  @Input() title: string = '';
+
+  constructor(private playerService: PlayerService, private router: Router) {}
 }

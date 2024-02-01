@@ -7,12 +7,13 @@ export const spotifyConfiguration = {
     'user-read-recently-played', // Read the user's recently played tracks.
     'user-read-playback-state', // Read the user's playback state.
     'user-top-read', // Read the user's top artists and tracks.
-    'user-modify-playback-state', // Modify the user's playback state (e.g., PlaylistResponse.ts, pause, skip).
+    'user-modify-playback-state', // Modify the user's playback state (e.g., play, pause, skip).
     'user-library-read', // Read the user's library of saved tracks.
     'playlist-read-private', // Read the user's private playlists.
     'playlist-read-collaborative', // Read collaborative playlists the user has access to.
     'streaming',
     'user-read-email',
+    'user-follow-read',
     'playlist-modify-public',
     'playlist-modify-private',
     'user-library-modify',

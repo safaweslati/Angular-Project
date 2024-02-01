@@ -13,7 +13,6 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 })
 export class ProfilePageComponent implements OnInit {
   profile$?: Observable<User>;
-  playlists$?: Observable<Playlist[]>;
   artist$?: Observable<Artist[]>;
   userId: string | undefined;
 
@@ -26,8 +25,7 @@ export class ProfilePageComponent implements OnInit {
     this.userId = this.activatedRoute.snapshot.paramMap.get('userId')!;
     if (this.userId) {
       this.profile$ = this.spotifyService.getUserProfile(this.userId);
-      this.playlists$ = this.spotifyService.getUserPlaylists(this.userId);
-      this.artist$ = this.spotifyService.getTopArtists();
+      this.artist$ = this.spotifyService.getFollowedArtists();
     }
   }
 }

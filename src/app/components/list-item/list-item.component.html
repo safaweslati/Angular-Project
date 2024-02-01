@@ -1,16 +1,19 @@
-<!-- <div class="w-full flex flex-wrap justify-center">
-  <div *ngFor="let item of items$ | async" class="p-2 w-48 relative">
-    <app-spotify-card
-      [shouldApplyRoundedClass]="shouldApplyRoundedClass"
-      [cardData]="item"
-    ></app-spotify-card>
-  </div>
-</div> -->
-<div class="w-full flex flex-wrap">
-  <ng-container *ngFor="let item of items$ | async; let i = index">
+<div *ngIf="items && items.length > 0">
+  <span class="title title-bg mt-4">
+    {{ title }}
+  </span>
+  <span
+    class="show-more-less"
+    style="float: right"
+    (click)="showAll()"
+    *ngIf="items && items.length > 0"
+    >Show more</span
+  >
+</div>
+<div class="w-full flex justify-center">
+  <ng-container *ngFor="let item of items; let i = index">
     <div class="p-2 w-1/4 relative" *ngIf="i < 4">
       <app-spotify-card
-        [routerLink]="['/home/artist', item.id]"
         [shouldApplyRoundedClass]="shouldApplyRoundedClass"
         [cardData]="item"
         class="small-card"

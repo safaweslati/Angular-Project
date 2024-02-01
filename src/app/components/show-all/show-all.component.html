@@ -1,16 +1,46 @@
-<div class="w-full flex flex-wrap justify-center">
-  <div class="p-2 w-full mb-4">
-    <a
-      class="text-blue-500 cursor-pointer"
-      [routerLink]="id === '0' ? '/home/accueil' : ['/home/artist', id]"
-    >
-      <i class="fas fa-arrow-left"></i>
-    </a>
-  </div>
+<!--
+<div *ngIf="playerService.playlists$ | async as playlists">
+<app-playlist-grid [playlists]="playlists" />
+</div>
 
-  <div *ngFor="let item of items$ | async" class="p-2 w-48 relative">
+
+<div class="w-full flex flex-wrap justify-center">
+  <a
+    class="text-blue-500 cursor-pointer"
+    *ngIf="id === '0'; else linkBlock"
+    [routerLink]="'/home/accueil'"
+  >
+    <i class="fas fa-arrow-left"></i>
+  </a>
+  <ng-template #linkBlock>
+    <div *ngIf="idUser$ | async as idUser">
+      <a
+        class="text-blue-500 cursor-pointer"
+        *ngIf="
+          (id === '-1' && itemType === 'Profile') ||
+          itemType === 'ProfilePlaylist'
+        "
+        [routerLink]="['/home/profile', idUser]"
+      >
+        <i class="fas fa-arrow-left"></i>
+      </a>
+      <a
+        class="text-blue-500 cursor-pointer"
+        *ngIf="id !== '-1' && itemType !== 'ProfilePlaylist'"
+        [routerLink]="['/home/artist', id]"
+      >
+        <i class="fas fa-arrow-left"></i>
+      </a>
+    </div>
+  </ng-template>-->
+
+<div class="w-full flex flex-wrap justify-center">
+  <div
+    *ngFor="let item of playerService.showAll$ | async"
+    class="p-2 w-48 relative"
+  >
     <app-spotify-card
-      [shouldApplyRoundedClass]="shouldApplyRoundedClass"
+      [shouldApplyRoundedClass]="isArtist(item)"
       [cardData]="item"
     ></app-spotify-card>
   </div>

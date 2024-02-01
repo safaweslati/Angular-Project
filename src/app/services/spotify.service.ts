@@ -14,9 +14,6 @@ import { Playlist } from '../Models/Playlist';
 import { Song } from '../Models/Song';
 import { LoginService } from './login.service';
 import { Artist } from '../Models/Artist';
-import { spotifyConfiguration } from '../../config/constantes.config';
-import { HttpClient } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 import {
   APISearch,
   AlbumsItem,
@@ -36,7 +33,9 @@ import {
   switchMap,
   tap,
 } from 'rxjs';
-
+import { spotifyConfiguration } from '../../config/constantes.config';
+import { HttpClient } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/Models/User';
 import { Episode } from '../Models/episode';
 import { Show } from '../Models/show';
@@ -71,6 +70,15 @@ export class SpotifyService {
         this.toastr.error(`playlists`);
         return EMPTY;
       })
+    );
+  }
+  getFollowedArtists(): Observable<Artist[]> {
+    const url = this.spotifyApiUrl + `/me/following?type=artist`;
+    return this.http.get<any>(url).pipe(
+      tap((response) => console.log(response)),
+      map((response) =>
+        response.artists.items.map((item: any) => SpotifyArtist(item))
+      )
     );
   }
 
@@ -117,10 +125,11 @@ export class SpotifyService {
       })
     );
   }
+
   searchForItems(
     term: string,
-    offset = 5,
-    limit = 10
+    offset = 0,
+    limit = 50
   ): Observable<{
     artists: Artist[];
     tracks: Song[];
