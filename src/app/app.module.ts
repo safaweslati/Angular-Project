@@ -6,12 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthentificationInterceptorProvider } from './interceptor/auth.interceptor';
 import { ToastrModule } from 'ngx-toastr';
-import { SearchComponent } from './components/search/search.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { ArtistProfileComponent } from './components/artist-profile/artist-profile.component';
-import { PlaylistHeaderComponent } from './components/playlist-header/playlist-header.component';
-
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +19,7 @@ import { PlaylistHeaderComponent } from './components/playlist-header/playlist-h
     FontAwesomeModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [AuthentificationInterceptorProvider],
   bootstrap: [AppComponent],

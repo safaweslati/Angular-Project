@@ -1,7 +1,9 @@
 <div class="songs" *ngIf="details$ | async as details">
-  <app-playlist-header [name]="details.name" [imageUrl]="details.imageUrl" class="mt-2 d-block" />
-  <app-music-list  [songs]="details.songs"/>
+  <app-playlist-header
+    [name]="details.name"
+    [imageUrl]="details.imageUrl"
+    class="mt-2 d-block"
+  />
+  <app-music-list [songs]="details.songs" [playlist]="details" />
+  <app-add-song [playlistId]="playlistId" />
 </div>
-
-
-

@@ -1,3 +1,6 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 :host {
   display: flex;
   max-width: 300px;
@@ -9,42 +12,43 @@
   background-color: #333333;
 }
 
-.menus{
+.menus {
   flex-grow: 1;
   flex-direction: column;
   height: 100%;
   padding: 0px 40px 0px 40px;
 }
-.image-container{
+.image-container {
   min-height: 120px;
   padding-top: 25px;
 }
-img{
+img {
   width: 70%;
 }
-.menu-container{
+.menu-container {
   width: 100%;
 }
 
-.options{
+.options {
   min-height: 150px;
 }
 
 .flex {
-   flex-direction: column;
-   justify-content: flex-start;
-   align-items: center;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-.playlist-title{
-  margin: 10px 0px;
+.playlist-title {
+  margin-right: -10%;
+  margin-left: -75%;
   align-self: flex-start;
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 0.9rem;
   color: #a2a1a1;
 }
 
-.user-info{
+.user-info {
   flex-grow: 0;
   display: block;
   bottom: 0;
@@ -54,7 +58,17 @@ img{
   background-color: #222222;
 }
 
-.icon{
+.icon {
   flex-grow: 1;
   cursor: pointer;
+}
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 7%;
+}
+
+.add-icon {
+  margin-left: 170%;
 }

@@ -10,6 +10,10 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 
 const routes: Routes = [
+  {path: '' , component: HomeComponent, children : [
+      {path: 'savedTracks', component: SavedTracksComponent},
+      {path: 'playlist/:id', component: PlaylistDetailsComponent}
+    ]},
   {
     path: '',
     component: HomeComponent,
