@@ -31,6 +31,7 @@ import { MenuModule } from 'primeng/menu';
 import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 import { AddSongComponent } from '../components/add-song/add-song.component';
+import { AlbumPageComponent } from '../components/album-page/album-page.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { AddSongComponent } from '../components/add-song/add-song.component';
     UriPipe,
     ItemDetailsComponent,
     AddSongComponent,
+    AlbumPageComponent,
   ],
   imports: [
     CommonModule,

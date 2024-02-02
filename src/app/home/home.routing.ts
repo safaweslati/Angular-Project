@@ -8,6 +8,7 @@ import { AccueilComponent } from '../components/accueil/accueil.component';
 import { ShowAllComponent } from '../components/show-all/show-all.component';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
+import { AlbumPageComponent } from '../components/album-page/album-page.component';
 
 const routes: Routes = [
   {path: '' , component: HomeComponent, children : [
@@ -28,6 +29,7 @@ const routes: Routes = [
       },
       { path: 'profile/:userId', component: ProfilePageComponent },
       { path: 'artist/:id', component: ArtistProfileComponent },
+      { path: 'album/:id/:artistId', component: AlbumPageComponent },
     ],
   },
 ];
