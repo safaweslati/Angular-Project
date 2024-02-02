@@ -28,6 +28,9 @@ export class SpotifyCardComponent {
     if ('songs' in this.cardData) {
       this.router.navigate(['/home/playlist', this.cardData.id]);
     }
+    if('total_tracks' in this.cardData){
+      this.router.navigate(['/home/album', this.cardData.id,this.cardData.artists[0].id]);
+    }
   }
   @Input() cardData!:
     | User

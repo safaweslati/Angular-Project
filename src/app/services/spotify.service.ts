@@ -216,4 +216,26 @@ export class SpotifyService {
         )
       );
   }
+
+  getAlbumtDetails(albumId: string | null): Observable<any> {
+    const url = `${this.spotifyApiUrl}/albums/${albumId}`;
+
+    return this.http.get<any>(url);
+
+  }
+  getAlbumTracks(albumId: string | null): Observable<Song[]> {
+    const url = `${this.spotifyApiUrl}/albums/${albumId}/tracks`;
+    console.log("fel album tracks" );
+
+    return this.http.get<any>(url).pipe(
+      map((response) =>{
+      const items = response.items || [];
+      return items.map((track: any) => SpotifyTrack(track));
+  }),
+      catchError((error) => {
+        console.error('Error fetching top tracks:', error);
+        return EMPTY;
+      })
+    );
+  }
 }

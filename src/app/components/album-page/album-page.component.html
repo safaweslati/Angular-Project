@@ -1,0 +1,27 @@
+<div class="album-profile" *ngIf="album$ | async as album">
+  <app-playlist-header
+    [name]="album.name"
+    [imageUrl]="album.imageUrl"
+    [followers]="album.release_date"
+    [verified]="true"
+    class="mt-2 d-block"
+  ></app-playlist-header>
+
+
+  <div class="topTracks">
+    <app-music-list [songs]="albumTracks$ | async" />
+  </div>
+  <div class="Albums">
+    <app-list-item
+      [title]="'Album'"
+      [shouldApplyRoundedClass]="false"
+    ></app-list-item>
+  </div>
+  <div class="relatedArtists" >
+    <app-list-item
+      [title]="'More By '+ album.artists[0].name"
+      [items]="moreAlbumsFromTheSameArtists$ | async"
+      [shouldApplyRoundedClass]="true"
+    ></app-list-item>
+  </div>
+</div>

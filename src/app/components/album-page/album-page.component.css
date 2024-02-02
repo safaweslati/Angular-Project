@@ -1,0 +1,10 @@
+.album-profile {
+  margin: 40px;
+}
+:host {
+  display: block;
+  width: 100%;
+  max-height: 100vh;
+  max-width: 300vh;
+  overflow-y: auto;
+}
