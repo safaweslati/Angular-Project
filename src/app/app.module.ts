@@ -8,7 +8,8 @@ import { AuthentificationInterceptorProvider } from './interceptor/auth.intercep
 import { ToastrModule } from 'ngx-toastr';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomRouteReuseStrategy } from './strategy/customRouteReuse';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,7 +23,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [AuthentificationInterceptorProvider],
+  providers: [
+    AuthentificationInterceptorProvider,
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

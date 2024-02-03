@@ -34,14 +34,21 @@
     </div>
   </ng-template>-->
 
-<div class="w-full flex flex-wrap justify-center">
-  <div
-    *ngFor="let item of playerService.showAll$ | async"
-    class="p-2 w-48 relative"
-  >
-    <app-spotify-card
-      [shouldApplyRoundedClass]="isArtist(item)"
-      [cardData]="item"
-    ></app-spotify-card>
+<div class="w-full flex flex-wrap">
+  <fa-icon
+    [icon]="angle"
+    class="position-relative top-0 start-0 fs-3 m-3"
+    (click)="previous()"
+  ></fa-icon>
+  <div class="container flex flex-wrap">
+    <div
+      *ngFor="let item of playerService.showAll$ | async"
+      class="p-2 w-48 relative"
+    >
+      <app-spotify-card
+        [shouldApplyRoundedClass]="isArtist(item)"
+        [cardData]="item"
+      ></app-spotify-card>
+    </div>
   </div>
 </div>
