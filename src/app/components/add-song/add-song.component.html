@@ -1,4 +1,4 @@
-<div style="margin-left: 6px" class="title title-bg mt-4">
+<div class="title title-bg mt-4">
   Let's find something for your playlist
 </div>
 <div class="input-container">
@@ -28,7 +28,7 @@
     <tr
       *ngFor="let song of searchResults.tracks"
       [class.selected-song]="(playerService.currentSong$ | async) === song"
-      style="margin-bottom: 10px">
+    >
       <td>
         <div style="display: flex; align-items: center">
           <img

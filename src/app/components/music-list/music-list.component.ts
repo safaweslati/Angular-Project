@@ -47,6 +47,7 @@ export class MusicListComponent implements OnInit,OnChanges{
       this.initSavedTracks()
     });
   }
+
  initSavedTracks() {
     const savedTracks = JSON.parse(localStorage.getItem('savedTracks') || '[]');
     if (savedTracks) {
@@ -63,6 +64,7 @@ export class MusicListComponent implements OnInit,OnChanges{
       });
     }
   }
+
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
     this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist);
@@ -98,15 +100,14 @@ export class MusicListComponent implements OnInit,OnChanges{
 
     console.log('Playlist before deletion:', this.playlist);
 
-    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
-      (response) => {
+    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe({
+      next: (response) => {
         console.log('Delete response:', response);
-        if(response.snapshot_id != this.playlist.snapshot_id){
-   
-        this.toast.success('Deleted from the playlist');
-        // this.playlist.snapshot_id = response.snapshot_id
-        }
-        else{
+        if (response.snapshot_id != this.playlist.snapshot_id) {
+
+          this.toast.success('Deleted from the playlist');
+          // this.playlist.snapshot_id = response.snapshot_id
+        } else {
           this.toast.error('Try Again');
         }
 
@@ -119,11 +120,13 @@ export class MusicListComponent implements OnInit,OnChanges{
           },
         );
       },
-      (error) => {
-        console.error('Error deleting item from the playlist:', error);
-        this.toast.error('Error deleting item from the playlist');
-      }
-    );
+    error: (error) =>
+    {
+      console.error('Error deleting item from the playlist:', error);
+      this.toast.error('Error deleting item from the playlist');
+    }
+  }
+  );
   }
 
   // @ts-ignore
@@ -132,26 +135,28 @@ export class MusicListComponent implements OnInit,OnChanges{
     const requestBody = {
       ids: [song.id],
     };
-    this.playlistService.SaveTracks(requestBody).subscribe(
-      () => {
-        song.isLiked=true
-        console.log('added to Liked Songs');
-        this.toast.success('Added to Liked Songs');
-      },
-      (error) => {
-        console.error('Error', error);
+    this.playlistService.SaveTracks(requestBody).subscribe({
+        next: () => {
+          song.isLiked = true
+          console.log('added to Liked Songs');
+          this.toast.success('Added to Liked Songs');
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       }
     );
   }
 
   removeFromLikedSongs(song:Song) {
-    this.playlistService.RemoveSavedTrack(song.id).subscribe(
-      () => {
-        song.isLiked=false
-        this.toast.success('Removed From Liked Songs');
-      },
-      (error) => {
-        console.error('Error', error);
+    this.playlistService.RemoveSavedTrack(song.id).subscribe({
+        next: () => {
+          song.isLiked = false
+          this.toast.success('Removed From Liked Songs');
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       }
     );
   }

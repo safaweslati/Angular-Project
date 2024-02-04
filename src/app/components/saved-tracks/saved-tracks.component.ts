@@ -15,7 +15,6 @@ import { map } from 'rxjs/operators';
 export class SavedTracksComponent {
   songs$!: Observable<Song[]>;
   constructor(
-    private spotifyService: SpotifyService,
     public activatedRoute:ActivatedRoute
   ) {}
 

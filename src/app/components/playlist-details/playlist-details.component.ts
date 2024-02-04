@@ -34,7 +34,6 @@ export class PlaylistDetailsComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {
       this.playlistId = data['id'];
     });
-
     this.route.params.pipe(
       switchMap((params) =>
         this.spotifyService.getPlaylistDetails(params['id'])
