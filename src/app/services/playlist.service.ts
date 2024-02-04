@@ -43,11 +43,6 @@ export class PlaylistService {
     const url = `${this.spotifyApiUrl}/me/tracks?ids=${reqBody}`;
     return this.http.delete<any>(url);
   }
-  // @ts-ignore
-  Check(reqBody) {
-    const url = `${this.spotifyApiUrl}/me/tracks/contains?ids=${reqBody}`;
-    return this.http.get<any>(url);
-  }
   updatePlaylistDetails(updatedDetails: Playlist) {
     this.playlistDetailsSubject.next(updatedDetails);
   }
