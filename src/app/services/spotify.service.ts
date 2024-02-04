@@ -23,6 +23,7 @@ import {
   ShowsItem,
 } from '../Models/spotifySearch';
 import {
+  BehaviorSubject,
   catchError,
   EMPTY,
   filter,
@@ -44,6 +45,8 @@ import { Album } from '../Models/album';
 })
 export class SpotifyService {
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
+  public playlistSongsSubject= new BehaviorSubject<Song[] | null>(null);
+  public playlistSongs$ = this.playlistSongsSubject.asObservable();
 
   constructor(
     private http: HttpClient,
@@ -68,6 +71,9 @@ export class SpotifyService {
         return EMPTY;
       })
     );
+  }
+  updatePlaylistSongs(updatedDetails: Song[]) {
+    this.playlistSongsSubject.next(updatedDetails);
   }
   getFollowedArtists(): Observable<Artist[]> {
     const url = this.spotifyApiUrl + `/me/following?type=artist`;

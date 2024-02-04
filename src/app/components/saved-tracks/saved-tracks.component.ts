@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { Song } from '../../Models/Song';
 import { SpotifyService } from '../../services/spotify.service';
-import {Observable,} from 'rxjs';
+import {Observable, switchMap,} from 'rxjs';
 import {ActivatedRoute} from "@angular/router";
 import { map } from 'rxjs/operators';
+import {PlaylistService} from "../../services/playlist.service";
 
 
 @Component({
@@ -13,13 +14,14 @@ import { map } from 'rxjs/operators';
 
 })
 export class SavedTracksComponent {
-  songs$!: Observable<Song[]>;
   constructor(
-    private spotifyService: SpotifyService,
+    public spotifyService: SpotifyService,
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(){
     // @ts-ignore
-    this.songs$ = this.spotifyService.getSavedTracks();
+    this.spotifyService.getSavedTracks().subscribe(
+      (songs)=>this.spotifyService.updatePlaylistSongs(songs)
+    )
   }
 }
