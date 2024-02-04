@@ -79,7 +79,7 @@ export class LeftPanelComponent implements OnInit, OnChanges {
         )
       )
       .subscribe((reponse) => {
-        this.playlists$ = this.getPlaylists();
+        this.playlists$=this.getPlaylists()
         this.visible = false;
         this.router.navigate([`home/playlist/${reponse.id}`]);
       });

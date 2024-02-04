@@ -1,6 +1,5 @@
 export const spotifyConfiguration = {
   clientId: 'a643f9d6fcfb47cd98d706466fca1168',
-  clientSecret: 'dc3d0e1e48fc4fc7aa5189de1b344952',
   authEndpoint: 'https://accounts.spotify.com/authorize',
   redirectUrl: 'http://localhost:4200/login',
   scopes: [

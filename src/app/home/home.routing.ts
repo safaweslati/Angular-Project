@@ -9,14 +9,16 @@ import { ShowAllComponent } from '../components/show-all/show-all.component';
 import { ProfilePageComponent } from '../components/profile-page/profile-page.component';
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 import { AlbumPageComponent } from '../components/album-page/album-page.component';
+import {savedTracksResolver} from "../resolvers/saved-tracks.resolver";
+
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: 'savedTracks', component: SavedTracksComponent },
-      { path: 'playlist/:id', component: PlaylistDetailsComponent },
+      { path: 'savedTracks', resolve:{savedTracks: savedTracksResolver},component: SavedTracksComponent },
+      { path: 'playlist/:id',resolve:{savedTracks: savedTracksResolver},component: PlaylistDetailsComponent },
       { path: 'search', component: SearchComponent },
       { path: 'accueil', component: AccueilComponent },
       { path: 'showAll', component: ShowAllComponent },

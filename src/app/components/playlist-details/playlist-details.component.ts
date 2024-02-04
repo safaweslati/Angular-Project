@@ -1,9 +1,6 @@
 import {
-  ChangeDetectorRef,
   Component,
-  OnChanges,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { SpotifyService } from '../../services/spotify.service';
@@ -12,9 +9,9 @@ import {
   switchMap,
 } from 'rxjs';
 import { faPlay, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { PlayerService } from '../../services/player.service';
 import { HttpClient } from '@angular/common/http';
 import { PlaylistService } from '../../services/playlist.service';
+
 
 @Component({
   selector: 'app-playlist-details',
@@ -25,14 +22,13 @@ import { PlaylistService } from '../../services/playlist.service';
 export class PlaylistDetailsComponent implements OnInit {
   playlistId!: string;
   isCurrentUserOwner$!: Observable<boolean>;
-
   constructor(
     public route: ActivatedRoute,
     public spotifyService: SpotifyService,
-    public playerService: PlayerService,
     public playlistService: PlaylistService,
     public http: HttpClient,
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe((data: Params) => {

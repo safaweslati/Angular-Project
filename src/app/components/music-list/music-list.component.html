@@ -1,5 +1,6 @@
-<div *ngIf="songs && songs.length>0">
+<td *ngIf="songs && songs.length>0">
 <span class="title title-bg mt-4"> Music </span>
+  <i class="fa-regular fa-heart"></i>
 <table class="custom-table mt-3" >
   <thead>
     <tr class="mb-4">
@@ -34,6 +35,14 @@
           Delete
         </button>
       </td>
+      <td>
+        <div *ngIf="!song.isLiked">
+          <i class="fa-regular fa-heart" (click)="addToLikedSongs(song)"></i>
+        </div>
+        <div *ngIf="song.isLiked==true">
+          <i class="fa fa-heart-o" (click)="removeFromLikedSongs(song)" ></i>
+        </div>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -47,4 +56,4 @@
 <!--          [icon]="MoreIcon"-->
 <!--          (click)="openMenu(song); menu.toggle($event)"-->
 <!--        ></fa-icon>-->
-</div>
+</td>
