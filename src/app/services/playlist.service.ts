@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { spotifyConfiguration } from '../../config/constantes.config';
-import {BehaviorSubject, map, Observable, of, switchMap} from 'rxjs';
-import {Playlist} from "../Models/Playlist";
-import {LoginService} from "./login.service";
-
+import { BehaviorSubject, map, Observable, of, switchMap } from 'rxjs';
+import { Playlist } from '../Models/Playlist';
+import { LoginService } from './login.service';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +14,11 @@ export class PlaylistService {
   private playlistDetailsSubject = new BehaviorSubject<Playlist | null>(null);
   public playlistDetails$ = this.playlistDetailsSubject.asObservable();
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private loginService: LoginService) {}
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private loginService: LoginService
+  ) {}
   // @ts-ignore
   addPlaylist(userId: string | undefined, playlist): Observable<any> {
     const url = this.spotifyApiUrl + `/users/${userId}/playlists`;

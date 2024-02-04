@@ -27,8 +27,8 @@ export class CustomRouteReuseStrategy implements RouteReuseStrategy {
   private acceptedRoute: string = 'home/search/:item';
 
   shouldDetach(route: ActivatedRouteSnapshot): boolean {
-    // Check if the route is the accepted route
     return route.routeConfig?.path === this.acceptedRoute || false;
+    // return true;
   }
 
   store(route: ActivatedRouteSnapshot, handle: DetachedRouteHandle): void {
