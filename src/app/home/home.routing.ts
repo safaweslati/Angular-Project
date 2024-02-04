@@ -11,10 +11,6 @@ import { ArtistProfileComponent } from '../components/artist-profile/artist-prof
 import { AlbumPageComponent } from '../components/album-page/album-page.component';
 
 const routes: Routes = [
-  {path: '' , component: HomeComponent, children : [
-      {path: 'savedTracks', component: SavedTracksComponent},
-      {path: 'playlist/:id', component: PlaylistDetailsComponent}
-    ]},
   {
     path: '',
     component: HomeComponent,
@@ -23,16 +19,14 @@ const routes: Routes = [
       { path: 'playlist/:id', component: PlaylistDetailsComponent },
       { path: 'search', component: SearchComponent },
       { path: 'accueil', component: AccueilComponent },
-      {
-        path: 'showAll',
-        component: ShowAllComponent,
-      },
+      { path: 'showAll', component: ShowAllComponent },
       { path: 'profile/:userId', component: ProfilePageComponent },
       { path: 'artist/:id', component: ArtistProfileComponent },
       { path: 'album/:id/:artistId', component: AlbumPageComponent },
     ],
   },
 ];
+
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -19,6 +19,7 @@ import {Playlist} from "../../Models/Playlist";
   selector: 'app-music-list',
   templateUrl: './music-list.component.html',
   styleUrls: ['./music-list.component.css'],
+
 })
 export class MusicListComponent {
   @Input() songs: Song[] | null = [];
@@ -69,34 +70,45 @@ export class MusicListComponent {
   }
 
   deleteItem(song: Song) {
-    this.selectedSong = song;
     const requestBody = {
       tracks: [
         {
-          uri: this.selectedSong.uri,
+          uri: song.uri,
         },
       ],
       snapshot_id: this.playlist.snapshot_id,
     };
 
-    console.log(this.playlist);
+    console.log('Playlist before deletion:', this.playlist);
+
     this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
-      () => {
-        console.log('asaabiii');
+      (response) => {
+        console.log('Delete response:', response);
+        console.log('Status code:', response.status);
+        if(response.snapshot_id != this.playlist.snapshot_id){
         this.toast.success('Deleted from the playlist');
+        // this.playlist.snapshot_id = response.snapshot_id
+        }
+        else{
+          this.toast.error('Try Again');
+        }
+
+        console.log('Updated playlist after deletion:', this.playlist);
 
         this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
           (updatedDetails) => {
+            console.log(updatedDetails.songs)
             this.playlistService.updatePlaylistDetails(updatedDetails);
           },
         );
       },
       (error) => {
+        console.error('Error deleting item from the playlist:', error);
         this.toast.error('Error deleting item from the playlist');
       }
     );
-
   }
+
 /*
   checkSong() {
     this.playlistService.Check(this.selectedSong.id).subscribe(

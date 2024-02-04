@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { Artist } from '../../Models/Artist';
 import { SpotifyService } from '../../services/spotify.service';
 import { Observable, of, tap } from 'rxjs';
@@ -7,6 +7,7 @@ import { Observable, of, tap } from 'rxjs';
   selector: 'app-top-artists',
   templateUrl: './top-artists.component.html',
   styleUrls: ['./top-artists.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopArtistsComponent {
   artists$: Observable<Artist[]> = of([]);
@@ -18,4 +19,5 @@ export class TopArtistsComponent {
       .getTopArtists()
       .pipe(tap((items) => console.log('artists : ', items)));
   }
+
 }

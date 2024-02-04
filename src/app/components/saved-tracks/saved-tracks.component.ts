@@ -7,6 +7,7 @@ import { Observable, of } from 'rxjs';
   selector: 'app-saved-tracks',
   templateUrl: './saved-tracks.component.html',
   styleUrls: ['./saved-tracks.component.css'],
+
 })
 export class SavedTracksComponent {
   songs$!: Observable<Song[]>;
