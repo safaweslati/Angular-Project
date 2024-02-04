@@ -11,7 +11,7 @@ import { PlayerService } from '../../services/player.service';
 import { PlaylistService } from '../../services/playlist.service';
 import { ToastrService } from 'ngx-toastr';
 import {SpotifyService} from "../../services/spotify.service";
-import {Observable} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {Playlist} from "../../Models/Playlist";
 import {ActivatedRoute} from "@angular/router";
 
@@ -29,7 +29,6 @@ export class MusicListComponent implements OnInit,OnChanges{
   playIcon = faPlay;
   displayedSongs: any[] = [];
   showMore: boolean = false;
-  selectedSong!: Song;
   isCurrentUserOwner$!: Observable<boolean>;
 
 
@@ -148,18 +147,21 @@ export class MusicListComponent implements OnInit,OnChanges{
     );
   }
 
-  removeFromLikedSongs(song:Song) {
-    this.playlistService.RemoveSavedTrack(song.id).subscribe({
-        next: () => {
-          song.isLiked = false
-          this.toast.success('Removed From Liked Songs');
-        },
-        error: (error) => {
-          console.error('Error', error);
-        }
+  removeFromLikedSongs(song: Song) {
+    this.playlistService.RemoveSavedTrack(song.id).pipe(
+      switchMap(() => this.spotifyService.getSavedTracks())
+    ).subscribe({
+      next: (songs) => {
+        this.spotifyService.updatePlaylistSongs(songs);
+        song.isLiked = false;
+        this.toast.success('Removed From Liked Songs');
+      },
+      error: (error) => {
+        console.error('Error', error);
       }
-    );
+    });
   }
+
 
   PlaySong(song: Song) {
       this.playerService.playMusic(song);

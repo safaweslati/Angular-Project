@@ -111,7 +111,7 @@
       </form>
     </p-dialog>
 
-    <div class="playlist-scroll" *ngIf="playlists$ | async as playlists">
+    <div class="playlist-scroll" *ngIf="playlistService.playlists$ | async as playlists">
       <app-menu-item
         [contenu]="'Liked Songs'"
         [routerLink]="['/home/savedTracks']"

@@ -15,7 +15,8 @@ export class PlaylistService {
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
   private playlistDetailsSubject = new BehaviorSubject<Playlist | null>(null);
   public playlistDetails$ = this.playlistDetailsSubject.asObservable();
-
+  public playlistsSubject= new BehaviorSubject<Playlist[] | null>(null);
+  public playlists$ = this.playlistsSubject.asObservable();
   constructor(private http: HttpClient, private toastr: ToastrService, private loginService: LoginService) {}
   // @ts-ignore
   addPlaylist(userId: string | undefined, playlist): Observable<any> {
@@ -46,6 +47,11 @@ export class PlaylistService {
   updatePlaylistDetails(updatedDetails: Playlist) {
     this.playlistDetailsSubject.next(updatedDetails);
   }
+  updatePlaylists(updatedDetails: Playlist[]) {
+    // @ts-ignore
+    this.playlistsSubject.next(updatedDetails);
+  }
+
   // @ts-ignore
   Check(reqBody){
     const url = `${this.spotifyApiUrl}/me/tracks/contains?ids=${reqBody}`;
