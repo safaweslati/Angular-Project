@@ -15,13 +15,11 @@ import { map } from 'rxjs/operators';
 export class SavedTracksComponent {
   songs$!: Observable<Song[]>;
   constructor(
-    public activatedRoute:ActivatedRoute
+    private spotifyService: SpotifyService,
   ) {}
 
   ngOnInit(): void {
     // @ts-ignore
-    this.songs$ = this.activatedRoute.data.pipe(
-      map((data) => data['savedTracks']),
-    );
+    this.songs$ = this.spotifyService.getSavedTracks();
   }
 }

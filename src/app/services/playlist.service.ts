@@ -46,6 +46,11 @@ export class PlaylistService {
   updatePlaylistDetails(updatedDetails: Playlist) {
     this.playlistDetailsSubject.next(updatedDetails);
   }
+  // @ts-ignore
+  Check(reqBody){
+    const url = `${this.spotifyApiUrl}/me/tracks/contains?ids=${reqBody}`;
+    return this.http.get<any>(url);
+  }
 
   isCurrentUserOwner(playlist: Playlist): Observable<boolean> {
     return this.loginService.currentUser$.pipe(
