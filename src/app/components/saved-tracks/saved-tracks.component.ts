@@ -15,13 +15,10 @@ export class SavedTracksComponent {
   songs$!: Observable<Song[]>;
   constructor(
     private spotifyService: SpotifyService,
-    public activatedRoute:ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     // @ts-ignore
-    this.songs$ = this.activatedRoute.data.pipe(
-      map((data) => data['savedTracks']),
-    );
+    this.songs$ = this.spotifyService.getSavedTracks();
   }
 }

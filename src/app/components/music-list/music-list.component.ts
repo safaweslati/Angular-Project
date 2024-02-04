@@ -37,36 +37,36 @@ export class MusicListComponent implements OnInit,OnChanges{
     public playlistService: PlaylistService,
     private toast: ToastrService,
     private spotifyService: SpotifyService,
-    private activatedroute:ActivatedRoute
   ) {}
-  ngOnInit(): void {
-    this.activatedroute.data.subscribe((data) => {
-      const savedTracks = data['savedTracks'];
-      localStorage.setItem('savedTracks', JSON.stringify(savedTracks));
-      this.initSavedTracks()
-    });
-  }
- initSavedTracks() {
-    const savedTracks = JSON.parse(localStorage.getItem('savedTracks') || '[]');
-    if (savedTracks) {
-      this.songs?.forEach((song) => {
-        // @ts-ignore
-        const likedSongs = savedTracks?.filter((liked) => liked.id === song.id);
-        if (likedSongs && likedSongs.length > 0) {
-          console.log('response ', likedSongs[0]);
-          song.isLiked = true;
-        } else {
-          console.log('response No match');
-          song.isLiked = false;
-        }
-      });
-    }
+  ngOnInit() {
+
   }
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
     this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist);
-    this.initSavedTracks()
+    this.checkSongs(this.songs)
   }
+
+  checkSongs(songs: Song[] | null) {
+    const MaxIds = 50;
+
+    if (songs && songs.length > 0) {
+      for (let i = 0; i < songs.length; i += MaxIds) {
+        const chunk = songs.slice(i, i + MaxIds);
+        const ids = chunk.map(song => song.id).join(',');
+
+        this.playlistService.Check(ids).subscribe((response) => {
+          for (let j = 0; j < response.length; j++) {
+            const index = i + j;
+            if (index < songs.length) {
+              songs[index].isLiked = response[j];
+            }
+          }
+        });
+      }
+    }
+  }
+
 
   toggleShowMore(): void {
     this.showMore = !this.showMore;
