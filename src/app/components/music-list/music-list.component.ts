@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {
   faClock,
   faDeleteLeft,
@@ -10,45 +10,62 @@ import { Song } from '../../Models/Song';
 import { PlayerService } from '../../services/player.service';
 import { PlaylistService } from '../../services/playlist.service';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 import {SpotifyService} from "../../services/spotify.service";
 import {Observable} from "rxjs";
 import {Playlist} from "../../Models/Playlist";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-music-list',
   templateUrl: './music-list.component.html',
   styleUrls: ['./music-list.component.css'],
 })
-export class MusicListComponent {
+export class MusicListComponent implements OnInit,OnChanges{
   @Input() songs: Song[] | null = [];
   // @ts-ignore
   @Input() playlist: Playlist;
   clockIcon = faClock;
   playIcon = faPlay;
-  MoreIcon = faEllipsis;
   displayedSongs: any[] = [];
   showMore: boolean = false;
   selectedSong!: Song;
-  isSaved!: boolean;
   isCurrentUserOwner$!: Observable<boolean>;
 
-  // items: MenuItem[] = [
-  //   // { label: 'Save', command: (event) => this.saveItem(event) },
-  //   { label: 'Delete', command: (event) => this.deleteItem(event) },
-  // ];
 
   constructor(
     public playerService: PlayerService,
     public playlistService: PlaylistService,
     private toast: ToastrService,
-    private spotifyService: SpotifyService
-  ) {
+    private spotifyService: SpotifyService,
+    private activatedroute:ActivatedRoute
+  ) {}
+  ngOnInit(): void {
+    this.activatedroute.data.subscribe((data) => {
+      const savedTracks = data['savedTracks'];
+      localStorage.setItem('savedTracks', JSON.stringify(savedTracks));
+      this.initSavedTracks()
+    });
   }
-
+ initSavedTracks() {
+    const savedTracks = JSON.parse(localStorage.getItem('savedTracks') || '[]');
+    if (savedTracks) {
+      this.songs?.forEach((song) => {
+        // @ts-ignore
+        const likedSongs = savedTracks?.filter((liked) => liked.id === song.id);
+        if (likedSongs && likedSongs.length > 0) {
+          console.log('response ', likedSongs[0]);
+          song.isLiked = true;
+        } else {
+          console.log('response No match');
+          song.isLiked = false;
+        }
+      });
+    }
+  }
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
-    this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist)
+    this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist);
+    this.initSavedTracks()
   }
 
   toggleShowMore(): void {
@@ -82,7 +99,6 @@ export class MusicListComponent {
     console.log(this.playlist);
     this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
       () => {
-        console.log('asaabiii');
         this.toast.success('Deleted from the playlist');
 
         this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
@@ -97,33 +113,16 @@ export class MusicListComponent {
     );
 
   }
-/*
-  checkSong() {
-    this.playlistService.Check(this.selectedSong.id).subscribe(
-      (reponse) => {
-        this.isSaved = reponse[0];
-      },
-      (error) => {
-        console.log('Error deleting item from the playlist', error);
-      }
-    );
-  }
-  saveItem(event: any) {
-    this.checkSong();
-    if (this.isSaved == true) {
-      this.removeFromLikedSongs();
-    } else {
-      this.addToLikedSongs();
-    }
-  }
 
-  addToLikedSongs() {
+  // @ts-ignore
+
+  addToLikedSongs(song:Song) {
     const requestBody = {
-      ids: [this.selectedSong.id],
+      ids: [song.id],
     };
-
     this.playlistService.SaveTracks(requestBody).subscribe(
       () => {
+        song.isLiked=true
         console.log('added to Liked Songs');
         this.toast.success('Added to Liked Songs');
       },
@@ -132,24 +131,11 @@ export class MusicListComponent {
       }
     );
   }
-  async updateMenuLabel() {
-    try {
-      const result = await this.checkSong();
-      console.log('done' + result);
 
-      if (this.isSaved === true) {
-        this.items[0].label = 'Remove from Liked Songs';
-      } else {
-        this.items[0].label = 'Save to Liked Songs';
-      }
-    } catch (error) {
-      console.error('Error checking song', error);
-    }
-  }
-
-  removeFromLikedSongs() {
-    this.playlistService.RemoveSavedTrack(this.selectedSong.id).subscribe(
+  removeFromLikedSongs(song:Song) {
+    this.playlistService.RemoveSavedTrack(song.id).subscribe(
       () => {
+        song.isLiked=false
         this.toast.success('Removed From Liked Songs');
       },
       (error) => {
@@ -157,14 +143,8 @@ export class MusicListComponent {
       }
     );
   }
-*/
-  openMenu(song: Song) {
-    this.selectedSong = song;
-    //this.updateMenuLabel();
-  }
 
   PlaySong(song: Song) {
       this.playerService.playMusic(song);
-
   }
 }

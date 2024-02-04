@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 import { Song } from '../../Models/Song';
 import { SpotifyService } from '../../services/spotify.service';
-import { Observable, of } from 'rxjs';
+import {Observable,} from 'rxjs';
+import {ActivatedRoute} from "@angular/router";
+import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-saved-tracks',
@@ -10,9 +13,15 @@ import { Observable, of } from 'rxjs';
 })
 export class SavedTracksComponent {
   songs$!: Observable<Song[]>;
-  constructor(private spotifyService: SpotifyService) {}
+  constructor(
+    private spotifyService: SpotifyService,
+    public activatedRoute:ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
-    this.songs$ = this.spotifyService.getSavedTracks();
+    // @ts-ignore
+    this.songs$ = this.activatedRoute.data.pipe(
+      map((data) => data['savedTracks']),
+    );
   }
 }

@@ -20,9 +20,7 @@ import {
   ArtistsItem,
   AudiobooksItem,
   EpsiodesItem,
-  PlaylistsItem,
   ShowsItem,
-  TracksItem,
 } from '../Models/spotifySearch';
 import {
   catchError,
@@ -30,7 +28,6 @@ import {
   filter,
   map,
   Observable,
-  switchMap,
   tap,
 } from 'rxjs';
 import { spotifyConfiguration } from '../../config/constantes.config';
@@ -99,11 +96,12 @@ export class SpotifyService {
     );
   }
 
+  // @ts-ignore
   getSavedTracks(offset = 0, limit = 50): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/me/tracks?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
       map((response) =>
-        response.items.map((item: any) => SpotifyTrack(item.track))
+          response.items.map((item: any) => SpotifyTrack(item.track))
       ),
       catchError((error) => {
         this.toastr.error(`Error fetching data from the API`);
@@ -111,6 +109,7 @@ export class SpotifyService {
       })
     );
   }
+
 
   getTopArtists(limit = 10): Observable<Artist[]> {
     const url = `${this.spotifyApiUrl}/me/top/artists?limit=${limit}`;
