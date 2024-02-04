@@ -19,6 +19,7 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'app-music-list',
   templateUrl: './music-list.component.html',
   styleUrls: ['./music-list.component.css'],
+
 })
 export class MusicListComponent implements OnInit,OnChanges{
   @Input() songs: Song[] | null = [];
@@ -86,32 +87,43 @@ export class MusicListComponent implements OnInit,OnChanges{
   }
 
   deleteItem(song: Song) {
-    this.selectedSong = song;
     const requestBody = {
       tracks: [
         {
-          uri: this.selectedSong.uri,
+          uri: song.uri,
         },
       ],
       snapshot_id: this.playlist.snapshot_id,
     };
 
-    console.log(this.playlist);
+    console.log('Playlist before deletion:', this.playlist);
+
     this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
-      () => {
+      (response) => {
+        console.log('Delete response:', response);
+        if(response.snapshot_id != this.playlist.snapshot_id){
+   
         this.toast.success('Deleted from the playlist');
+        // this.playlist.snapshot_id = response.snapshot_id
+        }
+        else{
+          this.toast.error('Try Again');
+        }
+
+        console.log('Updated playlist after deletion:', this.playlist);
 
         this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
           (updatedDetails) => {
+            console.log(updatedDetails.songs)
             this.playlistService.updatePlaylistDetails(updatedDetails);
           },
         );
       },
       (error) => {
+        console.error('Error deleting item from the playlist:', error);
         this.toast.error('Error deleting item from the playlist');
       }
     );
-
   }
 
   // @ts-ignore

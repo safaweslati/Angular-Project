@@ -1,7 +1,9 @@
 <div class="menus flex flex-display">
+
   <div class="image-container flex flex-display flex-center">
     <img src="assets/images/spotify-logo-1.png" />
   </div>
+
   <div class="menu-container flex options">
     <app-menu-item [contenu]="'Home'" [routerLink]="['/home/accueil']">
       <fa-icon [icon]="homeIcon"></fa-icon>
@@ -10,6 +12,7 @@
       <fa-icon [icon]="searchIcon"></fa-icon>
     </app-menu-item>
   </div>
+
   <div class="menu-container flex flex-display">
     <div class="title-container">
       <span class="playlist-title"> Playlists </span>
@@ -19,6 +22,7 @@
         (click)="showDialog()"
       ></fa-icon>
     </div>
+
     <p-dialog [(visible)]="visible">
       <form [formGroup]="Form">
         <div

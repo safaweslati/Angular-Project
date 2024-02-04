@@ -14,6 +14,7 @@ import { Song } from 'src/app/Models/Song';
   selector: 'app-list-item',
   templateUrl: './list-item.component.html',
   styleUrls: ['./list-item.component.css'],
+
 })
 export class ListOfItemsComponent {
   showAll() {

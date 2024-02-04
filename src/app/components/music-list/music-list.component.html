@@ -14,15 +14,15 @@
   <tbody>
     <tr
       *ngFor="let song of displayedSongs"
-      (click)="PlaySong(song);"
       [class.selected-song]="(playerService.currentSong$ | async) === song"
     >
-      <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
+      <td><fa-icon [icon]="playIcon" class="playIcon"
+                   (click)="PlaySong(song)"></fa-icon></td>
       <td>{{ song.title }}</td>
       <td>{{ getArtists(song) }}</td>
       <td>{{ song.time }}</td>
       <td>{{ song.album.name }}</td>
-      <td style="padding-left: 3%" *ngIf="isCurrentUserOwner$ | async">
+      <td style="padding-left: 3%" *ngIf="playlist && isCurrentUserOwner$ | async">
         <button
           style="
             border-radius: 15px;

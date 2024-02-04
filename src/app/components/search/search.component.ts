@@ -26,6 +26,7 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.css'],
+
 })
 export class SearchComponent {
   searchForm: FormGroup;

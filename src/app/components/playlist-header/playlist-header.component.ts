@@ -7,6 +7,7 @@ import {PlaylistService} from "../../services/playlist.service";
   selector: 'app-playlist-header',
   templateUrl: './playlist-header.component.html',
   styleUrls: ['./playlist-header.component.css'],
+
 })
 export class PlaylistHeaderComponent {
   @Input() name: string = '';
