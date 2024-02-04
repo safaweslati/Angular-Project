@@ -14,6 +14,7 @@ import { Album } from '../../Models/album';
   selector: 'app-show-all',
   templateUrl: './show-all.component.html',
   styleUrls: ['./show-all.component.css'],
+
 })
 export class ShowAllComponent {
   @Input() items$!: Observable<User[] | Playlist[] | Artist[] | Album[] | null>;

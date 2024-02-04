@@ -5,6 +5,7 @@ import { spotifyConfiguration } from '../../config/constantes.config';
 import {BehaviorSubject, map, Observable, of, switchMap} from 'rxjs';
 import {Playlist} from "../Models/Playlist";
 import {LoginService} from "./login.service";
+import {Song} from "../Models/Song";
 
 
 @Injectable({
@@ -19,7 +20,6 @@ export class PlaylistService {
   // @ts-ignore
   addPlaylist(userId: string | undefined, playlist): Observable<any> {
     const url = this.spotifyApiUrl + `/users/${userId}/playlists`;
-
     return this.http.post<any>(url, playlist);
   }
   // @ts-ignore
@@ -58,6 +58,12 @@ export class PlaylistService {
         const currentUserId = user?.id;
         return of(currentUserId === playlist.owner);
       })
+    );
+  }
+
+  isSongInPlaylist(song: Song): Observable<boolean | undefined> {
+    return this.playlistDetails$.pipe(
+      map((playlistDetails) => playlistDetails?.songs?.some((track) => track.id === song.id))
     );
   }
 }

@@ -19,6 +19,7 @@ import {ActivatedRoute} from "@angular/router";
   selector: 'app-music-list',
   templateUrl: './music-list.component.html',
   styleUrls: ['./music-list.component.css'],
+
 })
 export class MusicListComponent implements OnInit,OnChanges{
   @Input() songs: Song[] | null = [];
@@ -38,9 +39,11 @@ export class MusicListComponent implements OnInit,OnChanges{
     private toast: ToastrService,
     private spotifyService: SpotifyService,
   ) {}
+
   ngOnInit() {
 
   }
+
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
     this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist);
@@ -86,32 +89,44 @@ export class MusicListComponent implements OnInit,OnChanges{
   }
 
   deleteItem(song: Song) {
-    this.selectedSong = song;
     const requestBody = {
       tracks: [
         {
-          uri: this.selectedSong.uri,
+          uri: song.uri,
         },
       ],
       snapshot_id: this.playlist.snapshot_id,
     };
 
-    console.log(this.playlist);
-    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
-      () => {
-        this.toast.success('Deleted from the playlist');
+    console.log('Playlist before deletion:', this.playlist);
+
+    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe({
+      next: (response) => {
+        console.log('Delete response:', response);
+        if (response.snapshot_id != this.playlist.snapshot_id) {
+
+          this.toast.success('Deleted from the playlist');
+          // this.playlist.snapshot_id = response.snapshot_id
+        } else {
+          this.toast.error('Try Again');
+        }
+
+        console.log('Updated playlist after deletion:', this.playlist);
 
         this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
           (updatedDetails) => {
+            console.log(updatedDetails.songs)
             this.playlistService.updatePlaylistDetails(updatedDetails);
           },
         );
       },
-      (error) => {
-        this.toast.error('Error deleting item from the playlist');
-      }
-    );
-
+    error: (error) =>
+    {
+      console.error('Error deleting item from the playlist:', error);
+      this.toast.error('Error deleting item from the playlist');
+    }
+  }
+  );
   }
 
   // @ts-ignore
@@ -120,26 +135,28 @@ export class MusicListComponent implements OnInit,OnChanges{
     const requestBody = {
       ids: [song.id],
     };
-    this.playlistService.SaveTracks(requestBody).subscribe(
-      () => {
-        song.isLiked=true
-        console.log('added to Liked Songs');
-        this.toast.success('Added to Liked Songs');
-      },
-      (error) => {
-        console.error('Error', error);
+    this.playlistService.SaveTracks(requestBody).subscribe({
+        next: () => {
+          song.isLiked = true
+          console.log('added to Liked Songs');
+          this.toast.success('Added to Liked Songs');
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       }
     );
   }
 
   removeFromLikedSongs(song:Song) {
-    this.playlistService.RemoveSavedTrack(song.id).subscribe(
-      () => {
-        song.isLiked=false
-        this.toast.success('Removed From Liked Songs');
-      },
-      (error) => {
-        console.error('Error', error);
+    this.playlistService.RemoveSavedTrack(song.id).subscribe({
+        next: () => {
+          song.isLiked = false
+          this.toast.success('Removed From Liked Songs');
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       }
     );
   }

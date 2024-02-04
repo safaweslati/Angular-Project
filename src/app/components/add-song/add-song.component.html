@@ -1,4 +1,4 @@
-<div style="margin-left: 6px" class="title title-bg mt-4">
+<div class="title title-bg mt-4">
   Let's find something for your playlist
 </div>
 <div class="input-container">
@@ -14,8 +14,9 @@
 <table
   class="custom-table mt-3"
   style="width: 100%"
-  *ngIf="searchResults$ | async as searchResults"
+  *ngIf="searchResults$ | async as searchResults "
 >
+  <ng-container *ngIf="searchResults.tracks.length > 0">
   <thead>
     <tr class="mb-4">
       <th class="w-3">#</th>
@@ -26,13 +27,12 @@
   <tbody>
     <tr
       *ngFor="let song of searchResults.tracks"
-      (click)="PlaySong(song)"
       [class.selected-song]="(playerService.currentSong$ | async) === song"
-      style="margin-bottom: 10px"
     >
       <td>
         <div style="display: flex; align-items: center">
           <img
+            (click)="PlaySong(song)"
             src="{{ song.album.imageUrl }}"
             alt="{{ song.album.name }}"
             style="
@@ -50,10 +50,12 @@
       <td>
         <button
           (click)="AddItem(song)"
+          [disabled]="playlistService.isSongInPlaylist(song) | async"
         >
           Add
         </button>
       </td>
     </tr>
   </tbody>
+  </ng-container>
 </table>

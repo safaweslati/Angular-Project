@@ -12,6 +12,7 @@ import { ArtistProfileService } from 'src/app/services/artist-profile.service';
   selector: 'app-artist-profile',
   templateUrl: './artist-profile.component.html',
   styleUrls: ['./artist-profile.component.css'],
+
 })
 export class ArtistProfileComponent implements OnInit {
   artist$!: Observable<Artist>;

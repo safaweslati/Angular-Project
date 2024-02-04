@@ -17,6 +17,7 @@ import { PlaylistService } from '../../services/playlist.service';
   selector: 'app-playlist-details',
   templateUrl: './playlist-details.component.html',
   styleUrls: ['./playlist-details.component.css'],
+
 })
 export class PlaylistDetailsComponent implements OnInit {
   playlistId!: string;
@@ -33,16 +34,15 @@ export class PlaylistDetailsComponent implements OnInit {
     this.route.params.subscribe((data: Params) => {
       this.playlistId = data['id'];
     });
-    this.route.paramMap.pipe(
+    this.route.params.pipe(
       switchMap((params) =>
-        this.spotifyService.getPlaylistDetails(params.get('id'))
+        this.spotifyService.getPlaylistDetails(params['id'])
       )
     ).subscribe((details) => {
       this.playlistService.updatePlaylistDetails(details);
       this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(details)
     });
   }
-
   protected readonly faSearch = faSearch;
   protected readonly faPlay = faPlay;
 }

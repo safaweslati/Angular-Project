@@ -11,7 +11,8 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 @Component({
   selector: 'app-album-page',
   templateUrl: './album-page.component.html',
-  styleUrls: ['./album-page.component.css']
+  styleUrls: ['./album-page.component.css'],
+
 })
 export class AlbumPageComponent implements OnInit{
   album$!: Observable<Album>;

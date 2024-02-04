@@ -4,7 +4,7 @@ import { User } from '../Models/User';
 import { Router } from '@angular/router';
 import { spotifyConfiguration } from '../../config/constantes.config';
 import { SpotifyUser } from '../SpotifyHelper';
-import { BehaviorSubject, map, Observable, switchMap } from 'rxjs';
+import {BehaviorSubject, map, Observable, switchMap, tap} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -23,8 +23,21 @@ export class LoginService {
     const token = localStorage.getItem('access_token');
     if (storedUser && token) {
       this.currentUserSubject.next(JSON.parse(storedUser));
+      this.startTokenExpirationTimer();
     }
   }
+
+  private startTokenExpirationTimer() {
+    const expirationTime = parseInt(localStorage.getItem('expires_at') || '0', 10);
+    const expiresIn = expirationTime - Date.now();
+    if (expiresIn > 0) {
+       setTimeout(() => {
+        this.logout();
+      }, expiresIn);
+    }
+    else this.logout();
+  }
+
 
   getLoginUrl() {
     const authEndPoint = `${spotifyConfiguration.authEndpoint}?`;
@@ -45,8 +58,12 @@ export class LoginService {
 
   handleLogin() {
     const token = this.getToken();
-    localStorage.setItem('access_token', token);
-    this.getSpotifyUser();
+    if(token) {
+      localStorage.setItem('access_token', token);
+      localStorage.setItem('expires_at', (Date.now() + (3600 - 60) * 1000).toString());
+      this.startTokenExpirationTimer();
+      this.getSpotifyUser();
+    }
   }
 
   getSpotifyUser() {
@@ -56,9 +73,10 @@ export class LoginService {
       const user = SpotifyUser(userInfo);
       this.currentUserSubject.next(user);
       localStorage.setItem('user', JSON.stringify(user));
-      this.router.navigate(['home']);
+      this.router.navigate(['home/accueil']);
     });
   }
+
 
   logout(): void {
     localStorage.clear();

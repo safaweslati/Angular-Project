@@ -19,6 +19,7 @@ import { Show } from 'src/app/Models/show';
   selector: 'app-spotify-card',
   templateUrl: './spotify-card.component.html',
   styleUrls: ['./spotify-card.component.css'],
+
 })
 export class SpotifyCardComponent {
   navigate() {
