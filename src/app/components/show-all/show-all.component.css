@@ -7,3 +7,9 @@
   max-height: 100vh;
   overflow-y: auto;
 }
+.show-more-less {
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 10px;
+  cursor: pointer;
+}

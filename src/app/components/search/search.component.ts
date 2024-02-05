@@ -69,7 +69,6 @@ export class SearchComponent {
     });
   }
   ngOnInit(): void {
-    console.log('component init');
     this.items$ = this.searchForm.get('search')?.valueChanges?.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -77,19 +76,29 @@ export class SearchComponent {
         this.location.replaceState(`/home/search/${term}`);
       }),
       switchMap((term: string) => {
-        return this.spotifyService.searchForItems(term).pipe(
-          catchError(() =>
-            of({
-              artists: [],
-              tracks: [],
-              playlists: [],
-              episodes: [],
-              shows: [],
-              audiobooks: [],
-              albums: [],
-            })
-          )
-        );
+        return this.spotifyService
+          .searchForItems(term, [
+            'artist',
+            'track',
+            'playlist',
+            'episode',
+            'show',
+            'audiobook',
+            'album',
+          ])
+          .pipe(
+            catchError(() =>
+              of({
+                artists: [],
+                tracks: [],
+                playlists: [],
+                episodes: [],
+                shows: [],
+                audiobooks: [],
+                albums: [],
+              })
+            )
+          );
       }),
       shareReplay()
     ) as Observable<{
