@@ -222,10 +222,13 @@ export class SpotifyService {
       );
   }
 
-  getAlbumtDetails(albumId: string | null): Observable<any> {
+  getAlbumtDetails(albumId: string | null): Observable<Album> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}`;
 
-    return this.http.get<any>(url);
+    return this.http.get<AlbumsItem>(url)
+    .pipe(
+      map(album => SpotifyAlbum(album))
+    );
 
   }
   getAlbumTracks(albumId: string | null): Observable<Song[]> {
