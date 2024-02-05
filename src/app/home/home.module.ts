@@ -32,8 +32,6 @@ import { BadgeModule } from 'primeng/badge';
 import { ToastModule } from 'primeng/toast';
 import { AddSongComponent } from '../components/add-song/add-song.component';
 import { AlbumPageComponent } from '../components/album-page/album-page.component';
-import { RouteReuseStrategy } from '@angular/router';
-import { CustomRouteReuseStrategy } from '../strategy/customRouteReuse';
 
 @NgModule({
   declarations: [

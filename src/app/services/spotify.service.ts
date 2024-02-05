@@ -107,7 +107,7 @@ export class SpotifyService {
     const url = `${this.spotifyApiUrl}/me/tracks?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
       map((response) =>
-          response.items.map((item: any) => SpotifyTrack(item.track))
+        response.items.map((item: any) => SpotifyTrack(item.track))
       ),
       catchError((error) => {
         this.toastr.error(`Error fetching data from the API`);
@@ -115,7 +115,6 @@ export class SpotifyService {
       })
     );
   }
-
 
   getTopArtists(limit = 10): Observable<Artist[]> {
     const url = `${this.spotifyApiUrl}/me/top/artists?limit=${limit}`;
@@ -198,21 +197,6 @@ export class SpotifyService {
       })
     );
   }
-  searchForSongs(
-    term: string,
-    offset = 5,
-    limit = 10
-  ): Observable<{ tracks: Song[] }> {
-    const url = `${this.spotifyApiUrl}/search?q=${term}&type=track&offset=${offset}&limit=${limit}`;
-    return this.http.get<any>(url).pipe(
-      map((response: APISearch) => {
-        console.log(response);
-        return {
-          tracks: response.tracks.items.map((item: any) => SpotifyTrack(item)),
-        };
-      })
-    );
-  }
   getFeaturedPlaylists(offset = 0, limit = 50): Observable<Playlist[]> {
     const url =
       this.spotifyApiUrl +
@@ -242,10 +226,9 @@ export class SpotifyService {
 
   getAlbumtDetails(albumId: string | null): Observable<Album> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}`;
-    return this.http.get<AlbumsItem>(url)
-    .pipe(
-      map(album => SpotifyAlbum(album))
-    );
+    return this.http
+      .get<AlbumsItem>(url)
+      .pipe(map((album) => SpotifyAlbum(album)));
   }
   getAlbumTracks(albumId: string | null): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}/tracks`;
