@@ -21,16 +21,20 @@ const routes: Routes = [
         path: 'search',
         component: SearchComponent,
       },
+      { path: 'accueil/showMore', component: ShowAllComponent },
       { path: 'accueil', component: AccueilComponent },
       {
         path: 'showAll',
         component: ShowAllComponent,
       },
+      { path: 'profile/:userId/showMore', component: ShowAllComponent },
       { path: 'profile/:userId', component: ProfilePageComponent },
+      { path: 'artist/:id/showMore', component: ShowAllComponent },
       {
         path: 'artist/:id',
         component: ArtistProfileComponent,
       },
+      { path: 'album/:id/:artistId/showMore', component: ShowAllComponent },
       { path: 'album/:id/:artistId', component: AlbumPageComponent },
       { path: 'search/:item/showMore', component: ShowAllComponent },
       {

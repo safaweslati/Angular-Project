@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { PlayerService } from '../../services/player.service';
 import { Observable, map, of, switchMap } from 'rxjs';
-import { SpotifyService } from 'src/app/services/spotify.service';
 import { LoginService } from 'src/app/services/login.service';
 import { User } from 'src/app/Models/User';
 import { Playlist } from 'src/app/Models/Playlist';
 import { Artist } from 'src/app/Models/Artist';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Album } from '../../Models/album';
 import { faAngleLeft, fas } from '@fortawesome/free-solid-svg-icons';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-show-all',

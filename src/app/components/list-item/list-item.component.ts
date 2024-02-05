@@ -7,6 +7,7 @@ import { Audiobook } from 'src/app/Models/audiobook';
 import { Show } from 'src/app/Models/show';
 import { Album } from 'src/app/Models/album';
 import { Episode } from 'src/app/Models/episode';
+import { Song } from 'src/app/Models/Song';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 @Component({
