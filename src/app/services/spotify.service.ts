@@ -45,7 +45,7 @@ import { Album } from '../Models/album';
 })
 export class SpotifyService {
   private spotifyApiUrl = spotifyConfiguration.spotifyApiBaseUrl;
-  public playlistSongsSubject= new BehaviorSubject<Song[] | null>(null);
+  public playlistSongsSubject = new BehaviorSubject<Song[] | null>(null);
   public playlistSongs$ = this.playlistSongsSubject.asObservable();
 
   constructor(
@@ -138,9 +138,9 @@ export class SpotifyService {
       })
     );
   }
-
   searchForItems(
     term: string,
+    searchTypes: string[], // Pass an array of search types
     offset = 0,
     limit = 50
   ): Observable<{
@@ -152,28 +152,46 @@ export class SpotifyService {
     audiobooks: Audiobook[];
     albums: Album[];
   }> {
-    const url = `${this.spotifyApiUrl}/search?q=${term}&type=audiobook%2Cartist%2Calbum%2Cplaylist%2Cshow%2Ctrack%2Cepisode&offset=${offset}&limit=${limit}`;
+    // Ensure all search types are valid before constructing the URL
+    const validSearchTypes = [
+      'audiobook',
+      'artist',
+      'album',
+      'playlist',
+      'show',
+      'track',
+      'episode',
+    ];
+    if (!searchTypes.every((type) => validSearchTypes.includes(type))) {
+      throw new Error('Invalid searchTypes. Please provide valid searchTypes.');
+    }
+
+    const typeParam = searchTypes.join('%2C');
+    console.log(typeParam);
+    const url = `${this.spotifyApiUrl}/search?q=${term}&type=${typeParam}&offset=${offset}&limit=${limit}`;
+
     return this.http.get<any>(url).pipe(
       map((response: APISearch) => {
-        console.log(response.tracks);
         return {
-          artists: response.artists.items.map((item: ArtistsItem) =>
+          artists: response.artists?.items?.map((item: ArtistsItem) =>
             SpotifyArtist(item)
           ),
-          tracks: response.tracks.items.map((item: any) => SpotifyTrack(item)),
-          playlists: response.playlists.items.map((item: any) =>
+          tracks: response.tracks?.items?.map((item: any) =>
+            SpotifyTrack(item)
+          ),
+          playlists: response.playlists?.items?.map((item: any) =>
             SpotifyPlaylistDetails(item)
           ),
-          episodes: response.episodes.items.map((item: EpsiodesItem) =>
+          episodes: response.episodes?.items?.map((item: EpsiodesItem) =>
             SpotifyEpisode(item)
           ),
-          shows: response.shows.items.map((item: ShowsItem) =>
+          shows: response.shows?.items?.map((item: ShowsItem) =>
             SpotifyShow(item)
           ),
-          audiobooks: response.audiobooks.items.map((item: AudiobooksItem) =>
+          audiobooks: response.audiobooks?.items?.map((item: AudiobooksItem) =>
             SpotifyAudiobook(item)
           ),
-          albums: response.albums.items.map((item: AlbumsItem) =>
+          albums: response.albums?.items?.map((item: AlbumsItem) =>
             SpotifyAlbum(item)
           ),
         };
@@ -184,7 +202,7 @@ export class SpotifyService {
     term: string,
     offset = 5,
     limit = 10
-  ): Observable<{ tracks: Song[]; }> {
+  ): Observable<{ tracks: Song[] }> {
     const url = `${this.spotifyApiUrl}/search?q=${term}&type=track&offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
       map((response: APISearch) => {
@@ -222,21 +240,22 @@ export class SpotifyService {
       );
   }
 
-  getAlbumtDetails(albumId: string | null): Observable<any> {
+  getAlbumtDetails(albumId: string | null): Observable<Album> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}`;
-
-    return this.http.get<any>(url);
-
+    return this.http.get<AlbumsItem>(url)
+    .pipe(
+      map(album => SpotifyAlbum(album))
+    );
   }
   getAlbumTracks(albumId: string | null): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}/tracks`;
-    console.log("fel album tracks" );
+    console.log('fel album tracks');
 
     return this.http.get<any>(url).pipe(
-      map((response) =>{
-      const items = response.items || [];
-      return items.map((track: any) => SpotifyTrack(track));
-  }),
+      map((response) => {
+        const items = response.items || [];
+        return items.map((track: any) => SpotifyTrack(track));
+      }),
       catchError((error) => {
         console.error('Error fetching top tracks:', error);
         return EMPTY;

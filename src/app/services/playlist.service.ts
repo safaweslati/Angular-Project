@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
 import { spotifyConfiguration } from '../../config/constantes.config';
 import {BehaviorSubject, map, Observable, of, switchMap} from 'rxjs';
 import {Playlist} from "../Models/Playlist";
 import {LoginService} from "./login.service";
 import {Song} from "../Models/Song";
-
 
 @Injectable({
   providedIn: 'root',
