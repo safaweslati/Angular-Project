@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { loginGuard } from './guards/login.guard';
 import {authGuard} from "./guards/auth.guard";
 
-
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   {

@@ -21,6 +21,8 @@ import { Audiobook } from 'src/app/Models/audiobook';
 import { Episode } from 'src/app/Models/episode';
 import { Show } from 'src/app/Models/show';
 import { SpotifyService } from 'src/app/services/spotify.service';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -58,7 +60,11 @@ export class SearchComponent {
   ]);
   toggleSubject$ = this.toggleSubject.asObservable();
 
-  constructor(private spotifyService: SpotifyService) {
+  constructor(
+    private spotifyService: SpotifyService,
+    private location: Location,
+    private route: ActivatedRoute
+  ) {
     this.searchForm = new FormGroup({
       search: new FormControl(''),
     });
@@ -67,20 +73,33 @@ export class SearchComponent {
     this.items$ = this.searchForm.get('search')?.valueChanges?.pipe(
       debounceTime(300),
       distinctUntilChanged(),
+      tap((term) => {
+        this.location.replaceState(`/home/search/${term}`);
+      }),
       switchMap((term: string) => {
-        return this.spotifyService.searchForItems(term).pipe(
-          catchError(() =>
-            of({
-              artists: [],
-              tracks: [],
-              playlists: [],
-              episodes: [],
-              shows: [],
-              audiobooks: [],
-              albums: [],
-            })
-          )
-        );
+        return this.spotifyService
+          .searchForItems(term, [
+            'artist',
+            'track',
+            'playlist',
+            'episode',
+            'show',
+            'audiobook',
+            'album',
+          ])
+          .pipe(
+            catchError(() =>
+              of({
+                artists: [],
+                tracks: [],
+                playlists: [],
+                episodes: [],
+                shows: [],
+                audiobooks: [],
+                albums: [],
+              })
+            )
+          );
       }),
       shareReplay()
     ) as Observable<{
