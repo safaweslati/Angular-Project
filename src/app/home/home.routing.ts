@@ -10,6 +10,7 @@ import { ProfilePageComponent } from '../components/profile-page/profile-page.co
 import { ArtistProfileComponent } from '../components/artist-profile/artist-profile.component';
 import { AlbumPageComponent } from '../components/album-page/album-page.component';
 
+
 const routes: Routes = [
   {
     path: '',

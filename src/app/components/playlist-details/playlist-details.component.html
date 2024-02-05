@@ -5,5 +5,5 @@
     class="mt-2 d-block"
   />
   <app-music-list [songs]="details.songs" [playlist]="details" />
-  <app-add-song *ngIf="isCurrentUserOwner$ | async" [playlistId]="playlistId" />
+  <app-add-song *ngIf="isCurrentUserOwner$ | async" [playlistId]="playlistId"/>
 </div>

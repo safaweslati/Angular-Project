@@ -17,7 +17,7 @@ import {
 import { Playlist } from '../../Models/Playlist';
 import { SpotifyService } from '../../services/spotify.service';
 import { LoginService } from '../../services/login.service';
-import { Observable, switchMap } from 'rxjs';
+import {Observable, switchMap, tap} from 'rxjs';
 import { Song } from '../../Models/Song';
 import { Router } from '@angular/router';
 import { PlaylistService } from '../../services/playlist.service';
@@ -30,13 +30,11 @@ import { FormControl, FormGroup } from '@angular/forms';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LeftPanelComponent implements OnInit, OnChanges {
-  playlists$!: Observable<Playlist[]>;
   savedTracks$!: Observable<Song[]>;
   visible = false;
   Form = new FormGroup({
     playlistName: new FormControl(''),
   });
-  playlistId: string = '';
 
   homeIcon = faHome;
   searchIcon = faSearch;
@@ -57,7 +55,11 @@ export class LeftPanelComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.playlists$ = this.getPlaylists();
+     this.getPlaylists().subscribe(
+      (response)=>{
+        this.playlistService.updatePlaylists(response)
+      }
+    )
     this.savedTracks$ = this.spotifyService.getSavedTracks();
   }
   showDialog() {
@@ -67,22 +69,30 @@ export class LeftPanelComponent implements OnInit, OnChanges {
     if (value == null) {
       value = 'new Playlist';
     }
-    let newPlaylist = {
+
+    const newPlaylist = {
       name: value,
       description: 'New playlist description',
       public: false,
     };
+
     this.loginService.currentUser$
       .pipe(
         switchMap((user) =>
-          this.playlistService.addPlaylist(user?.id, newPlaylist)
+          this.playlistService.addPlaylist(user?.id, newPlaylist).pipe(
+            switchMap((response) =>
+              this.spotifyService.getUserPlaylists(user?.id).pipe(
+                tap((playlists) =>{
+
+                  this.visible = false;
+                  this.router.navigate([`home/playlist/${response.id}`]);
+                  this.playlistService.updatePlaylists(playlists);
+                }
+              )
+            )
+          )
         )
-      )
-      .subscribe((reponse) => {
-        this.playlists$ = this.getPlaylists();
-        this.visible = false;
-        this.router.navigate([`home/playlist/${reponse.id}`]);
-      });
+      )).subscribe()
   }
   cancel() {
     this.visible = false;

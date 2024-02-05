@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Song } from 'src/app/Models/Song';
@@ -16,12 +16,15 @@ import {
   switchMap,
 } from 'rxjs';
 
+
+
 @Component({
   selector: 'app-add-song',
   templateUrl: './add-song.component.html',
   styleUrls: ['./add-song.component.css'],
+
 })
-export class AddSongComponent implements OnInit {
+export class AddSongComponent implements OnInit ,OnChanges{
   searchIcon = faSearch;
   // @ts-ignore
   searchResults$: Observable<{ tracks: Song[] }>;
@@ -84,4 +87,5 @@ export class AddSongComponent implements OnInit {
   private refreshData() {
     this.searchControl.setValue('');
   }
+
 }

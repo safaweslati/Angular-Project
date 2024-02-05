@@ -1,6 +1,6 @@
 .search-icon {
   position: absolute;
-  left: 10px; /* Adjust the left position as needed */
+  left: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: darkgray;
@@ -20,7 +20,7 @@
   color: white;
   padding-left: 30px;
 }
-button{
+button {
   border-radius: 15px;
   background-color: black;
   color: white;

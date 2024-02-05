@@ -1,6 +1,7 @@
-<div *ngIf="songs && songs.length>0">
+<td *ngIf="songs && songs.length>0">
 <span class="title title-bg mt-4"> Music </span>
-<table class="custom-table mt-3" >
+
+  <table class="custom-table mt-3" >
   <thead>
     <tr class="mb-4">
       <th class="w-5">#</th>
@@ -13,26 +14,24 @@
   <tbody>
     <tr
       *ngFor="let song of displayedSongs"
-      (click)="PlaySong(song)"
       [class.selected-song]="(playerService.currentSong$ | async) === song"
     >
-      <td><fa-icon [icon]="playIcon" class="playIcon"></fa-icon></td>
+      <td><fa-icon [icon]="playIcon" class="playIcon"
+                   (click)="PlaySong(song)"></fa-icon></td>
       <td>{{ song.title }}</td>
       <td>{{ getArtists(song) }}</td>
       <td>{{ song.time }}</td>
       <td>{{ song.album.name }}</td>
-      <td style="padding-left: 3%" *ngIf="isCurrentUserOwner$ | async">
-        <button
-          style="
-            border-radius: 15px;
-            background-color: black;
-            color: white;
-            padding: 5px;
-            height: 40px;
-          "
-          (click)="deleteItem(song)" >
-          Delete
-        </button>
+      <td style="padding-left: 3%" *ngIf="playlist && isCurrentUserOwner$ | async">
+        <i class="fas fa-trash-alt" (click)="deleteItem(song)" style="cursor: pointer;"></i>
+      </td>
+      <td>
+        <div *ngIf="!song.isLiked">
+          <i class="fa-regular fa-heart" (click)="addToLikedSongs(song)"></i>
+        </div>
+        <div *ngIf="song.isLiked==true">
+          <i class="fa fa-heart-o" (click)="removeFromLikedSongs(song)" ></i>
+        </div>
       </td>
     </tr>
   </tbody>
@@ -41,10 +40,4 @@
 <span class="show-more-less" (click)="toggleShowMore()">
   {{ showMore ? "Show Less" : "Show More" }}
 </span>
-<!--        <p-menu #menu [model]="items" [popup]="true"></p-menu>-->
-<!--        <fa-icon-->
-<!--          class="clock"-->
-<!--          [icon]="MoreIcon"-->
-<!--          (click)="openMenu(song); menu.toggle($event)"-->
-<!--        ></fa-icon>-->
-</div>
+</td>

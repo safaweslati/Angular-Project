@@ -1,3 +1,4 @@
+
 export interface Song {
   id: string;
   title: string;
@@ -14,4 +15,5 @@ export interface Song {
   previewUrl: string;
   addedAt?: string;
   uri?: string;
+  isLiked?:Boolean
 }

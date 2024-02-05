@@ -68,9 +68,10 @@ export function SpotifyTrack(
     },
     time: convertTime('duration_ms' in track ? track.duration_ms : 0),
     previewUrl: 'preview_url' in track ? track.preview_url : '',
-    uri: 'uri' in track ? track.uri : '',
+    uri: track.uri,
   };
 }
+
 
 export function SpotifyArtist(artist: ArtistsItem): Artist {
   const sortedImages = artist.images
@@ -87,38 +88,51 @@ export function SpotifyArtist(artist: ArtistsItem): Artist {
   };
 }
 export function SpotifyAlbum(album: AlbumsItem): Album {
+  const sortedImages = album.images
+    .filter((image) => image.width !== undefined)
+    .sort((a, b) => (a.width || 0) - (b.width || 0));
+  const imageUrl =
+    sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
   return {
     id: album.id,
     total_tracks: album.total_tracks,
-    imageUrl: getLastImageUrl(album.images),
+    imageUrl: imageUrl || '',
     release_date: album.release_date,
     name: album.name,
-    artists:
-      'artists' in album
-        ? album.artists.map((artist) => ({ id: artist.id, name: artist.name }))
-        : [],
+    artists: 'artists' in album ? album.artists.map((artist) => ({ id: artist.id, name: artist.name })) : []
   };
 }
 export function SpotifyEpisode(episode: EpsiodesItem): Episode {
+  const sortedImages = episode.images
+    .filter((image) => image.width !== undefined)
+    .sort((a, b) => (a.width || 0) - (b.width || 0));
+  const imageUrl =
+    sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
   return {
     audio_preview_url: episode.audio_preview_url || '',
     description: episode.description,
     duration_ms: episode.duration_ms,
     id: episode.id,
-    imageUrl: getLastImageUrl(episode.images),
+    imageUrl: imageUrl || '',
     is_playable: episode.is_playable,
     name: episode.name,
     release_date: episode.release_date,
     resume_point: episode.resume_point,
   };
 }
+
 export function SpotifyAudiobook(audiobook: AudiobooksItem): Audiobook {
+  const sortedImages = audiobook.images
+    .filter((image) => image.width !== undefined)
+    .sort((a, b) => (a.width || 0) - (b.width || 0));
+  const imageUrl =
+    sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
   return {
     id: audiobook.id,
     authors: audiobook.authors,
     edition: audiobook.edition,
     explicit: audiobook.explicit,
-    imageUrl: getLastImageUrl(audiobook.images),
+    imageUrl: imageUrl || '',
     name: audiobook.name,
     narrators: audiobook.narrators,
     total_chapters: audiobook.total_chapters,
@@ -126,9 +140,14 @@ export function SpotifyAudiobook(audiobook: AudiobooksItem): Audiobook {
 }
 
 export function SpotifyShow(show: ShowsItem): Show {
+  const sortedImages = show.images
+    .filter((image) => image.width !== undefined)
+    .sort((a, b) => (a.width || 0) - (b.width || 0));
+  const imageUrl =
+    sortedImages.length > 0 ? sortedImages.pop()?.url : undefined;
   return {
     id: show.id,
-    imageUrl: getLastImageUrl(show.images),
+    imageUrl: imageUrl || '',
     name: show.name,
     publisher: show.publisher,
   };

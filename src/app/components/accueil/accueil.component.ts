@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import { SpotifyService } from '../../services/spotify.service';
 import { map, Observable} from 'rxjs';
 import { Playlist } from '../../Models/Playlist';
@@ -7,6 +7,7 @@ import { Playlist } from '../../Models/Playlist';
   selector: 'app-accueil',
   templateUrl: './accueil.component.html',
   styleUrls: ['./accueil.component.css'],
+
 })
 export class AccueilComponent implements OnInit {
   popularPlaylistsAll$!: Observable<Playlist[]>;

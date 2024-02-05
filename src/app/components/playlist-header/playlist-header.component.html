@@ -18,5 +18,7 @@
       follow
     </button> -->
   </div>
-  <div class="image" [style.background-image]="'url(' + imageUrl + ')'"></div>
+  <div class="image"
+       [ngStyle]="{'background-image': 'url(' + (imageUrl | errorImage) + ')'}">
+  </div>
 </div>

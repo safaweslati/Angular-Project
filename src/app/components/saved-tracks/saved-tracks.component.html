@@ -6,5 +6,5 @@
     "
     class="mt-2 d-block"
   />
-  <app-music-list [songs]="songs$ | async" />
+  <app-music-list [songs]="spotifyService.playlistSongs$ | async" />
 </div>

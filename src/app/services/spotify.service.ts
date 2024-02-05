@@ -20,9 +20,7 @@ import {
   ArtistsItem,
   AudiobooksItem,
   EpsiodesItem,
-  PlaylistsItem,
   ShowsItem,
-  TracksItem,
 } from '../Models/spotifySearch';
 import {
   BehaviorSubject,
@@ -31,7 +29,6 @@ import {
   filter,
   map,
   Observable,
-  switchMap,
   tap,
 } from 'rxjs';
 import { spotifyConfiguration } from '../../config/constantes.config';
@@ -75,6 +72,9 @@ export class SpotifyService {
       })
     );
   }
+  updatePlaylistSongs(updatedDetails: Song[]) {
+    this.playlistSongsSubject.next(updatedDetails);
+  }
   getFollowedArtists(): Observable<Artist[]> {
     const url = this.spotifyApiUrl + `/me/following?type=artist`;
     return this.http.get<any>(url).pipe(
@@ -102,11 +102,12 @@ export class SpotifyService {
     );
   }
 
+  // @ts-ignore
   getSavedTracks(offset = 0, limit = 50): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/me/tracks?offset=${offset}&limit=${limit}`;
     return this.http.get<any>(url).pipe(
       map((response) =>
-        response.items.map((item: any) => SpotifyTrack(item.track))
+          response.items.map((item: any) => SpotifyTrack(item.track))
       ),
       catchError((error) => {
         this.toastr.error(`Error fetching data from the API`);
@@ -114,6 +115,7 @@ export class SpotifyService {
       })
     );
   }
+
 
   getTopArtists(limit = 10): Observable<Artist[]> {
     const url = `${this.spotifyApiUrl}/me/top/artists?limit=${limit}`;
@@ -238,10 +240,12 @@ export class SpotifyService {
       );
   }
 
-  getAlbumtDetails(albumId: string | null): Observable<any> {
+  getAlbumtDetails(albumId: string | null): Observable<Album> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}`;
-
-    return this.http.get<any>(url);
+    return this.http.get<AlbumsItem>(url)
+    .pipe(
+      map(album => SpotifyAlbum(album))
+    );
   }
   getAlbumTracks(albumId: string | null): Observable<Song[]> {
     const url = `${this.spotifyApiUrl}/albums/${albumId}/tracks`;

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {
   faClock,
   faDeleteLeft,
@@ -10,46 +10,65 @@ import { Song } from '../../Models/Song';
 import { PlayerService } from '../../services/player.service';
 import { PlaylistService } from '../../services/playlist.service';
 import { ToastrService } from 'ngx-toastr';
-import { MenuItem } from 'primeng/api';
 import {SpotifyService} from "../../services/spotify.service";
-import {Observable} from "rxjs";
+import {Observable, switchMap} from "rxjs";
 import {Playlist} from "../../Models/Playlist";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-music-list',
   templateUrl: './music-list.component.html',
   styleUrls: ['./music-list.component.css'],
+
 })
-export class MusicListComponent {
+export class MusicListComponent implements OnInit,OnChanges{
   @Input() songs: Song[] | null = [];
   // @ts-ignore
   @Input() playlist: Playlist;
   clockIcon = faClock;
   playIcon = faPlay;
-  MoreIcon = faEllipsis;
   displayedSongs: any[] = [];
   showMore: boolean = false;
-  selectedSong!: Song;
-  isSaved!: boolean;
   isCurrentUserOwner$!: Observable<boolean>;
 
-  // items: MenuItem[] = [
-  //   // { label: 'Save', command: (event) => this.saveItem(event) },
-  //   { label: 'Delete', command: (event) => this.deleteItem(event) },
-  // ];
 
   constructor(
     public playerService: PlayerService,
     public playlistService: PlaylistService,
     private toast: ToastrService,
-    private spotifyService: SpotifyService
-  ) {
+    private spotifyService: SpotifyService,
+  ) {}
+
+  ngOnInit() {
+
   }
 
   ngOnChanges(): void {
     this.displayedSongs = this.songs ? this.songs.slice(0, 5) : [];
-    this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist)
+    this.isCurrentUserOwner$ = this.playlistService.isCurrentUserOwner(this.playlist);
+    this.checkSongs(this.songs)
   }
+
+  checkSongs(songs: Song[] | null) {
+    const MaxIds = 50;
+
+    if (songs && songs.length > 0) {
+      for (let i = 0; i < songs.length; i += MaxIds) {
+        const chunk = songs.slice(i, i + MaxIds);
+        const ids = chunk.map(song => song.id).join(',');
+
+        this.playlistService.Check(ids).subscribe((response) => {
+          for (let j = 0; j < response.length; j++) {
+            const index = i + j;
+            if (index < songs.length) {
+              songs[index].isLiked = response[j];
+            }
+          }
+        });
+      }
+    }
+  }
+
 
   toggleShowMore(): void {
     this.showMore = !this.showMore;
@@ -69,102 +88,82 @@ export class MusicListComponent {
   }
 
   deleteItem(song: Song) {
-    this.selectedSong = song;
     const requestBody = {
       tracks: [
         {
-          uri: this.selectedSong.uri,
+          uri: song.uri,
         },
       ],
       snapshot_id: this.playlist.snapshot_id,
     };
 
-    console.log(this.playlist);
-    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe(
-      () => {
-        console.log('asaabiii');
-        this.toast.success('Deleted from the playlist');
+    console.log('Playlist before deletion:', this.playlist);
+
+    this.playlistService.DeleteItem(this.playlist.id, requestBody).subscribe({
+      next: (response) => {
+        console.log('Delete response:', response);
+        if (response.snapshot_id != this.playlist.snapshot_id) {
+
+          this.toast.success('Deleted from the playlist');
+          // this.playlist.snapshot_id = response.snapshot_id
+        } else {
+          this.toast.error('Try Again');
+        }
+
+        console.log('Updated playlist after deletion:', this.playlist);
 
         this.spotifyService.getPlaylistDetails(this.playlist.id).subscribe(
           (updatedDetails) => {
+            console.log(updatedDetails.songs)
             this.playlistService.updatePlaylistDetails(updatedDetails);
           },
         );
       },
-      (error) => {
-        this.toast.error('Error deleting item from the playlist');
-      }
-    );
-
-  }
-/*
-  checkSong() {
-    this.playlistService.Check(this.selectedSong.id).subscribe(
-      (reponse) => {
-        this.isSaved = reponse[0];
-      },
-      (error) => {
-        console.log('Error deleting item from the playlist', error);
-      }
-    );
-  }
-  saveItem(event: any) {
-    this.checkSong();
-    if (this.isSaved == true) {
-      this.removeFromLikedSongs();
-    } else {
-      this.addToLikedSongs();
+    error: (error) =>
+    {
+      console.error('Error deleting item from the playlist:', error);
+      this.toast.error('Error deleting item from the playlist');
     }
   }
+  );
+  }
 
-  addToLikedSongs() {
+  // @ts-ignore
+
+  addToLikedSongs(song:Song) {
     const requestBody = {
-      ids: [this.selectedSong.id],
+      ids: [song.id],
     };
-
-    this.playlistService.SaveTracks(requestBody).subscribe(
-      () => {
-        console.log('added to Liked Songs');
-        this.toast.success('Added to Liked Songs');
-      },
-      (error) => {
-        console.error('Error', error);
+    this.playlistService.SaveTracks(requestBody).subscribe({
+        next: () => {
+          song.isLiked = true
+          console.log('added to Liked Songs');
+          this.toast.success('Added to Liked Songs');
+        },
+        error: (error) => {
+          console.error('Error', error);
+        }
       }
     );
   }
-  async updateMenuLabel() {
-    try {
-      const result = await this.checkSong();
-      console.log('done' + result);
 
-      if (this.isSaved === true) {
-        this.items[0].label = 'Remove from Liked Songs';
-      } else {
-        this.items[0].label = 'Save to Liked Songs';
-      }
-    } catch (error) {
-      console.error('Error checking song', error);
-    }
-  }
-
-  removeFromLikedSongs() {
-    this.playlistService.RemoveSavedTrack(this.selectedSong.id).subscribe(
-      () => {
+  removeFromLikedSongs(song: Song) {
+    this.playlistService.RemoveSavedTrack(song.id).pipe(
+      switchMap(() => this.spotifyService.getSavedTracks())
+    ).subscribe({
+      next: (songs) => {
+        this.spotifyService.updatePlaylistSongs(songs);
+        song.isLiked = false;
         this.toast.success('Removed From Liked Songs');
       },
-      (error) => {
+      error: (error) => {
         console.error('Error', error);
       }
-    );
+    });
   }
-*/
-  openMenu(song: Song) {
-    this.selectedSong = song;
-    //this.updateMenuLabel();
-  }
+
 
   PlaySong(song: Song) {
       this.playerService.playMusic(song);
-
   }
 }
