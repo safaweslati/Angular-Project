@@ -15,5 +15,5 @@
       {{ followers }} followers
     </ng-container>
   </div>
-  <div class="image" [style.background-image]="'url(' + imageUrl + ')'"></div>
+  <img [src]="imageUrl | errorImage " class ="image">
 </div>
